@@ -1,4 +1,4 @@
-package com.group7.yester
+package com.group7.unveil
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
