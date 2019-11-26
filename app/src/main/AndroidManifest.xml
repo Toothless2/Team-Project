@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.group7.yester">
+    package="com.group7.unveil">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -30,11 +30,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".LandmarkMap"
+            android:name="com.group7.unveil.LandmarkMap"
             android:label="@string/title_activity_landmark_map"></activity>
-        <activity android:name=".timepreiods" />
-        <activity android:name=".explore" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.group7.unveil.timepreiods" />
+        <activity android:name="com.group7.unveil.explore" />
+        <activity android:name="com.group7.unveil.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.group7.yester
+package com.group7.unveil
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
