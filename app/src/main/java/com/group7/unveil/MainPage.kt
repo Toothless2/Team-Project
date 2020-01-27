@@ -19,7 +19,6 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
     lateinit var stepDetector: StepDetector
     lateinit var sensorManager: SensorManager
     lateinit var sensor: Sensor
-    var nSteps = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +30,7 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
         stepDetector.registerListener(this)
 
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
+        step(0)
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
@@ -49,8 +49,8 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
     }
 
     override fun step(time: Long) {
-        StepData.steps = ++nSteps
+        StepData.steps++
         step_count.text = StepData.steps.toString()
-        distane_actual.text = StepData.getDistance().toString()
+        distance_actual.text = StepData.getDistanceWithUnit()
     }
 }

@@ -8,5 +8,6 @@ class StepData {
 
         //assuming walking pace of 3miles/h
         fun getDistance() = round((steps * 0.00045) * 100.0) / 100.0
+        fun getDistanceWithUnit() = "${getDistance()} miles"
     }
 }
