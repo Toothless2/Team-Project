@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author M Rose
- * Homepage activity for app
+ * Homepage activity for app, contains google login handlers
  */
 class MainActivity : AppCompatActivity() {
 
@@ -15,32 +15,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setButtonExplore()
-        setButtonTimePeriods()
-        setButtonLandmarkMap()
-    }
-
-    /**
-     * Sets behaviour for explore button
-     */
-    fun setButtonExplore()
-    {
-        explore.setOnClickListener { startActivity(Intent(this, explore::class.java)) }
-    }
-
-    /**
-     * Sets behaviour for time period button
-     */
-    fun setButtonTimePeriods()
-    {
-        timeP.setOnClickListener { startActivity(Intent(this, timepreiods::class.java)) }
-    }
-
-    /**
-     * Sets behaviour for landmark map button
-     */
-    fun setButtonLandmarkMap()
-    {
-        map.setOnClickListener { startActivity(Intent(this, LandmarkMap::class.java)) }
+        startActivity(Intent(this, MainPage::class.java))
     }
 }
