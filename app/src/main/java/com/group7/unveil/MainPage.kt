@@ -1,6 +1,9 @@
+//TODO: comment
+
 package com.group7.unveil
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -31,6 +34,8 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
 
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
         step(0)
+
+        toMap.setOnClickListener { startActivity(Intent(this, Map::class.java)) }
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {

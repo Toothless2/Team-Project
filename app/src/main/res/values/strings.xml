@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">Unveil</string>
-    <string name="title_activity_landmark_map">Map</string>
 
     <string name="homepage_explore">Explore</string>
-    <string name="homepage_timeP">Time Periods</string>
-    <string name="hompage_map">Map</string>
     <string name="title_activity_main_page">Main Page</string>
     <string name="action_settings">Settings</string>
     <string name="pplaceholder">Paceholder</string>
