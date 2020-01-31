@@ -6,8 +6,12 @@
     <string name="action_settings">Settings</string>
     <string name="pplaceholder">Paceholder</string>
 
-    <!-- Info Box Text !-->
+    <!-- Info Box Text -->
     <string name="steps">Steps</string>
     <string name="distance">Distance</string>
     <string name="landmarks">Landmarks</string>
+
+    <!-- Landmark Info -->
+    <string name="usb_name">USB</string>
+    <string name="usb_description">The Urban Science Building</string>
 </resources>

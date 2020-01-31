@@ -20,16 +20,17 @@ import com.group7.unveil.map.LandmarkMap
 
 
 class Map : AppCompatActivity() {
-
-    private lateinit var mMap: GoogleMap
-
     private lateinit var map: LandmarkMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-        map = LandmarkMap(findViewById(R.id.mapView), savedInstanceState, applicationContext)
+        map = LandmarkMap(
+            findViewById(R.id.mapView),
+            savedInstanceState,
+            findViewById<MapView>(R.id.mapView).context
+        )
 
         val listV = findViewById<ListView>(R.id.listView)
         listV.adapter = ArrayAdapter<String>(

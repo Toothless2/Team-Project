@@ -50,12 +50,13 @@ class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context
 
         if (tag != null) {
             val mark = tag as Landmark
-            Log.d("Marker Clicked", "Marker ${mark.name} Clicked")
+            Log.d("Marker Clicked", "Marker ${mark.name} Clicked, Description: ${mark.descriptor}")
 
             val dialog = AlertDialog.Builder(ctx)
             dialog.setTitle(mark.name).setMessage(mark.descriptor)
 
             dialog.create()
+            dialog.show()
         }
 
         return false

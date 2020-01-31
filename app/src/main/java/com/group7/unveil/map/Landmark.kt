@@ -3,6 +3,8 @@
 package com.group7.unveil.map
 
 import com.google.android.gms.maps.model.LatLng
+import com.group7.unveil.R
+import com.group7.unveil.util.AppContext
 
 data class Landmark(
     val id: Int,
@@ -18,7 +20,13 @@ class Landmarks {
     companion object {
         val centre = LatLng(54.9733026, -1.6249138)
         val landmarks = arrayOf(
-            Landmark(0, "USB", 54.973546, -1.6263303, "The Glorious USB")
+            Landmark(
+                0,
+                AppContext.getContext().getString(R.string.usb_name),
+                54.973546,
+                -1.6263303,
+                AppContext.getContext().getString(R.string.usb_description)
+            )
         )
     }
 }
