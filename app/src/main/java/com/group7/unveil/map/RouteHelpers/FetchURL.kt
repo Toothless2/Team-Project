@@ -12,7 +12,7 @@ import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 
-class FetchURL(val ctx: Context) : AsyncTask<String, Void, String>() {
+class FetchURL(val callback: TaskLoadedCallback) : AsyncTask<String, Void, String>() {
 
     override fun doInBackground(vararg strings: String): String {
         var data = ""
@@ -27,7 +27,7 @@ class FetchURL(val ctx: Context) : AsyncTask<String, Void, String>() {
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-        parser = PointsParser(ctx, "walking")
+        val parser = PointsParser(callback, "walking")
         parser.execute(result)
     }
 
