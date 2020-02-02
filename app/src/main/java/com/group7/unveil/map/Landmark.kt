@@ -26,6 +26,13 @@ class Landmarks {
                 54.973546,
                 -1.6263303,
                 AppContext.getContext().getString(R.string.usb_description)
+            ),
+            Landmark(
+                1,
+                AppContext.getContext().getString(R.string.su_name),
+                54.9788463,
+                -1.6141698,
+                AppContext.getContext().getString(R.string.su_description)
             )
         )
     }

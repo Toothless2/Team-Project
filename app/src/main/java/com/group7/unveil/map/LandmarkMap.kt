@@ -12,6 +12,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.group7.unveil.R
 
 class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context) :
     OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -39,7 +40,7 @@ class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context
 
     fun addLandmarks() {
         for (place in Landmarks.landmarks) {
-            var marker =
+            val marker =
                 map.addMarker(MarkerOptions().position(place.getLatLong()).title(place.name))
             marker.tag = place
         }
@@ -62,4 +63,13 @@ class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context
         return false
     }
 
+    fun generateRoute(origin: Landmark, destination: Landmark) {
+        val url = getURL(origin, destination)
+
+    }
+
+    private fun getURL(origin: Landmark, destination: Landmark) =
+        "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.lat},${origin.long}&destination${destination.lat},${destination.long}&mode=walking%key=${ctx.getString(
+            R.string.google_maps_key
+        )}"
 }

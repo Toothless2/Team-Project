@@ -14,4 +14,7 @@
     <!-- Landmark Info -->
     <string name="usb_name">USB</string>
     <string name="usb_description">The Urban Science Building</string>
+
+    <string name="su_name">Students Union</string>
+    <string name="su_description">Students Union Building</string>
 </resources>
