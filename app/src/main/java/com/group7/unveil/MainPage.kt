@@ -35,7 +35,7 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
         step(0)
 
-        toMap.setOnClickListener { startActivity(Intent(this, Map::class.java)) }
+//        toMap.setOnClickListener { startActivity(Intent(this, Map::class.java)) }
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
@@ -58,4 +58,6 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
         step_count.text = StepData.steps.toString()
         distance_actual.text = StepData.getDistanceWithUnit()
     }
+
+
 }

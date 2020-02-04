@@ -4,10 +4,11 @@
     <string name="homepage_explore">Explore</string>
     <string name="title_activity_main_page">Main Page</string>
     <string name="action_settings">Settings</string>
-    <string name="pplaceholder">Paceholder</string>
+    <string name="placeholder">Placeholder</string>
 
     <!-- Info Box Text !-->
     <string name="steps">Steps</string>
     <string name="distance">Distance</string>
     <string name="landmarks">Landmarks</string>
+    <string name="today">Today</string>
 </resources>
