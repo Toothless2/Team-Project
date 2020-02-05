@@ -11,6 +11,11 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.widget.Button
+import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.group7.unveil.data.StepData
 import com.group7.unveil.stepCounter.StepDetector
 import com.group7.unveil.stepCounter.StepListener
@@ -22,6 +27,9 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
     lateinit var stepDetector: StepDetector
     lateinit var sensorManager: SensorManager
     lateinit var sensor: Sensor
+    internal lateinit var signOut: Button
+    internal lateinit var mGoogleSignInClient: GoogleSignInClient
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +44,33 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
         step(0)
 
         toMap.setOnClickListener { startActivity(Intent(this, Map::class.java)) }
+
+        signOut = findViewById(R.id.signout)
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+
+        signOut.setOnClickListener { v ->
+            when (v.id) {
+                R.id.signout -> signOut()
+            }
+        }
     }
+
+    private fun signOut() {
+        mGoogleSignInClient.signOut()
+            .addOnCompleteListener(this) {
+
+                Toast.makeText(this@MainPage, "Successfully signed out", Toast.LENGTH_LONG).show()
+
+                finish()
+            }
+    }
+
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
         return
