@@ -17,4 +17,7 @@
 
     <string name="su_name">Students Union</string>
     <string name="su_description">Students Union Building</string>
+
+    <string name="greysmon_name">Grey&quot;s Monument</string>
+    <string name="greysmon_description">The monument in the middle of town</string>
 </resources>

@@ -5,7 +5,9 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-
+/**
+ * Parses given JSON data into usable data
+ */
 class DataParser {
     fun parse(jObject: JSONObject): List<List<HashMap<String, String>>> {
         val routes: MutableList<List<HashMap<String, String>>> =
@@ -48,7 +50,7 @@ class DataParser {
 
     /**
      * Method to decode polyline points
-     * Courtesy : https://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
+     * @author https://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
      */
     private fun decodePoly(encoded: String): List<LatLng> {
         val poly: MutableList<LatLng> = ArrayList()

@@ -1,6 +1,5 @@
 package com.group7.unveil.map.RouteHelpers
 
-import android.content.Context
 import android.graphics.Color
 import android.os.AsyncTask
 import android.util.Log
@@ -8,11 +7,18 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import org.json.JSONObject
 
-
+/**
+ * Helper class to convert the data retrieved by google maps routes URL from a JSON file to list of routes containing a list of points
+ * @author Max Rose
+ */
 class PointsParser(callback: TaskLoadedCallback, val directionMode: String) :
     AsyncTask<String, Int, List<List<HashMap<String, String>>>>() {
     val taskCallback = callback
 
+    /**
+     * Given JSON route data as a string it will convert it into usable data
+     * @return List of routes containing a List of points
+     */
     override fun doInBackground(vararg jsonData: String): List<List<HashMap<String, String>>> {
         val jObject: JSONObject
         val routes: List<List<HashMap<String, String>>>
@@ -34,7 +40,10 @@ class PointsParser(callback: TaskLoadedCallback, val directionMode: String) :
         return emptyList()
     }
 
-    protected fun onPostExecute(result: List<List<HashMap<String?, String?>>>) {
+    override fun onPostExecute(result: List<List<HashMap<String, String>>>) {
+        if (result == emptyList<List<HashMap<String, String>>>())
+            return
+
         var points: ArrayList<LatLng?>
         var lineOptions: PolylineOptions? = null
         // Traversing through all the routes
@@ -42,8 +51,7 @@ class PointsParser(callback: TaskLoadedCallback, val directionMode: String) :
             points = ArrayList()
             lineOptions = PolylineOptions()
             // Fetching i-th route
-            val path =
-                result[i]
+            val path = result[i]
             // Fetching all the points in i-th route
             for (j in path.indices) {
                 val point = path[j]
@@ -70,5 +78,4 @@ class PointsParser(callback: TaskLoadedCallback, val directionMode: String) :
             Log.d("Line Creation", "without Polylines drawn")
         }
     }
-
 }

@@ -1,11 +1,13 @@
-//TODO: comment
-
 package com.group7.unveil.map
 
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.R
 import com.group7.unveil.util.AppContext
 
+/**
+ * Contains a landmark for the app
+ * @author Max Rose
+ */
 data class Landmark(
     val id: Int,
     var name: String,
@@ -16,6 +18,10 @@ data class Landmark(
     fun getLatLong() = LatLng(lat, long)
 }
 
+/**
+ * Static container for landmarks in the app
+ * @author Max Rose
+ */
 class Landmarks {
     companion object {
         val centre = LatLng(54.9733026, -1.6249138)
@@ -33,6 +39,13 @@ class Landmarks {
                 54.9788463,
                 -1.6141698,
                 AppContext.getContext().getString(R.string.su_description)
+            ),
+            Landmark(
+                2,
+                AppContext.getContext().getString(R.string.greysmon_name),
+                54.9741845,
+                -1.6153915,
+                AppContext.getContext().getString(R.string.greysmon_description)
             )
         )
     }

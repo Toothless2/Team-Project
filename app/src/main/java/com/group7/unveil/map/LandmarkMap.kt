@@ -2,27 +2,39 @@
 
 package com.group7.unveil.map
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.Polyline
-import com.google.android.gms.maps.model.PolylineOptions
+import android.webkit.PermissionRequest
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.*
 import com.group7.unveil.R
 import com.group7.unveil.map.RouteHelpers.FetchURL
 import com.group7.unveil.map.RouteHelpers.TaskLoadedCallback
+import java.security.Permission
+import java.util.jar.Manifest
 
+/**
+ * Contains methods for the map
+ * @author Max Rose
+ */
 class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context) :
     OnMapReadyCallback, GoogleMap.OnMarkerClickListener, TaskLoadedCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var polyLine: Polyline
+    private var userMarker: Marker? = null
+    private var line = PolylineOptions()
 
     init {
         mapView.onCreate(instanceState)
@@ -42,7 +54,7 @@ class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context
         mapView.onResume()
         mapView.onEnterAmbient(null)
 
-        generateRoute(Landmarks.landmarks[0], Landmarks.landmarks[1])
+//        generateRoute(Landmarks.landmarks[0], Landmarks.landmarks[1])
     }
 
     fun addLandmarks() {
@@ -70,12 +82,24 @@ class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context
         return false
     }
 
-    fun generateRoute(origin: Landmark, destination: Landmark) {
+    fun generateRoute(route: Route) {
+
+        Log.d("Generate Route", "Generate Route: ${route.description}")
         //needs card info input into google and i am not doing that for the team project
 //        val url = getURL(origin, destination)
 //        var fetch = FetchURL(this).execute(url)
 
-        val line = PolylineOptions().add(origin.getLatLong(), destination.getLatLong())
+        map.clear()
+        if (userMarker != null) {
+            userMarker =
+                map.addMarker(MarkerOptions().position(userMarker!!.position).title(userMarker!!.title))
+            userMarker!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+        }
+        addLandmarks()
+        line.points.clear()
+
+        route.landmarks.forEach { l -> line.add(l.getLatLong()) }
+
         map.addPolyline(line)
 
     }
@@ -89,4 +113,29 @@ class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context
         "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.lat},${origin.long}&destination=${destination.lat},${destination.long}&mode=walking%key=${ctx.getString(
             R.string.google_maps_key
         )}"
+
+    fun placeUser(userLocation: Location) {
+        map.isMyLocationEnabled = true
+        map.uiSettings.isMyLocationButtonEnabled = true
+//        Log.d("test", "${map.myLocation}")
+
+        if (userMarker != null)
+            userMarker!!.position = LatLng(userLocation.latitude, userLocation.longitude)
+        else
+            userMarker = map.addMarker(
+                MarkerOptions().position(
+                    LatLng(
+                        userLocation.latitude,
+                        userLocation.longitude
+                    )
+                ).title("User Location")
+            )
+
+        userMarker!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+    }
+
+    fun locationPermissonDenied() {
+        map.isMyLocationEnabled = false
+        map.uiSettings.isMyLocationButtonEnabled = false
+    }
 }
