@@ -83,7 +83,6 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
     }
 
     override fun onTaskDone(vararg values: Any) {
-
         polyLine = map.addPolyline(values[0] as PolylineOptions)
     }
 

@@ -22,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.group7.unveil.map.*
+import kotlinx.android.synthetic.main.activity_map.*
 
 /**
  * Map page activity
@@ -44,29 +45,27 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         )
 
         //creates the map
-        val mv = findViewById<MapView>(R.id.mapView)
-        mv.onCreate(savedInstanceState)
-        mv.getMapAsync(this)
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
 
         val buttons = routeButtons()
 
         //the list of routes
-        val recycler = findViewById<RecyclerView>(R.id.recyclerView)
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = MapRecyclerAdaptor(buttons)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = MapRecyclerAdaptor(buttons)
     }
 
     private fun routeButtons(): List<MapRouteButtonLayoutHolder> {
         val buttons = mutableListOf<MapRouteButtonLayoutHolder>()
 
         for (i in Routes.routeNames().indices)
-            buttons.add(routeButton(Routes.routeNames()[i], Routes.routes[i]))
+            buttons.add(this.routeButton(Routes.routeNames()[i], Routes.routes[i]))
 
         return buttons
     }
 
-    fun routeButton(routeName: String, route: Route): MapRouteButtonLayoutHolder {
-        val b = Button(findViewById<RecyclerView>(R.id.recyclerView).context)
+    private fun routeButton(routeName: String, route: Route): MapRouteButtonLayoutHolder {
+        val b = Button(recyclerView.context)
         b.text = routeName
         b.setOnClickListener { mapHelper?.generateRoute(route) }
 
@@ -105,7 +104,6 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
 
     override fun onLocationChanged(loc: Location?) {
         mapHelper?.placeUser(loc!!)
-//        Log.d("Position", "Lat: ${loc!!.latitude} | Lng: ${loc!!.longitude}")
         return
     }
 
