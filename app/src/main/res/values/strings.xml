@@ -6,8 +6,18 @@
     <string name="action_settings">Settings</string>
     <string name="pplaceholder">Paceholder</string>
 
-    <!-- Info Box Text !-->
+    <!-- Info Box Text -->
     <string name="steps">Steps</string>
     <string name="distance">Distance</string>
     <string name="landmarks">Landmarks</string>
+
+    <!-- Landmark Info -->
+    <string name="usb_name">USB</string>
+    <string name="usb_description">The Urban Science Building</string>
+
+    <string name="su_name">Students Union</string>
+    <string name="su_description">Students Union Building</string>
+
+    <string name="greysmon_name">Grey&quot;s Monument</string>
+    <string name="greysmon_description">The monument in the middle of town</string>
 </resources>
