@@ -17,18 +17,21 @@ import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.group7.unveil.map.*
 
 /**
  * Map page activity
  * @author Max Rose
  */
-class Map : AppCompatActivity(), LocationListener {
-    private lateinit var map: LandmarkMap
+class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
+    private var mapHelper: LandmarkMap? = null
+    private lateinit var map: GoogleMap
     private var permissions: Boolean = false
     private lateinit var locationManager: LocationManager
-    private var userLocation: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +44,9 @@ class Map : AppCompatActivity(), LocationListener {
         )
 
         //creates the map
-        map = LandmarkMap(
-            findViewById(R.id.mapView),
-            savedInstanceState,
-            findViewById<MapView>(R.id.mapView).context
-        )
+        val mv = findViewById<MapView>(R.id.mapView)
+        mv.onCreate(savedInstanceState)
+        mv.getMapAsync(this)
 
         val buttons = routeButtons()
 
@@ -67,7 +68,7 @@ class Map : AppCompatActivity(), LocationListener {
     fun routeButton(routeName: String, route: Route): MapRouteButtonLayoutHolder {
         val b = Button(findViewById<RecyclerView>(R.id.recyclerView).context)
         b.text = routeName
-        b.setOnClickListener { map.generateRoute(route) }
+        b.setOnClickListener { mapHelper?.generateRoute(route) }
 
         Log.d("Route button pressed", "Route $routeName wanted")
 
@@ -85,7 +86,6 @@ class Map : AppCompatActivity(), LocationListener {
             getLocation()
         } else {
             this.permissions = false
-            map.locationPermissonDenied()
         }
     }
 
@@ -104,7 +104,7 @@ class Map : AppCompatActivity(), LocationListener {
     }
 
     override fun onLocationChanged(loc: Location?) {
-        map.placeUser(loc!!)
+        mapHelper?.placeUser(loc!!)
 //        Log.d("Position", "Lat: ${loc!!.latitude} | Lng: ${loc!!.longitude}")
         return
     }
@@ -114,12 +114,55 @@ class Map : AppCompatActivity(), LocationListener {
     }
 
     override fun onProviderEnabled(p0: String?) {
+        Log.d("Proviider Infromation", p0!!)
         return
     }
 
     override fun onProviderDisabled(p0: String?) {
-
-        Log.d("Location Infomation", "Provider Disabled")
+        Log.d("Provider Infomation", p0!!)
         return
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        map.isMyLocationEnabled = true
+        map.uiSettings.isMyLocationButtonEnabled = true
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
+        map.setOnMarkerClickListener(mapHelper)
+
+        mapHelper = LandmarkMap(map, this)
+        mapHelper?.addLandmarks()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        findViewById<MapView>(R.id.mapView).onResume()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        findViewById<MapView>(R.id.mapView).onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        findViewById<MapView>(R.id.mapView).onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        findViewById<MapView>(R.id.mapView).onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        findViewById<MapView>(R.id.mapView).onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        findViewById<MapView>(R.id.mapView).onLowMemory()
     }
 }

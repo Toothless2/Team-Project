@@ -28,34 +28,12 @@ import java.util.jar.Manifest
  * Contains methods for the map
  * @author Max Rose
  */
-class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context) :
-    OnMapReadyCallback, GoogleMap.OnMarkerClickListener, TaskLoadedCallback {
+class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClickListener,
+    TaskLoadedCallback {
 
-    private lateinit var map: GoogleMap
     private lateinit var polyLine: Polyline
     private var userMarker: Marker? = null
     private var line = PolylineOptions()
-
-    init {
-        mapView.onCreate(instanceState)
-        mapView.getMapAsync(this)
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-
-        addLandmarks()
-
-        map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
-        map.setOnMarkerClickListener(this)
-
-        // these speed up the map loading to a normal time for some reason
-        mapView.onResume()
-        mapView.onEnterAmbient(null)
-
-//        generateRoute(Landmarks.landmarks[0], Landmarks.landmarks[1])
-    }
 
     fun addLandmarks() {
         for (place in Landmarks.landmarks) {
@@ -115,10 +93,6 @@ class LandmarkMap(val mapView: MapView, instanceState: Bundle?, val ctx: Context
         )}"
 
     fun placeUser(userLocation: Location) {
-        map.isMyLocationEnabled = true
-        map.uiSettings.isMyLocationButtonEnabled = true
-//        Log.d("test", "${map.myLocation}")
-
         if (userMarker != null)
             userMarker!!.position = LatLng(userLocation.latitude, userLocation.longitude)
         else
