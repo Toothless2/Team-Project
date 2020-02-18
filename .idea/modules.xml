@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/Team-Project7-app.iml" filepath="$PROJECT_DIR$/app/Team-Project7-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Team-Project7-unveil.iml" filepath="$PROJECT_DIR$/Team-Project7-unveil.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/unveil.iml" filepath="$PROJECT_DIR$/unveil.iml" />
       <module fileurl="file://$PROJECT_DIR$/yester.iml" filepath="$PROJECT_DIR$/yester.iml" />

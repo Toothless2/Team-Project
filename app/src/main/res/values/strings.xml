@@ -4,10 +4,41 @@
     <string name="homepage_explore">Explore</string>
     <string name="title_activity_main_page">Main Page</string>
     <string name="action_settings">Settings</string>
-    <string name="pplaceholder">Paceholder</string>
+    <string name="placeholder">Placeholder</string>
 
     <!-- Info Box Text !-->
     <string name="steps">Steps</string>
     <string name="distance">Distance</string>
     <string name="landmarks">Landmarks</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_accessibility">Accessibility</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_dyslexic">Dyslexic Font</string>
+    <string name="menu_colourblind">Colour Blind Mode</string>
+    <string name="menu_textsize">Text Size</string>
+    <string name="menu_theme">Theme</string>
+    <string name="menu_blindmode">Colour Blind Mode</string>
+    <string name="menu_fontsize">Text Size</string>
+    <string name="pplaceholder" />
 </resources>

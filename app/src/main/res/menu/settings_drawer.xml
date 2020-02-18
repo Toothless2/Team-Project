@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view"
+
+
+    >
+
+
+    <item android:title="Theme">
+        <menu>
+
+            <item
+
+                app:actionLayout="@layout/imagebutt"
+                android:title=""/>
+
+            <item
+                app:actionLayout="@layout/imagebutt2"
+                android:title=""
+                />
+
+
+
+
+
+        </menu>
+    </item>
+
+    <item android:title="Accessibility">
+        <menu>
+            <item
+                android:id="@+id/nav_gallery"
+                android:title="@string/menu_language"
+                app:actionLayout="@layout/spinner"/>
+
+
+            <item
+                android:id="@+id/nav_slideshow"
+                android:title="@string/menu_blindmode"
+
+                app:actionLayout="@layout/switch_menu"/>
+
+            <item
+                android:id="@+id/nav_share"
+                android:title="@string/menu_dyslexic"
+                app:actionLayout="@layout/switch_menu"/>
+
+
+            <item
+                android:id="@+id/nav_send"
+                android:title="@string/menu_fontsize"
+                app:actionLayout="@layout/button"
+                />
+
+
+            <item
+
+                app:actionLayout="@layout/signoutbutton"
+                android:title="" />
+
+
+        </menu>
+    </item>
+
+
+
+
+</menu>
+
