@@ -14,7 +14,6 @@
         android:layout_height="35dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="216dp"
-
         android:layout_marginEnd="48dp"
         android:text="@string/today"
         android:textSize="24sp"
@@ -85,11 +84,25 @@
         app:layout_constraintStart_toEndOf="@+id/distance_name"
         app:layout_constraintTop_toBottomOf="@+id/landmarks_visited" />
 
+    <TextView
+        android:id="@+id/scroll_section"
+        android:layout_width="314dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/placeholder"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <HorizontalScrollView
-        android:layout_width="337dp"
-        android:layout_height="174dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="152dp"
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="334dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="188dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -106,9 +119,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="76dp"
                 android:layout_marginBottom="16dp"
+                android:contentDescription="@string/buttons"
                 android:scaleType="centerInside"
                 android:src="@drawable/buttonimage"
-                android:contentDescription="@string/buttons"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButton3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,9 +135,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:contentDescription="@string/buttons"
                 android:scaleType="centerInside"
                 android:src="@drawable/buttonimage"
-                android:contentDescription="@string/buttons"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageButton3"
@@ -138,9 +151,9 @@
                 android:layout_marginStart="76dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:contentDescription="@string/buttons"
                 android:scaleType="centerInside"
                 android:src="@drawable/buttonimage"
-                android:contentDescription="@string/buttons"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageButton2"
                 app:layout_constraintTop_toTopOf="parent"
