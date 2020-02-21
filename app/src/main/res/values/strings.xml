@@ -11,4 +11,5 @@
     <string name="distance">Distance</string>
     <string name="landmarks">Landmarks</string>
     <string name="today">Today</string>
+    <string name="buttons">Button</string>
 </resources>
