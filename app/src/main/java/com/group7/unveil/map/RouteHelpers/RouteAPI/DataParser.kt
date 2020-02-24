@@ -1,4 +1,4 @@
-package com.group7.unveil.map.RouteHelpers
+package com.group7.unveil.map.RouteHelpers.RouteAPI
 
 import com.google.android.gms.maps.model.LatLng
 import org.json.JSONArray
@@ -6,9 +6,14 @@ import org.json.JSONException
 import org.json.JSONObject
 
 /**
+ * @author Max Rose
  * Parses given JSON data into usable data
  */
 class DataParser {
+    /**
+     * Method to convert json object into list of routes
+     * @author github
+     */
     fun parse(jObject: JSONObject): List<List<HashMap<String, String>>> {
         val routes: MutableList<List<HashMap<String, String>>> =
             ArrayList()

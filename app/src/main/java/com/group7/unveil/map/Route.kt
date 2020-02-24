@@ -31,11 +31,15 @@ class Routes {
             )
         )
 
+        /**
+         * List of names of routes
+         */
         fun routeNames(): List<String> {
             val n = mutableListOf<String>()
 
             for (r in routes) {
-                n.add("${r.landmarks[0].name} -> ${r.landmarks[r.landmarks.size - 1].name}")
+                n.add("${r.landmarks[0].name} -> ${r.landmarks[r.landmarks.size - 1].name} ${r.landmarks.size.takeIf { it > 2 }?.let { "(via ${r.landmarks[(r.landmarks.size) / 2].name})" }
+                    ?: ""}")
             }
 
             return n

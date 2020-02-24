@@ -1,4 +1,4 @@
-package com.group7.unveil.map.RouteHelpers
+package com.group7.unveil.map.RouteHelpers.RouteAPI
 
 import android.graphics.Color
 import android.os.AsyncTask
@@ -40,6 +40,9 @@ class PointsParser(callback: TaskLoadedCallback, val directionMode: String) :
         return emptyList()
     }
 
+    /**
+     * Puts the routes onto the map
+     */
     override fun onPostExecute(result: List<List<HashMap<String, String>>>) {
         if (result == emptyList<List<HashMap<String, String>>>())
             return
