@@ -55,8 +55,8 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         recyclerView.adapter = MapRecyclerAdaptor(buttons)
     }
 
-    private fun routeButtons(): List<MapRouteButtonLayoutHolder> {
-        val buttons = mutableListOf<MapRouteButtonLayoutHolder>()
+    private fun routeButtons(): List<MapRouteButtonModel> {
+        val buttons = mutableListOf<MapRouteButtonModel>()
 
         for (i in Routes.routeNames().indices)
             buttons.add(this.routeButton(Routes.routeNames()[i], Routes.routes[i]))
@@ -64,14 +64,14 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         return buttons
     }
 
-    private fun routeButton(routeName: String, route: Route): MapRouteButtonLayoutHolder {
+    private fun routeButton(routeName: String, route: Route): MapRouteButtonModel {
         val b = Button(recyclerView.context)
         b.text = routeName
         b.setOnClickListener { mapHelper?.generateRoute(route) }
 
         Log.d("Route button pressed", "Route $routeName wanted")
 
-        return MapRouteButtonLayoutHolder(b)
+        return MapRouteButtonModel(b)
     }
 
     override fun onRequestPermissionsResult(

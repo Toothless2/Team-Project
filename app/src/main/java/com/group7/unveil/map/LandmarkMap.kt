@@ -1,28 +1,13 @@
-//TODO: comment
-
 package com.group7.unveil.map
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.os.Build
-import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
-import android.webkit.PermissionRequest
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.group7.unveil.R
-import com.group7.unveil.map.RouteHelpers.FetchURL
-import com.group7.unveil.map.RouteHelpers.TaskLoadedCallback
-import java.security.Permission
-import java.util.jar.Manifest
+import com.group7.unveil.map.RouteHelpers.RouteAPI.TaskLoadedCallback
 
 /**
  * Contains methods for the map

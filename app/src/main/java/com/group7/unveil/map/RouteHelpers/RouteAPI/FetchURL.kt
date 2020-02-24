@@ -1,4 +1,4 @@
-package com.group7.unveil.map.RouteHelpers
+package com.group7.unveil.map.RouteHelpers.RouteAPI
 
 import android.os.AsyncTask
 import android.util.Log
@@ -23,7 +23,7 @@ class FetchURL(val callback: TaskLoadedCallback) : AsyncTask<String, Void, Strin
         try {
             data = downloadURL(strings[0])
         } catch (e: Exception) {
-            Log.d("URL Background Task Exception", e.toString())
+            Log.w("URL Background Task Exception", e.toString())
         }
 
         return data
@@ -39,7 +39,7 @@ class FetchURL(val callback: TaskLoadedCallback) : AsyncTask<String, Void, Strin
     }
 
     /**
-     * Downloads the data from the given URL
+     * Downloads data from the given URL
      */
     private fun downloadURL(url: String): String {
         var data = ""

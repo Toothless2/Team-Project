@@ -7,34 +7,46 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.group7.unveil.R
 
-class MapRecyclerAdaptor(val buttons: List<MapRouteButtonLayoutHolder>) :
-    RecyclerView.Adapter<MapRecyclerAdaptor.ButtonView>() {
-    class ButtonView(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
-        var button: Button
+/**
+ * @author Max Rose
+ * Adaptor for the map recycler view
+ */
+class MapRecyclerAdaptor(val buttons: List<MapRouteButtonModel>) :
+    RecyclerView.Adapter<MapRecyclerAdaptor.ButtonViewHolder>() {
 
-        init {
-            button = viewItem.findViewById(R.id.routeButton)
-        }
+    /**
+     * @author Max Rose
+     * View holder fir the button in the recycler view
+     */
+    class ButtonViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
+        private var button: Button = viewItem.findViewById(R.id.routeButton)
 
+        /**
+         * Sets what the button actually does
+         */
         fun setButtonResource(button: Button) {
             this.button.text = button.text
             this.button.setOnClickListener { button.callOnClick() }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ButtonView {
+    /**
+     * Creates the view holder of the button to be added to the list
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ButtonViewHolder {
         val v =
             LayoutInflater.from(parent.context).inflate(R.layout.map_route_button, parent, false)
-        val bv = ButtonView(v)
-
-        return bv
+        return ButtonViewHolder(v)
     }
 
+    /**
+     * Number of buttons in the list
+     */
     override fun getItemCount(): Int {
         return buttons.size
     }
 
-    override fun onBindViewHolder(holder: ButtonView, position: Int) {
+    override fun onBindViewHolder(holder: ButtonViewHolder, position: Int) {
         val current = buttons[position]
 
         holder.setButtonResource(current.button)
