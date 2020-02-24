@@ -10,8 +10,9 @@
     <string name="steps">Steps</string>
     <string name="distance">Distance</string>
     <string name="landmarks">Landmarks</string>
-  
-  
+    <string name="today">Today</string>
+    <string name="buttons">Button</string>
+
   <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->

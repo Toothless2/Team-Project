@@ -58,22 +58,7 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
 
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
         step(0)
-
         toMap.setOnClickListener { startActivity(Intent(this, Map::class.java)) }
-
-
-       /* drawer = findViewById(R.id.drawer_layout)
-
-        //button settings to open the drawer - but doesn't work
-        val set = findViewById<FloatingActionButton>(R.id.set)
-        set.setOnClickListener { drawer.openDrawer(Gravity.RIGHT)
-            setContentView(R.layout.settings)
-
-        }
-*/
-
-
-
     }
 
 
@@ -97,8 +82,4 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
         step_count.text = StepData.steps.toString()
         distance_actual.text = StepData.getDistanceWithUnit()
     }
-
-
-
-
 }
