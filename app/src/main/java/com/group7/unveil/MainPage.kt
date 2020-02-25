@@ -58,7 +58,8 @@ class MainPage : AppCompatActivity(), SensorEventListener, StepListener {
 
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
         step(0)
-//        toMap.setOnClickListener { startActivity(Intent(this, Map::class.java)) }
+//        startActivity(Intent(this, Map::class.java))
+//        startActivity(Intent(this, UserPage::class.java))
     }
 
 
