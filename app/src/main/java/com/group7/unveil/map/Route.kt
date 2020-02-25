@@ -32,17 +32,10 @@ class Routes {
         )
 
         /**
-         * List of names of routes
+         * Creates a name for a given route
          */
-        fun routeNames(): List<String> {
-            val n = mutableListOf<String>()
-
-            for (r in routes) {
-                n.add("${r.landmarks[0].name} -> ${r.landmarks[r.landmarks.size - 1].name} ${r.landmarks.size.takeIf { it > 2 }?.let { "(via ${r.landmarks[(r.landmarks.size) / 2].name})" }
-                    ?: ""}")
-            }
-
-            return n
-        }
+        fun routeName(route: Route): String =
+            "${route.landmarks[0].name} -> ${route.landmarks[route.landmarks.size - 1].name} ${route.landmarks.size.takeIf { it > 2 }?.let { "(via ${route.landmarks[(route.landmarks.size) / 2].name})" }
+                ?: ""}"
     }
 }
