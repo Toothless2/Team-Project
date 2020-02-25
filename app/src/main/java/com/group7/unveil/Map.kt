@@ -1,5 +1,3 @@
-//TODO: comment
-
 package com.group7.unveil
 
 import android.Manifest
@@ -16,12 +14,13 @@ import android.util.Log
 import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.map.*
+import com.group7.unveil.map.RouteHelpers.RouteHeap
 import kotlinx.android.synthetic.main.activity_map.*
 
 /**
@@ -47,7 +46,12 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         //creates the map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+    }
 
+    /**
+     * Adds buttons for routes to the pull up menu
+     */
+    fun updateRouteButtons() {
         val buttons = routeButtons()
 
         //the list of routes
@@ -55,25 +59,32 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         recyclerView.adapter = MapRecyclerAdaptor(buttons)
     }
 
+    /**
+     * Creates the list of buttons for routes
+     */
     private fun routeButtons(): List<MapRouteButtonModel> {
         val buttons = mutableListOf<MapRouteButtonModel>()
 
-        for (i in Routes.routeNames().indices)
-            buttons.add(this.routeButton(Routes.routeNames()[i], Routes.routes[i]))
+        for (i in RouteHeap.getHeap())
+            buttons.add(this.routeButton(Routes.routeName(i), i))
 
         return buttons
     }
 
+    /**
+     * Creates a button for a route given a route and its name
+     */
     private fun routeButton(routeName: String, route: Route): MapRouteButtonModel {
         val b = Button(recyclerView.context)
         b.text = routeName
         b.setOnClickListener { mapHelper?.generateRoute(route) }
 
-        Log.d("Route button pressed", "Route $routeName wanted")
-
         return MapRouteButtonModel(b)
     }
 
+    /**
+     * Request permissions to use the users location
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -85,9 +96,14 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
             getLocation()
         } else {
             this.permissions = false
+            //still need to add the route buttons so use the map centre
+            mapHelper?.updateRouteHeap(Landmarks.centre)
         }
     }
 
+    /**
+     * Set listensers for the users location if permission has been granted
+     */
     private fun getLocation() {
         if (!permissions)
             return
@@ -97,14 +113,18 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0f, this)
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, this)
         } else
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
     }
 
     override fun onLocationChanged(loc: Location?) {
-        mapHelper?.placeUser(loc!!)
-        return
+        mapHelper?.updateRouteHeap(
+            LatLng(
+                loc!!.latitude,
+                loc!!.longitude
+            )
+        )  // use to update the route heap
     }
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
