@@ -8,6 +8,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.group7.unveil.R
 import com.group7.unveil.map.RouteHelpers.RouteAPI.TaskLoadedCallback
+import com.group7.unveil.map.RouteHelpers.RouteHeap
 
 /**
  * Contains methods for the map
@@ -20,6 +21,9 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
     private var userMarker: Marker? = null
     private var line = PolylineOptions()
 
+    /**
+     * Adds the landmarks to the map
+     */
     fun addLandmarks() {
         for (place in Landmarks.landmarks) {
             val marker =
@@ -28,6 +32,9 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
         }
     }
 
+    /**
+     * Shows a dialog with marker information after clicking on a marker
+     */
     override fun onMarkerClick(marker: Marker): Boolean {
         val tag = marker.tag
 
@@ -45,6 +52,9 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
         return false
     }
 
+    /**
+     * Adds the selected route line to the map
+     */
     fun generateRoute(route: Route) {
 
         Log.d("Generate Route", "Generate Route: ${route.description}")
@@ -76,20 +86,13 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
             R.string.google_maps_key
         )}"
 
-    fun placeUser(userLocation: Location) {
-        if (userMarker != null)
-            userMarker!!.position = LatLng(userLocation.latitude, userLocation.longitude)
-        else
-            userMarker = map.addMarker(
-                MarkerOptions().position(
-                    LatLng(
-                        userLocation.latitude,
-                        userLocation.longitude
-                    )
-                ).title("User Location")
-            )
+    /**
+     * Updates the route heap and remakes the buttons
+     */
+    fun updateRouteHeap(userLocation: LatLng) {
+        RouteHeap.createMinHeap(LatLng(userLocation.latitude, userLocation.longitude))
 
-        userMarker!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+        (ctx as com.group7.unveil.Map).updateRouteButtons()
     }
 
     fun locationPermissonDenied() {
