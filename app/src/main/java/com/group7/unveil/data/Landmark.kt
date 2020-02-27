@@ -1,4 +1,4 @@
-package com.group7.unveil.map
+package com.group7.unveil.data
 
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.R
