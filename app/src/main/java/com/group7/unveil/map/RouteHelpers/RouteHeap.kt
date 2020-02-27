@@ -58,6 +58,9 @@ class RouteHeap {
             }
         }
 
+        /**
+         * Add a route into the heap
+         */
         fun insert(route: Route) {
             heap.add(route)
 
@@ -81,13 +84,20 @@ class RouteHeap {
                 )
         }
 
+        /**
+         * Create the heap
+         * @param userLoc Location of the user so the heap can be made
+         */
         fun createMinHeap(userLoc: LatLng) {
             this.userLoc = userLoc
             for (i in heap.size / 2 downTo 0)
                 minHeapify(i)
         }
 
-        fun remove(): Route {
+        /**
+         * Remove the root of the heap
+         */
+        fun removeMin(): Route {
             val poppped = heap[0]
             heap[0] = heap[heap.size - 1]
             minHeapify(0)
