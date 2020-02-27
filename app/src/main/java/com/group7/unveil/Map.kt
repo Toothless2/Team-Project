@@ -19,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
 import com.group7.unveil.map.RouteHelpers.RouteHeap
 import kotlinx.android.synthetic.main.activity_map.*
@@ -153,7 +154,10 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         map.setOnMarkerClickListener(mapHelper)
 
         mapHelper = LandmarkMap(map, this)
-        mapHelper?.addLandmarks()
+        mapHelper!!.addLandmarks()
+
+        if (SelectedRouteFromHome.selectedRoute != null)
+            mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
     }
 
     override fun onResume() {
