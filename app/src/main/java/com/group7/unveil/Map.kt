@@ -19,6 +19,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.group7.unveil.data.Landmarks
+import com.group7.unveil.data.Route
+import com.group7.unveil.data.Routes
+import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
 import com.group7.unveil.map.RouteHelpers.RouteHeap
 import kotlinx.android.synthetic.main.activity_map.*
@@ -93,16 +97,20 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //            Log.d("Location perms",  "true")
             this.permissions = true
+            map.isMyLocationEnabled = true
+            map.uiSettings.isMyLocationButtonEnabled = true
             getLocation()
         } else {
             this.permissions = false
+            map.isMyLocationEnabled = false
+            map.uiSettings.isMyLocationButtonEnabled = false
             //still need to add the route buttons so use the map centre
             mapHelper?.updateRouteHeap(Landmarks.centre)
         }
     }
 
     /**
-     * Set listensers for the users location if permission has been granted
+     * Set listeners for the users location if permission has been granted
      */
     private fun getLocation() {
         if (!permissions)
@@ -122,7 +130,7 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         mapHelper?.updateRouteHeap(
             LatLng(
                 loc!!.latitude,
-                loc!!.longitude
+                loc.longitude
             )
         )  // use to update the route heap
     }
@@ -143,15 +151,16 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        map.isMyLocationEnabled = true
-        map.uiSettings.isMyLocationButtonEnabled = true
 
         map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
         map.setOnMarkerClickListener(mapHelper)
 
         mapHelper = LandmarkMap(map, this)
-        mapHelper?.addLandmarks()
+        mapHelper!!.addLandmarks()
+
+        if (SelectedRouteFromHome.selectedRoute != null)
+            mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
     }
 
     override fun onResume() {

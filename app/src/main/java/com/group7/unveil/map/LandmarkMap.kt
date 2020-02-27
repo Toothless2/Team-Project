@@ -2,20 +2,19 @@ package com.group7.unveil.map
 
 import android.app.AlertDialog
 import android.content.Context
-import android.location.Location
 import android.util.Log
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
-import com.group7.unveil.R
-import com.group7.unveil.map.RouteHelpers.RouteAPI.TaskLoadedCallback
+import com.group7.unveil.data.Landmark
+import com.group7.unveil.data.Landmarks
+import com.group7.unveil.data.Route
 import com.group7.unveil.map.RouteHelpers.RouteHeap
 
 /**
  * Contains methods for the map
  * @author Max Rose
  */
-class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClickListener,
-    TaskLoadedCallback {
+class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClickListener {
 
     private lateinit var polyLine: Polyline
     private var userMarker: Marker? = null
@@ -58,9 +57,6 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
     fun generateRoute(route: Route) {
 
         Log.d("Generate Route", "Generate Route: ${route.description}")
-        //needs card info input into google and i am not doing that for the team project
-//        val url = getURL(origin, destination)
-//        var fetch = FetchURL(this).execute(url)
 
         map.clear()
         if (userMarker != null) {
@@ -77,15 +73,6 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
 
     }
 
-    override fun onTaskDone(vararg values: Any) {
-        polyLine = map.addPolyline(values[0] as PolylineOptions)
-    }
-
-    private fun getURL(origin: Landmark, destination: Landmark) =
-        "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.lat},${origin.long}&destination=${destination.lat},${destination.long}&mode=walking%key=${ctx.getString(
-            R.string.google_maps_key
-        )}"
-
     /**
      * Updates the route heap and remakes the buttons
      */
@@ -93,10 +80,5 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
         RouteHeap.createMinHeap(LatLng(userLocation.latitude, userLocation.longitude))
 
         (ctx as com.group7.unveil.Map).updateRouteButtons()
-    }
-
-    fun locationPermissonDenied() {
-        map.isMyLocationEnabled = false
-        map.uiSettings.isMyLocationButtonEnabled = false
     }
 }
