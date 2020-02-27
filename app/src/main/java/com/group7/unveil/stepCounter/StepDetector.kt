@@ -5,13 +5,13 @@ import kotlin.math.min
 
 class StepDetector {
     private companion object {
-        val ACCEL_RING_SIZE = 50
-        val VEL_RINGSIZE = 10
+        const val ACCEL_RING_SIZE = 50
+        const val VEL_RINGSIZE = 10
 
         //sensitivity for counting a step
-        val STEP_THRESHOLD = 50f
+        const val STEP_THRESHOLD = 50f
 
-        val STEP_DELAY_NS = 250000000
+        const val STEP_DELAY_NS = 250000000
     }
 
     private var accelRingCounter = 0
