@@ -19,6 +19,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.group7.unveil.data.Landmarks
+import com.group7.unveil.data.Route
+import com.group7.unveil.data.Routes
 import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
 import com.group7.unveil.map.RouteHelpers.RouteHeap

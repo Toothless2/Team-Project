@@ -2,14 +2,9 @@ package com.group7.unveil.map.RouteHelpers
 
 import android.util.Size
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.map.Landmark
-import com.group7.unveil.map.Landmarks
-import com.group7.unveil.map.Route
-import com.group7.unveil.map.Routes
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import com.group7.unveil.data.Route
+import com.group7.unveil.data.Routes
+import com.group7.unveil.util.DistanceHelper
 
 /**
  * Min Heap to store the nearest route to the user
@@ -42,9 +37,16 @@ class RouteHeap {
         private fun minHeapify(pos: Int) {
             if (!isLeaf(pos)) {
                 //store the distances to avoid re-calculation as it will be slow
-                val posDist = distToMe(heap[pos].landmarks[0].getLatLong())
-                val leftDist = distToMe(heap[leftChild(pos)].landmarks[0].getLatLong())
-                val rightDist = distToMe(heap[rightChild(pos)].landmarks[0].getLatLong())
+                val posDist =
+                    DistanceHelper.getDistace(heap[pos].landmarks[0].getLatLong(), userLoc)
+                val leftDist = DistanceHelper.getDistace(
+                    heap[leftChild(pos)].landmarks[0].getLatLong(),
+                    userLoc
+                )
+                val rightDist = DistanceHelper.getDistace(
+                    heap[rightChild(pos)].landmarks[0].getLatLong(),
+                    userLoc
+                )
 
                 if (posDist > leftDist || posDist > rightDist) {
                     if (leftDist < rightDist) {
@@ -66,7 +68,14 @@ class RouteHeap {
 
             var current = heap.size - 1
 
-            while (distToMe(heap[current].landmarks[0].getLatLong()) < distToMe(heap[parent(current)].landmarks[0].getLatLong())) {
+            while (DistanceHelper.getDistace(
+                    heap[current].landmarks[0].getLatLong(),
+                    userLoc
+                ) < DistanceHelper.getDistace(
+                    heap[parent(current)].landmarks[0].getLatLong(),
+                    userLoc
+                )
+            ) {
                 swap(current, parent(current))
                 current = parent(current)
             }
@@ -103,25 +112,6 @@ class RouteHeap {
             minHeapify(0)
             heap.removeAt(heap.size - 1)
             return poppped
-        }
-
-        /**
-         * Gets the distance between a given point and the user
-         * @author Adapted from https://www.movable-type.co.uk/scripts/latlong.html
-         */
-        private fun distToMe(pos: LatLng): Double {
-            val r = 6371e3
-            val l1 = Math.toRadians(pos.latitude)
-            val l2 = Math.toRadians(userLoc.latitude)
-            val deltaRoh = Math.toRadians(userLoc.latitude - pos.latitude)
-            val deltaLambda = Math.toRadians(userLoc.longitude - pos.longitude)
-
-            val a = sin(deltaRoh / 2) * sin(deltaRoh) +
-                    cos(l1) * cos(l2) *
-                    sin(deltaLambda / 2) * sin(deltaLambda / 2)
-
-            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-            return r * c
         }
     }
 }

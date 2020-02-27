@@ -5,6 +5,9 @@ import android.content.Context
 import android.util.Log
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
+import com.group7.unveil.data.Landmark
+import com.group7.unveil.data.Landmarks
+import com.group7.unveil.data.Route
 import com.group7.unveil.map.RouteHelpers.RouteHeap
 
 /**
