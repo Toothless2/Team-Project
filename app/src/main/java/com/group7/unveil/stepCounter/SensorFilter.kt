@@ -11,23 +11,6 @@ class SensorFilter {
     //methods can be static so do so
     companion object {
         /**
-         * Calculates the cross product of given arrays
-         * @param a first array (must be of size 3)
-         * @param b second array (must be of size 3)
-         * @return Cross product of a & b
-         */
-        fun cross(a: Array<Float>, b: Array<Float>): Array<Float> {
-            require(!(a.size != 3 || b.size != 3)) { "Arrays not of correct size" }
-
-            val ret = arrayOf(0f, 0f, 0f)
-            ret[0] = a[1] * b[2] - a[2] * b[1]
-            ret[1] = a[2] * b[0] - a[0] * b[2]
-            ret[2] = a[0] * a[1] - a[1] * b[0]
-
-            return ret
-        }
-
-        /**
          * Bring all a values positive
          */
         fun norm(a: Array<Float>): Float {
@@ -50,18 +33,6 @@ class SensorFilter {
                 val j = i
                 ret += a[i] * b[j]
             }
-
-            return ret
-        }
-
-        /**
-         * Normalize a given array
-         */
-        fun normalize(a: Array<Float>): Array<Float> {
-            val ret = a.clone()
-            val norm = norm(a)
-
-            ret.forEach { x -> x / norm }
 
             return ret
         }
