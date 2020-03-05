@@ -16,6 +16,8 @@ import kotlinx.coroutines.*
  */
 class AppContext : Application() {
     companion object {
+        var locationPerms = false
+
         private lateinit var sApplication: Application
 
         fun getApplication() = sApplication

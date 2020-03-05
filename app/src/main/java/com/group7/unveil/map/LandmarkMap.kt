@@ -1,7 +1,6 @@
 package com.group7.unveil.map
 
 import android.app.AlertDialog
-import android.content.Context
 import android.util.Log
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
@@ -14,7 +13,8 @@ import com.group7.unveil.map.RouteHelpers.RouteHeap
  * Contains methods for the map
  * @author Max Rose
  */
-class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClickListener {
+class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map) :
+    GoogleMap.OnMarkerClickListener {
 
     private lateinit var polyLine: Polyline
     private var userMarker: Marker? = null
@@ -41,7 +41,7 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
             val mark = tag as Landmark
             Log.d("Marker Clicked", "Marker ${mark.name} Clicked, Description: ${mark.descriptor}")
 
-            val dialog = AlertDialog.Builder(ctx)
+            val dialog = AlertDialog.Builder(parentActivity.context)
             dialog.setTitle(mark.name).setMessage(mark.descriptor)
 
             dialog.create()
@@ -79,6 +79,6 @@ class LandmarkMap(val map: GoogleMap, val ctx: Context) : GoogleMap.OnMarkerClic
     fun updateRouteHeap(userLocation: LatLng) {
         RouteHeap.createMinHeap(LatLng(userLocation.latitude, userLocation.longitude))
 
-        (ctx as com.group7.unveil.Map).updateRouteButtons()
+        parentActivity.updateRouteButtons()
     }
 }

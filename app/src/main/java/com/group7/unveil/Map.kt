@@ -40,7 +40,6 @@ import kotlinx.android.synthetic.main.activity_map.*
 class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private var mapHelper: LandmarkMap? = null
     private lateinit var map: GoogleMap
-    private var permissions: Boolean = false
     private lateinit var locationManager: LocationManager
 
     override fun onCreateView(
@@ -52,16 +51,15 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
         super.onCreateView(inflater, container, savedInstanceState)
         val rootView = inflater.inflate(R.layout.activity_map, container, false)
 
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //creates the map
-//        mapView.onCreate(savedInstanceState)
-//        mapView.getMapAsync(this)
+
+        //makes the map
+        mapView?.onCreate(savedInstanceState)
+        mapView?.getMapAsync(this)
     }
 
     /**
@@ -99,33 +97,23 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     }
 
     /**
-     * Request permissions to use the users location
+     * sets Map location stuff
      */
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            Log.d("Location perms",  "true")
-            this.permissions = true
-            map.isMyLocationEnabled = true
-            map.uiSettings.isMyLocationButtonEnabled = true
-            getLocation()
-        } else {
-            this.permissions = false
-            map.isMyLocationEnabled = false
-            map.uiSettings.isMyLocationButtonEnabled = false
-            //still need to add the route buttons so use the map centre
+    private fun mapLocationPerms() {
+        map.isMyLocationEnabled = AppContext.locationPerms
+        map.uiSettings.isMyLocationButtonEnabled = AppContext.locationPerms
+        getLocation()
+
+        //still need to add the route buttons so use the map centre
+        if (!AppContext.locationPerms)
             mapHelper?.updateRouteHeap(Landmarks.centre)
-        }
     }
 
     /**
      * Set listeners for the users location if permission has been granted
      */
     private fun getLocation() {
-        if (!permissions)
+        if (!AppContext.locationPerms)
             return
 
         locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -164,12 +152,16 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
+        mapLocationPerms()
+
         map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
         map.setOnMarkerClickListener(mapHelper)
 
-        mapHelper = LandmarkMap(map, context!!)
+        mapHelper = LandmarkMap(map, this)
         mapHelper!!.addLandmarks()
+
+        mapHelper?.updateRouteHeap(Landmarks.centre)
 
         if (SelectedRouteFromHome.selectedRoute != null)
             mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
@@ -177,31 +169,31 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView?.onResume()
     }
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
+        mapView?.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
+        mapView?.onStop()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView?.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView?.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView?.onLowMemory()
     }
 }
