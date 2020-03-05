@@ -18,6 +18,9 @@
             android:name="com.group7.unveil.Map"
             android:label="@string/title_activity_map" />
 
+        <activity
+            android:name=".UserPage"
+            android:label="@string/title_activity_userpage" />
 
         <activity
             android:name=".Settings"
@@ -37,6 +40,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.group7.unveil.Navigation"></activity>
     </application>
 
 </manifest>

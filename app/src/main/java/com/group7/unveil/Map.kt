@@ -1,5 +1,3 @@
-//TODO: comment
-
 package com.group7.unveil
 
 import android.Manifest
@@ -13,98 +11,128 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.group7.unveil.data.Landmarks
+import com.group7.unveil.data.Route
+import com.group7.unveil.data.Routes
+import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
+import com.group7.unveil.map.RouteHelpers.RouteHeap
+import com.group7.unveil.util.AppContext
 import kotlinx.android.synthetic.main.activity_map.*
 
 /**
  * Map page activity
  * @author Max Rose
  */
-class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
+class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private var mapHelper: LandmarkMap? = null
     private lateinit var map: GoogleMap
-    private var permissions: Boolean = false
     private lateinit var locationManager: LocationManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+//        super.onCreate(savedInstanceState)
+        super.onCreateView(inflater, container, savedInstanceState)
+        val rootView = inflater.inflate(R.layout.activity_map, container, false)
 
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            1
-        )
+        return rootView
+    }
 
-        //creates the map
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        //makes the map
+        mapView?.onCreate(savedInstanceState)
+        mapView?.getMapAsync(this)
+    }
+
+    /**
+     * Adds buttons for routes to the pull up menu
+     */
+    fun updateRouteButtons() {
         val buttons = routeButtons()
 
         //the list of routes
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MapRecyclerAdaptor(buttons)
     }
 
-    private fun routeButtons(): List<MapRouteButtonLayoutHolder> {
-        val buttons = mutableListOf<MapRouteButtonLayoutHolder>()
+    /**
+     * Creates the list of buttons for routes
+     */
+    private fun routeButtons(): List<MapRouteButtonModel> {
+        val buttons = mutableListOf<MapRouteButtonModel>()
 
-        for (i in Routes.routeNames().indices)
-            buttons.add(this.routeButton(Routes.routeNames()[i], Routes.routes[i]))
+        for (i in RouteHeap.getHeap())
+            buttons.add(this.routeButton(Routes.routeName(i), i))
 
         return buttons
     }
 
-    private fun routeButton(routeName: String, route: Route): MapRouteButtonLayoutHolder {
+    /**
+     * Creates a button for a route given a route and its name
+     */
+    private fun routeButton(routeName: String, route: Route): MapRouteButtonModel {
         val b = Button(recyclerView.context)
         b.text = routeName
         b.setOnClickListener { mapHelper?.generateRoute(route) }
 
-        Log.d("Route button pressed", "Route $routeName wanted")
-
-        return MapRouteButtonLayoutHolder(b)
+        return MapRouteButtonModel(b)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            Log.d("Location perms",  "true")
-            this.permissions = true
-            getLocation()
-        } else {
-            this.permissions = false
-        }
+    /**
+     * sets Map location stuff
+     */
+    private fun mapLocationPerms() {
+        map.isMyLocationEnabled = AppContext.locationPerms
+        map.uiSettings.isMyLocationButtonEnabled = AppContext.locationPerms
+        getLocation()
+
+        //still need to add the route buttons so use the map centre
+        if (!AppContext.locationPerms)
+            mapHelper?.updateRouteHeap(Landmarks.centre)
     }
 
+    /**
+     * Set listeners for the users location if permission has been granted
+     */
     private fun getLocation() {
-        if (!permissions)
+        if (!AppContext.locationPerms)
             return
 
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && checkSelfPermission(
+        locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && context!!.checkSelfPermission(
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0f, this)
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, this)
         } else
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
     }
 
     override fun onLocationChanged(loc: Location?) {
-        mapHelper?.placeUser(loc!!)
-        return
+        mapHelper?.updateRouteHeap(
+            LatLng(
+                loc!!.latitude,
+                loc.longitude
+            )
+        )  // use to update the route heap
     }
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
@@ -123,44 +151,49 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        map.isMyLocationEnabled = true
-        map.uiSettings.isMyLocationButtonEnabled = true
+
+        mapLocationPerms()
 
         map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
         map.setOnMarkerClickListener(mapHelper)
 
         mapHelper = LandmarkMap(map, this)
-        mapHelper?.addLandmarks()
+        mapHelper!!.addLandmarks()
+
+        mapHelper?.updateRouteHeap(Landmarks.centre)
+
+        if (SelectedRouteFromHome.selectedRoute != null)
+            mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
     }
 
     override fun onResume() {
         super.onResume()
-        findViewById<MapView>(R.id.mapView).onResume()
+        mapView?.onResume()
     }
 
     override fun onStart() {
         super.onStart()
-        findViewById<MapView>(R.id.mapView).onStart()
+        mapView?.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        findViewById<MapView>(R.id.mapView).onStop()
+        mapView?.onStop()
     }
 
     override fun onPause() {
         super.onPause()
-        findViewById<MapView>(R.id.mapView).onPause()
+        mapView?.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        findViewById<MapView>(R.id.mapView).onDestroy()
+        mapView?.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        findViewById<MapView>(R.id.mapView).onLowMemory()
+        mapView?.onLowMemory()
     }
 }

@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
             //error with api key so ignore fow now, wil be fixed eventually
             if (e.statusCode == 10)
-                startActivity(Intent(this, MainPage::class.java))
+                startActivity(Intent(this, Navigation::class.java))
         }
     }
 }

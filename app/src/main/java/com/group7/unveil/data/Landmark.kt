@@ -1,4 +1,4 @@
-package com.group7.unveil.map
+package com.group7.unveil.data
 
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.R
@@ -24,7 +24,14 @@ data class Landmark(
  */
 class Landmarks {
     companion object {
+        /**
+         * Default centre of the map, incase user location cannot be found
+         */
         val centre = LatLng(54.9733026, -1.6249138)
+        /**
+         * All landmarks with infomation about them
+         * @note array is used instead of database as it overkill
+         */
         val landmarks = arrayOf(
             Landmark(
                 0,
