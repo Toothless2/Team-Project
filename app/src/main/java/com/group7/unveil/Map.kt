@@ -11,8 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,31 +30,38 @@ import com.group7.unveil.data.Routes
 import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
 import com.group7.unveil.map.RouteHelpers.RouteHeap
+import com.group7.unveil.util.AppContext
 import kotlinx.android.synthetic.main.activity_map.*
 
 /**
  * Map page activity
  * @author Max Rose
  */
-class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
+class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private var mapHelper: LandmarkMap? = null
     private lateinit var map: GoogleMap
     private var permissions: Boolean = false
     private lateinit var locationManager: LocationManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+//        super.onCreate(savedInstanceState)
+        super.onCreateView(inflater, container, savedInstanceState)
+        val rootView = inflater.inflate(R.layout.activity_map, container, false)
 
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            1
-        )
-
-        //creates the map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //creates the map
+//        mapView.onCreate(savedInstanceState)
+//        mapView.getMapAsync(this)
     }
 
     /**
@@ -59,7 +71,7 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         val buttons = routeButtons()
 
         //the list of routes
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MapRecyclerAdaptor(buttons)
     }
 
@@ -116,8 +128,8 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         if (!permissions)
             return
 
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && checkSelfPermission(
+        locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && context!!.checkSelfPermission(
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -156,7 +168,7 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
         map.setOnMarkerClickListener(mapHelper)
 
-        mapHelper = LandmarkMap(map, this)
+        mapHelper = LandmarkMap(map, context!!)
         mapHelper!!.addLandmarks()
 
         if (SelectedRouteFromHome.selectedRoute != null)
@@ -165,31 +177,31 @@ class Map : AppCompatActivity(), LocationListener, OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        findViewById<MapView>(R.id.mapView).onResume()
+        mapView.onResume()
     }
 
     override fun onStart() {
         super.onStart()
-        findViewById<MapView>(R.id.mapView).onStart()
+        mapView.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        findViewById<MapView>(R.id.mapView).onStop()
+        mapView.onStop()
     }
 
     override fun onPause() {
         super.onPause()
-        findViewById<MapView>(R.id.mapView).onPause()
+        mapView.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        findViewById<MapView>(R.id.mapView).onDestroy()
+        mapView.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        findViewById<MapView>(R.id.mapView).onLowMemory()
+        mapView.onLowMemory()
     }
 }

@@ -10,26 +10,34 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.widget.ImageView
 import android.provider.ContactsContract
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.group7.unveil.data.StepData
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import com.group7.unveil.stepCounter.StepDetector
 import com.group7.unveil.stepCounter.StepListener
-import kotlinx.android.synthetic.main.activity_main_page.*
+import com.group7.unveil.util.AppContext
 import java.awt.font.NumericShaper
 
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class UserPage : AppCompatActivity(), SensorEventListener, StepListener {
+class UserPage : Fragment(), SensorEventListener, StepListener {
 
     lateinit var stepDetector: StepDetector
     lateinit var sensorManager: SensorManager
     lateinit var sensor: Sensor
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_page)
+        val rootView = inflater.inflate(R.layout.activity_user_page, container, false)
         //setSupportActionBar(toolbar)
 
 //        fab.setOnClickListener { view ->
@@ -38,19 +46,23 @@ class UserPage : AppCompatActivity(), SensorEventListener, StepListener {
 //        }
 
         //val constraintLayout = findViewById<ConstraintLayout>(R.id.constraintLayout)
-        val imageView = ImageView(this)
+        val imageView = ImageView(context)
         imageView.setImageResource(R.drawable.me)
         //constraintLayout.addView(imageView)
 
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = context!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         stepDetector = StepDetector()
         stepDetector.registerListener(this)
 
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
+
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         step(0)
-
-
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
