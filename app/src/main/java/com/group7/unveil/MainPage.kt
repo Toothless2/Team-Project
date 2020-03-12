@@ -24,7 +24,7 @@ import com.group7.unveil.stepCounter.StepDetector
 import com.group7.unveil.stepCounter.StepListener
 import com.group7.unveil.util.AppContext
 import kotlinx.android.synthetic.main.activity_main_page.*
-import kotlinx.coroutines.*
+//import kotlinx.coroutines.*
 
 /**
  * @author E Verdi
