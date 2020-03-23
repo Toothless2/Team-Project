@@ -66,6 +66,9 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
      * Adds buttons for routes to the pull up menu
      */
     fun updateRouteButtons() {
+        if(recyclerView == null)
+            return
+
         val buttons = routeButtons()
 
         //the list of routes

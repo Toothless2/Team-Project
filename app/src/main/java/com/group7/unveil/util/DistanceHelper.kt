@@ -1,7 +1,6 @@
 package com.group7.unveil.util
 
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.map.RouteHelpers.RouteHeap
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -11,7 +10,7 @@ class DistanceHelper {
     companion object {
         /**
          * Gets the distance between a given point and the user
-         * @author Adapted from https://www.movable-type.co.uk/scripts/latlong.html
+         * @author Adapted from https://www.movable-type.co.uk/scripts/latlong.html by M. Rose
          */
         fun getDistace(pos1: LatLng, pos2: LatLng): Double {
             val r = 6371e3
