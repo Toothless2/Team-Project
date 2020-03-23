@@ -1,6 +1,7 @@
 package com.group7.unveil
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class MainPage : Fragment(), StepListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         step()
+        landmarkUpdate()
     }
 
     override fun step() {
@@ -41,7 +43,7 @@ class MainPage : Fragment(), StepListener {
         distance_actual?.text = StepData.getDistanceWithUnit()
     }
 
-    override fun locationChecker() {
-        TODO("Not yet implemented")
+    override fun landmarkUpdate() {
+        landmarks_visited?.text = StepData.locationsVisited.toString()
     }
 }

@@ -13,7 +13,8 @@ data class Landmark(
     var name: String,
     val lat: Double,
     val long: Double,
-    var descriptor: String
+    var descriptor: String,
+    var visited : Boolean = false
 ) {
     fun getLatLong() = LatLng(lat, long)
 }

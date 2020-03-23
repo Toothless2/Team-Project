@@ -37,8 +37,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.sign_in_button -> signIn()
             }
         }
-
-
+        
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()

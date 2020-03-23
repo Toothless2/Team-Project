@@ -1,6 +1,5 @@
 package com.group7.unveil.stepCounter
 
-import android.view.VelocityTracker
 import kotlin.math.min
 
 class StepDetector {
@@ -54,7 +53,7 @@ class StepDetector {
         worldZ[0] = accelRingZ.sum() / min(accelRingCounter, ACCEL_RING_SIZE)
 
         val normilizationFactor = SensorFilter.norm(worldZ)
-        worldZ.forEach { x -> x / normilizationFactor }
+        worldZ.forEach { it / normilizationFactor }
 
         val currentZ = SensorFilter.dot(worldZ, currentAccel) - normilizationFactor
         velRingCounter++
@@ -67,5 +66,10 @@ class StepDetector {
             lastStepTime = timeNs
         }
         oldVelEstimate = velEst
+    }
+
+    fun updateLandmarks()
+    {
+        stepListeners.forEach { it.landmarkUpdate() }
     }
 }

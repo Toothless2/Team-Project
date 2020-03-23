@@ -233,7 +233,7 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         distance_actual1.text = StepData.getDistanceWithUnit()
     }
 
-    override fun locationChecker() {
+    override fun landmarkUpdate() {
         TODO("Not yet implemented")
     }
 

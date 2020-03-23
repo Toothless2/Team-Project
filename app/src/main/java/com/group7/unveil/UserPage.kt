@@ -62,6 +62,7 @@ class UserPage : Fragment(), StepListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         step()
+        landmarkUpdate()
     }
 
     override fun step() {
@@ -69,8 +70,7 @@ class UserPage : Fragment(), StepListener {
         distance_actual1?.text = StepData.getDistanceWithUnit()
     }
 
-    override fun locationChecker() {
-        TODO("Not yet implemented")
+    override fun landmarkUpdate() {
+        landmarks_visited?.text = StepData.steps.toString()
     }
-
 }
