@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         //startActivity(Intent(this, MainPage::class.java))
 
-
         val signInButton = findViewById<SignInButton>(R.id.sign_in_button)
         signInButton.setSize(SignInButton.SIZE_STANDARD)
 
@@ -47,13 +46,6 @@ class MainActivity : AppCompatActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    /*  @Override
-        protected void onStart() {
-            super.onStart();
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-
-        }*/
 
 
     private fun signIn() {
@@ -83,5 +75,5 @@ class MainActivity : AppCompatActivity() {
             if (e.statusCode == 10)
                 startActivity(Intent(this, Navigation::class.java))
         }
-    }
+   }
 }
