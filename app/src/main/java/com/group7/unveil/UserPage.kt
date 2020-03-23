@@ -33,11 +33,7 @@ import java.awt.font.NumericShaper
 
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class UserPage : Fragment(), SensorEventListener, StepListener {
-
-    lateinit var stepDetector: StepDetector
-    lateinit var sensorManager: SensorManager
-    lateinit var sensor: Sensor
+class UserPage : Fragment(), StepListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,40 +54,23 @@ class UserPage : Fragment(), SensorEventListener, StepListener {
         imageView.setImageResource(R.drawable.me)
         //constraintLayout.addView(imageView)
 
-        sensorManager = context!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        stepDetector = StepDetector()
-        stepDetector.registerListener(this)
-
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
+        Navigation.stepDetector.registerListener(this)
 
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        step(0)
+        step()
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        return
+    override fun step() {
+        step_count1?.text = StepData.steps.toString()
+        distance_actual1?.text = StepData.getDistanceWithUnit()
     }
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event != null && event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            stepDetector.updateAccel(
-                event.timestamp,
-                event.values[0],
-                event.values[1],
-                event.values[2]
-            )
-        }
-    }
-
-    override fun step(time: Long) {
-        StepData.steps++
-        step_count1.text = StepData.steps.toString()
-        distance_actual1.text = StepData.getDistanceWithUnit()
+    override fun locationChecker() {
+        TODO("Not yet implemented")
     }
 
 }

@@ -1,15 +1,8 @@
 package com.group7.unveil
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Bundle
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 import android.view.Gravity
 import android.view.View
@@ -37,12 +30,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.group7.unveil.data.StepData
-import com.group7.unveil.stepCounter.StepDetector
 import com.group7.unveil.stepCounter.StepListener
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    SensorEventListener, StepListener {
+class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, StepListener {
 
      val mAppBarConfiguration: AppBarConfiguration? = null
      lateinit var navigationView: NavigationView
@@ -54,9 +45,6 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
      lateinit var light: ImageButton
      lateinit var signOut: Button
      lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var stepDetector: StepDetector
-    lateinit var sensorManager: SensorManager
-    lateinit var sensor: Sensor
     internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
     internal var textSizes = arrayOf("Small", "Medium", "Big")
 //    var PRIVATE_MODE = 0
@@ -72,6 +60,9 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         Utils.onActivityCreateSetTheme(this)
 
         setContentView(R.layout.settings)
+
+        com.group7.unveil.Navigation.stepDetector.registerListener(this)
+        step()
 
 //        fontSizePref = sharedPref.getString("FONT_SIZE", "Medium").toString()
 
@@ -183,14 +174,6 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
         val imageView = ImageView(this)
         imageView.setImageResource(R.drawable.me)
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        stepDetector = StepDetector()
-        stepDetector.registerListener(this)
-
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
-        step(0)
-
     }
 
 
@@ -244,24 +227,18 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 finish()
             }
     }
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        return
-    }
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event != null && event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            stepDetector.updateAccel(
-                event.timestamp,
-                event.values[0],
-                event.values[1],
-                event.values[2]
-            )
-        }
-    }
-
-    override fun step(time: Long) {
-        StepData.steps++
+    override fun step() {
         step_count1.text = StepData.steps.toString()
         distance_actual1.text = StepData.getDistanceWithUnit()
+    }
+
+    override fun locationChecker() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        com.group7.unveil.Navigation.stepDetector.deregisterListener(this)
     }
 }

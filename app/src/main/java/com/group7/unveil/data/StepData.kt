@@ -1,5 +1,6 @@
 package com.group7.unveil.data
 
+import android.widget.TextView
 import kotlin.math.round
 
 /**
@@ -23,5 +24,10 @@ class StepData {
          * Distance user has traveled with unit appended
          */
         fun getDistanceWithUnit() = "${getDistance()} miles"
+
+        /**
+         * THe number of locations a user has visited
+         */
+        var locationsVisited = 0
     }
 }

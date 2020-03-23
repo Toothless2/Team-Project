@@ -23,10 +23,20 @@ class StepDetector {
     private var lastStepTime: Long = 0
     private var oldVelEstimate = 0f
 
-    private lateinit var stepListener: StepListener
+    private var stepListeners = mutableListOf<StepListener>()
 
     fun registerListener(listener: StepListener) {
-        this.stepListener = listener
+        //prevents fragments adding themselves twice
+        if (stepListeners.contains(listener))
+            return
+
+        this.stepListeners.add(listener)
+    }
+
+    fun deregisterListener(listener: StepListener)
+    {
+        if(stepListeners.contains(listener))
+            stepListeners.remove(listener)
     }
 
     fun updateAccel(timeNs: Long, x: Float, y: Float, z: Float) {
@@ -53,7 +63,7 @@ class StepDetector {
         val velEst = velRing.sum()
 
         if (velEst > STEP_THRESHOLD && oldVelEstimate <= STEP_THRESHOLD && (timeNs - lastStepTime > STEP_DELAY_NS)) {
-            stepListener.step(timeNs)
+            stepListeners.forEach { it.step() }
             lastStepTime = timeNs
         }
         oldVelEstimate = velEst
