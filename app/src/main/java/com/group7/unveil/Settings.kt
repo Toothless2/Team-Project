@@ -1,6 +1,7 @@
 package com.group7.unveil
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -34,6 +35,7 @@ import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.group7.unveil.data.StepData
 import com.group7.unveil.stepCounter.StepDetector
 import com.group7.unveil.stepCounter.StepListener
@@ -42,11 +44,11 @@ import kotlinx.android.synthetic.main.activity_user_page.*
 class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     SensorEventListener, StepListener {
 
-     private val mAppBarConfiguration: AppBarConfiguration? = null
+     val mAppBarConfiguration: AppBarConfiguration? = null
      lateinit var navigationView: NavigationView
      lateinit var drawer: DrawerLayout
      lateinit var switch_id: SwitchCompat
-     lateinit var switch_id2: SwitchCompat
+    lateinit var switch_id2: SwitchCompat
      lateinit var seekbar: SeekBar
      lateinit var dark: ImageButton
      lateinit var light: ImageButton
@@ -55,12 +57,23 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     lateinit var stepDetector: StepDetector
     lateinit var sensorManager: SensorManager
     lateinit var sensor: Sensor
+    internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
+    internal var textSizes = arrayOf("Small", "Medium", "Big")
+//    var PRIVATE_MODE = 0
+//    val PREF_NAME = "com.example.group7.unveil"
+//    val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+//    lateinit var fontSizePref: String
+//    var themeID: Int = R.style.FontMedium
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Utils.onActivityCreateSetTheme(this)
+
         setContentView(R.layout.settings)
+
+//        fontSizePref = sharedPref.getString("FONT_SIZE", "Medium").toString()
 
         drawer = findViewById(R.id.drawer_layout)
         val set = findViewById<FloatingActionButton>(R.id.set)
@@ -118,6 +131,37 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         light = actionViewLightTh.findViewById(R.id.imagebutt2)
         light.setOnClickListener {
             Utils.changeToTheme(this, Utils.LightTheme)
+        }
+
+        //spinner for languages
+        val spinner = navigationView.menu.findItem(R.id.lang).actionView as Spinner
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, language)
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+
+                Toast.makeText(this@Settings, language[position], Toast.LENGTH_SHORT).show()
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+
+        //spinner for text sizes
+        val spinner2 = navigationView.menu.findItem(R.id.textsize).actionView as Spinner
+        spinner2.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, textSizes)
+        spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+
+                when(position) {
+
+                    1 -> Utils.changeToTheme(this@Settings, Utils.Medium)
+                    2 -> Utils.changeToTheme(this@Settings, Utils.Big)
+                }
+//
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         val signOutMenuItem = menu.findItem(R.id.signOutButton)
@@ -200,7 +244,6 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 finish()
             }
     }
-
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         return
     }
@@ -221,5 +264,4 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         step_count1.text = StepData.steps.toString()
         distance_actual1.text = StepData.getDistanceWithUnit()
     }
-
 }

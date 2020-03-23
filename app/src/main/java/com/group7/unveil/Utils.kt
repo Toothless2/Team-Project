@@ -10,6 +10,9 @@ internal object Utils {
     val LightTheme = 0
     val DarkTheme = 1
     val Dyslexic = 2
+    val Small = 3
+    val Medium = 4
+    val Big = 5
 
 
     fun changeToTheme(activity: Activity, theme: Int) {
@@ -27,6 +30,9 @@ internal object Utils {
             LightTheme -> activity.setTheme(R.style.LightTheme)
             DarkTheme -> activity.setTheme(R.style.DarkTheme)
             Dyslexic -> activity.setTheme(R.style.Dyslexic)
+            Small -> activity.setTheme(R.style.FontSmall)
+            Medium -> activity.setTheme(R.style.FontMedium)
+            Big -> activity.setTheme(R.style.FontBig)
             else -> activity.setTheme(R.style.LightTheme)
         }
 

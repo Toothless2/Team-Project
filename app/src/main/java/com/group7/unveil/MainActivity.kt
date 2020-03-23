@@ -75,5 +75,5 @@ class MainActivity : AppCompatActivity() {
             if (e.statusCode == 10)
                 startActivity(Intent(this, Navigation::class.java))
         }
-    }
+   }
 }

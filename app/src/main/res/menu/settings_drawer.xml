@@ -32,7 +32,7 @@
     <item android:title="Accessibility">
         <menu>
             <item
-                android:id="@+id/nav_gallery"
+                android:id="@+id/lang"
                 android:title="@string/menu_language"
                 app:actionLayout="@layout/spinner"/>
 
@@ -52,7 +52,7 @@
             <item
                 android:id="@+id/textsize"
                 android:title="@string/menu_fontsize"
-                app:actionLayout="@layout/button"
+                app:actionLayout="@layout/spinner2"
                 />
 
 
