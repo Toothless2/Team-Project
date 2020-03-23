@@ -2,6 +2,10 @@ package com.group7.unveil.stepCounter
 
 import kotlin.math.min
 
+/**
+ * Detects steps by reading values from the accelerometer
+ * @author Adapted from a GitHub repo that I cant find anymore (M.Rose)
+ */
 class StepDetector {
     private companion object {
         const val ACCEL_RING_SIZE = 50
