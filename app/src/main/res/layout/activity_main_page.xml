@@ -11,6 +11,9 @@
     tools:openDrawer="start"
     tools:context="com.group7.unveil.MainPage">
 
+
+
+
     <TextView
         android:id="@+id/todayText"
         android:layout_width="314dp"
@@ -24,6 +27,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    android.cardview.widget.CardView-->
 
     <TextView
         android:id="@+id/step_count"
@@ -172,5 +177,31 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="108dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="148dp"
+        android:src="@drawable/logononame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="815dp"
+        android:layout_height="744dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/bgmainpage"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
