@@ -11,9 +11,6 @@
     tools:openDrawer="start"
     tools:context="com.group7.unveil.MainPage">
 
-
-
-
     <TextView
         android:id="@+id/todayText"
         android:layout_width="314dp"
@@ -28,70 +25,84 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    android.cardview.widget.CardView-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/userInfo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:elevation="2dp"-->
+<!--        app:cardCornerRadius="10dp"-->
 
-    <TextView
-        android:id="@+id/step_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="14dp"
-        android:text="@string/placeholder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/todayText" />
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
 
-    <TextView
-        android:id="@+id/steps_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/steps"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/step_count" />
 
-    <TextView
-        android:id="@+id/distance_actual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="14dp"
-        android:text="@string/placeholder"
-        app:layout_constraintStart_toEndOf="@+id/step_count"
-        app:layout_constraintTop_toBottomOf="@+id/todayText" />
+            <TextView
+                android:id="@+id/step_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="14dp"
+                android:text="@string/placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/todayText" />
 
-    <TextView
-        android:id="@+id/distance_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/distance"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/steps_name"
-        app:layout_constraintTop_toBottomOf="@+id/distance_actual" />
+            <TextView
+                android:id="@+id/steps_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/steps"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/step_count" />
 
-    <TextView
-        android:id="@+id/landmarks_visited"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="14dp"
-        android:text="@string/placeholder"
-        app:layout_constraintStart_toEndOf="@+id/distance_actual"
-        app:layout_constraintTop_toBottomOf="@+id/todayText" />
+            <TextView
+                android:id="@+id/distance_actual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="14dp"
+                android:text="@string/placeholder"
+                app:layout_constraintStart_toEndOf="@+id/step_count"
+                app:layout_constraintTop_toBottomOf="@+id/todayText" />
 
-    <TextView
-        android:id="@+id/landmark_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/landmarks"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/distance_name"
-        app:layout_constraintTop_toBottomOf="@+id/landmarks_visited" />
+            <TextView
+                android:id="@+id/distance_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/distance"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/steps_name"
+                app:layout_constraintTop_toBottomOf="@+id/distance_actual" />
+
+            <TextView
+                android:id="@+id/landmarks_visited"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="14dp"
+                android:text="@string/placeholder"
+                app:layout_constraintStart_toEndOf="@+id/distance_actual"
+                app:layout_constraintTop_toBottomOf="@+id/todayText" />
+
+            <TextView
+                android:id="@+id/landmark_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/landmarks"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/distance_name"
+                app:layout_constraintTop_toBottomOf="@+id/landmarks_visited" />
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </androidx.cardview.widget.CardView>-->
+
 
     <TextView
         android:id="@+id/scroll_section"
@@ -179,19 +190,20 @@
     </HorizontalScrollView>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logoNoName"
         android:layout_width="108dp"
         android:layout_height="104dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="27dp"
         android:layout_marginEnd="148dp"
         android:src="@drawable/logononame"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/backgroundImage"
         android:layout_width="815dp"
         android:layout_height="744dp"
         android:layout_marginBottom="40dp"
