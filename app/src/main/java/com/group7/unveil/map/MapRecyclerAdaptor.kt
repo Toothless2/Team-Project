@@ -8,15 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.group7.unveil.R
 
 /**
- * @author Max Rose
+ * @author M. Rose
  * Adaptor for the map recycler view
  */
 class MapRecyclerAdaptor(val buttons: List<MapRouteButtonModel>) :
     RecyclerView.Adapter<MapRecyclerAdaptor.ButtonViewHolder>() {
 
     /**
-     * @author Max Rose
-     * View holder fir the button in the recycler view
+     * View holder for the button in the recycler view
      */
     class ButtonViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
         private var button: Button = viewItem.findViewById(R.id.routeButton)

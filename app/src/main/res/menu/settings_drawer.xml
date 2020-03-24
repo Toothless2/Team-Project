@@ -12,11 +12,12 @@
         <menu>
 
             <item
-
+                android:id="@+id/darkbutton"
                 app:actionLayout="@layout/imagebutt"
                 android:title=""/>
 
             <item
+                android:id="@+id/whitebutton"
                 app:actionLayout="@layout/imagebutt2"
                 android:title=""
                 />
@@ -31,32 +32,32 @@
     <item android:title="Accessibility">
         <menu>
             <item
-                android:id="@+id/nav_gallery"
+                android:id="@+id/lang"
                 android:title="@string/menu_language"
                 app:actionLayout="@layout/spinner"/>
 
 
             <item
-                android:id="@+id/nav_slideshow"
+                android:id="@+id/colorblind"
                 android:title="@string/menu_blindmode"
 
                 app:actionLayout="@layout/switch_menu"/>
 
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/dyslex"
                 android:title="@string/menu_dyslexic"
-                app:actionLayout="@layout/switch_menu"/>
+                app:actionLayout="@layout/switch_menu2"/>
 
 
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/textsize"
                 android:title="@string/menu_fontsize"
-                app:actionLayout="@layout/button"
+                app:actionLayout="@layout/spinner2"
                 />
 
 
             <item
-
+                android:id="@+id/signOutButton"
                 app:actionLayout="@layout/signoutbutton"
                 android:title="" />
 

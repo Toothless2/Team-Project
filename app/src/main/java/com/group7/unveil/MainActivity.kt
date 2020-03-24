@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author Natalia
- * @edited M Rose
  * Homepage activity for app, contains google login handlers
  */
 class MainActivity : AppCompatActivity() {
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         //startActivity(Intent(this, MainPage::class.java))
 
-
         val signInButton = findViewById<SignInButton>(R.id.sign_in_button)
         signInButton.setSize(SignInButton.SIZE_STANDARD)
 
@@ -38,8 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.sign_in_button -> signIn()
             }
         }
-
-
+        
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -47,13 +44,6 @@ class MainActivity : AppCompatActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    /*  @Override
-        protected void onStart() {
-            super.onStart();
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-
-        }*/
 
 
     private fun signIn() {
@@ -83,5 +73,5 @@ class MainActivity : AppCompatActivity() {
             if (e.statusCode == 10)
                 startActivity(Intent(this, Navigation::class.java))
         }
-    }
+   }
 }
