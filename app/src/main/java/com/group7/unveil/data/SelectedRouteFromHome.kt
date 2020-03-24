@@ -1,7 +1,5 @@
 package com.group7.unveil.data
 
-class SelectedRouteFromHome {
-    companion object {
-        var selectedRoute: Route? = null
-    }
+object SelectedRouteFromHome {
+    var selectedRoute: Route? = null
 }
