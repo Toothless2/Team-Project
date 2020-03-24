@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author Natalia
- * @edited M Rose
  * Homepage activity for app, contains google login handlers
  */
 class MainActivity : AppCompatActivity() {

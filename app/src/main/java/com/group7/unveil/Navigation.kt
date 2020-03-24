@@ -5,8 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
@@ -21,20 +19,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.group7.unveil.data.StepData
 import com.group7.unveil.stepCounter.LandmarkCounterHeap
 import com.group7.unveil.stepCounter.StepDetector
-import com.group7.unveil.stepCounter.StepListener
 import com.group7.unveil.util.AppContext
+import com.group7.unveil.util.EventBus
+import com.group7.unveil.util.LandmarkListener
 import kotlinx.android.synthetic.main.activity_navigation.*
 
-class Navigation : AppCompatActivity(), SensorEventListener, StepListener, LocationListener {
+class Navigation : AppCompatActivity(), LandmarkListener, LocationListener {
 
-    companion object {
-        lateinit var stepDetector: StepDetector
-    }
+    private lateinit var stepDetector: StepDetector
 
-    private lateinit var locationManager: LocationManager
-
-    lateinit var sensorManager: SensorManager
-    lateinit var sensor: Sensor
+//    private lateinit var locationManager: LocationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +40,11 @@ class Navigation : AppCompatActivity(), SensorEventListener, StepListener, Locat
             1
         )
 
-        sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        val sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
         stepDetector = StepDetector()
-        stepDetector.registerListener(this)
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
+        sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_FASTEST)
 
         bottom_navigation.setOnNavigationItemSelectedListener(navListener)
 
@@ -82,48 +75,31 @@ class Navigation : AppCompatActivity(), SensorEventListener, StepListener, Locat
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d("Location perms", "true")
             AppContext.locationPerms = true
-            locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
             // premission has been granted android is being annoying
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, this)
         }
     }
 
-    override fun step() {
-        StepData.steps++
-    }
-
-    override fun landmarkUpdate() {
+    override fun updateVisitedCount() {
         if(LandmarkCounterHeap.landmarkCanBeVisited() && !LandmarkCounterHeap.peekTop().visited)
         {
 //            Log.d("Navigation", "Landmark ${LandmarkCounterHeap.peekTop().name} Visited!")
             LandmarkCounterHeap.peekTop().visited = true
             StepData.locationsVisited++
-        }
-    }
 
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        return
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event != null && event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            stepDetector.updateAccel(
-                event.timestamp,
-                event.values[0],
-                event.values[1],
-                event.values[2]
-            )
+            EventBus.callLandmarkUIUpdate(StepData.locationsVisited)
         }
     }
 
     override fun onLocationChanged(p0: Location?) {
         if(p0 == null) return
 
-        val userLoc = LatLng(Math.round(p0.latitude * 10000.0) / 10000.0, Math.round(p0.longitude * 10000.0)/10000.0)
+        val userLoc = LatLng(Math.round(p0.latitude * 10000.0) / 10000.0, Math.round(p0.longitude * 10000.0)/10000.0) // rounds to 4dp as any further is inaccurate
         LandmarkCounterHeap.createMinHeap(userLoc)
 
-        stepDetector.updateLandmarks()
+        updateVisitedCount()
     }
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
@@ -131,12 +107,12 @@ class Navigation : AppCompatActivity(), SensorEventListener, StepListener, Locat
     }
 
     override fun onProviderEnabled(p0: String?) {
-        Log.d("Proviider Infromation", p0!!)
+        Log.d("Provider Information", p0!!)
         return
     }
 
     override fun onProviderDisabled(p0: String?) {
-        Log.d("Provider Infomation", p0!!)
+        Log.d("Provider Information", p0!!)
         return
     }
 }

@@ -1,45 +1,21 @@
 package com.group7.unveil
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.widget.ImageView
-import android.provider.ContactsContract
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.SeekBar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.group7.unveil.data.StepData
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.ui.AppBarConfiguration
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.material.navigation.NavigationView
 import androidx.fragment.app.Fragment
-import com.group7.unveil.stepCounter.StepDetector
-import com.group7.unveil.stepCounter.StepListener
-import com.group7.unveil.util.AppContext
-import java.awt.font.NumericShaper
+import com.group7.unveil.util.EventBus
+import com.group7.unveil.util.LandmarkListener
+import com.group7.unveil.util.StepListener
 
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class UserPage : Fragment(), StepListener {
+class UserPage : Fragment(), StepListener, LandmarkListener {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.activity_user_page, container, false)
         //setSupportActionBar(toolbar)
@@ -54,23 +30,41 @@ class UserPage : Fragment(), StepListener {
         imageView.setImageResource(R.drawable.me)
         //constraintLayout.addView(imageView)
 
-        Navigation.stepDetector.registerListener(this)
+        //subscribe to events
+        EventBus.subscribeToStepEvent(this)
+        EventBus.subscribeToLandmarkEvent(this)
 
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        step()
-        landmarkUpdate()
+
+        // update the ui M. Rose
+        stepEvent(StepData.steps)
+        updateVisitedUI(StepData.locationsVisited)
     }
 
-    override fun step() {
-        step_count1?.text = StepData.steps.toString()
+    /**
+     * @author M. Rose
+     */
+    override fun stepEvent(steps: Int) {
+        step_count1?.text = steps.toString()
         distance_actual1?.text = StepData.getDistanceWithUnit()
     }
 
-    override fun landmarkUpdate() {
-        landmarks_visited?.text = StepData.steps.toString()
+    /**
+     * @author M. Rose
+     */
+    override fun updateVisitedUI(landmarksVisited: Int) {
+        landmarks_visited?.text = landmarksVisited.toString()
+    }
+
+    override fun onDestroyView() {
+        // unsubscribe to cleanup event calls M. Rose
+        EventBus.unsubscribeToStepEvent(this)
+        EventBus.unsubscribeToLandmarkEvent(this)
+
+        super.onDestroyView()
     }
 }

@@ -10,7 +10,6 @@ import android.view.View
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -28,12 +27,13 @@ import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.group7.unveil.data.StepData
-import com.group7.unveil.stepCounter.StepListener
+import com.group7.unveil.util.EventBus
+import com.group7.unveil.util.LandmarkListener
+import com.group7.unveil.util.StepListener
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, StepListener {
+class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, StepListener, LandmarkListener {
 
      val mAppBarConfiguration: AppBarConfiguration? = null
      lateinit var navigationView: NavigationView
@@ -61,8 +61,11 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
         setContentView(R.layout.settings)
 
-        com.group7.unveil.Navigation.stepDetector.registerListener(this)
-        step()
+        EventBus.subscribeToLandmarkEvent(this)
+        EventBus.subscribeToStepEvent(this)
+
+        stepEvent(0)
+        updateVisitedUI(StepData.locationsVisited)
 
 //        fontSizePref = sharedPref.getString("FONT_SIZE", "Medium").toString()
 
@@ -228,17 +231,25 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             }
     }
 
-    override fun step() {
-        step_count1.text = StepData.steps.toString()
+    /**
+     * @author M. Rose
+     */
+    override fun stepEvent(steps: Int) {
+        step_count1.text = steps.toString()
         distance_actual1.text = StepData.getDistanceWithUnit()
     }
 
-    override fun landmarkUpdate() {
-        TODO("Not yet implemented")
+    /**
+     * @author M. Rose
+     */
+    override fun updateVisitedUI(landmarksVisited: Int) {
+        landmarks_visited.text = landmarksVisited.toString()
     }
 
     override fun onDestroy() {
+        //unsubscribe to cleanup event calls M. Rose
+        EventBus.unsubscribeToStepEvent(this)
+        EventBus.unsubscribeToLandmarkEvent(this)
         super.onDestroy()
-        com.group7.unveil.Navigation.stepDetector.deregisterListener(this)
     }
 }
