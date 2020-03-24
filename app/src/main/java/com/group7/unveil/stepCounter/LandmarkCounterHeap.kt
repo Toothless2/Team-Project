@@ -1,24 +1,25 @@
-package com.group7.unveil.map.RouteHelpers
+package com.group7.unveil.stepCounter
 
-import android.util.Size
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.data.Route
-import com.group7.unveil.data.Routes
+import com.group7.unveil.data.Landmark
+import com.group7.unveil.data.Landmarks
 import com.group7.unveil.util.DistanceHelper
 
 /**
- * Min Heap to store the nearest route to the user
- * @author Max Rose
+ * Heap for landmark ordering
+ * @author M. Rose
  */
-object RouteHeap {
-    private var heap = Routes.routes.copyOf().toMutableList()
+object LandmarkCounterHeap {
+    private var distanceMax = 50f
+
+    private var heap = Landmarks.landmarks.copyOf().toMutableList()
     lateinit var userLoc: LatLng
 
     private fun parent(pos: Int): Int = pos / 2
     private fun leftChild(pos: Int): Int = pos * 2
     private fun rightChild(pos: Int): Int = (pos * 2) + 1
 
-    fun getHeap(): List<Route> = heap
+    fun getHeap(): List<Landmark> = heap
 
     private fun isLeaf(pos: Int): Boolean {
         if (pos >= heap.size / 2 && pos <= heap.size)
@@ -36,16 +37,9 @@ object RouteHeap {
     private fun minHeapify(pos: Int) {
         if (!isLeaf(pos)) {
             //store the distances to avoid re-calculation as it will be slow
-            val posDist =
-                DistanceHelper.getDistace(heap[pos].landmarks[0].getLatLong(), userLoc)
-            val leftDist = DistanceHelper.getDistace(
-                heap[leftChild(pos)].landmarks[0].getLatLong(),
-                userLoc
-            )
-            val rightDist = DistanceHelper.getDistace(
-                heap[rightChild(pos)].landmarks[0].getLatLong(),
-                userLoc
-            )
+            val posDist = DistanceHelper.getDistace(heap[pos].getLatLong(), userLoc)
+            val leftDist = DistanceHelper.getDistace(heap[leftChild(pos)].getLatLong(), userLoc)
+            val rightDist = DistanceHelper.getDistace(heap[rightChild(pos)].getLatLong(), userLoc)
 
             if (posDist > leftDist || posDist > rightDist) {
                 if (leftDist < rightDist) {
@@ -62,18 +56,15 @@ object RouteHeap {
     /**
      * Add a route into the heap
      */
-    fun insert(route: Route) {
-        heap.add(route)
+    fun insert(landmark: Landmark) {
+        heap.add(landmark)
 
         var current = heap.size - 1
 
         while (DistanceHelper.getDistace(
-                heap[current].landmarks[0].getLatLong(),
+                heap[current].getLatLong(),
                 userLoc
-            ) < DistanceHelper.getDistace(
-                heap[parent(current)].landmarks[0].getLatLong(),
-                userLoc
-            )
+            ) < DistanceHelper.getDistace(heap[parent(current)].getLatLong(), userLoc)
         ) {
             swap(current, parent(current))
             current = parent(current)
@@ -85,11 +76,7 @@ object RouteHeap {
      */
     fun printHeap() {
         for (i in 0 until (heap.size - 1) / 2)
-            print(
-                "Parent: ${Routes.routeName(heap[i])} | Left Child: ${Routes.routeName(heap[i * 2])} | Right Child:  ${Routes.routeName(
-                    heap[i * 2 + 1]
-                )}\n"
-            )
+            print("Parent: ${heap[i].name} | Left Child: ${heap[i * 2].name} | Right Child:  ${heap[i * 2 + 1].name}\n")
     }
 
     /**
@@ -105,11 +92,21 @@ object RouteHeap {
     /**
      * Remove the root of the heap
      */
-    fun removeMin(): Route {
+    fun removeMin(): Landmark {
         val poppped = heap[0]
         heap[0] = heap[heap.size - 1]
         minHeapify(0)
         heap.removeAt(heap.size - 1)
         return poppped
     }
+
+    /**
+     * Peek the root landmark (landmark closest to user)
+     */
+    fun peekTop(): Landmark {
+        return heap[0]
+    }
+
+    fun landmarkCanBeVisited(): Boolean =
+        (DistanceHelper.getDistace(peekTop().getLatLong(), userLoc) <= distanceMax)
 }

@@ -1,15 +1,8 @@
 package com.group7.unveil
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Bundle
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 import android.view.Gravity
 import android.view.View
@@ -17,7 +10,6 @@ import android.view.View
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -35,14 +27,13 @@ import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.group7.unveil.data.StepData
-import com.group7.unveil.stepCounter.StepDetector
-import com.group7.unveil.stepCounter.StepListener
+import com.group7.unveil.util.EventBus
+import com.group7.unveil.util.LandmarkListener
+import com.group7.unveil.util.StepListener
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    SensorEventListener, StepListener {
+class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, StepListener, LandmarkListener {
 
      val mAppBarConfiguration: AppBarConfiguration? = null
      lateinit var navigationView: NavigationView
@@ -54,9 +45,6 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
      lateinit var light: ImageButton
      lateinit var signOut: Button
      lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var stepDetector: StepDetector
-    lateinit var sensorManager: SensorManager
-    lateinit var sensor: Sensor
     internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
     internal var textSizes = arrayOf("Small", "Medium", "Big")
 //    var PRIVATE_MODE = 0
@@ -72,6 +60,12 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         Utils.onActivityCreateSetTheme(this)
 
         setContentView(R.layout.settings)
+
+        EventBus.subscribeToLandmarkEvent(this)
+        EventBus.subscribeToStepEvent(this)
+
+        stepEvent(0)
+        updateVisitedUI(StepData.locationsVisited)
 
 //        fontSizePref = sharedPref.getString("FONT_SIZE", "Medium").toString()
 
@@ -183,14 +177,6 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
         val imageView = ImageView(this)
         imageView.setImageResource(R.drawable.me)
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        stepDetector = StepDetector()
-        stepDetector.registerListener(this)
-
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
-        step(0)
-
     }
 
 
@@ -244,24 +230,26 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 finish()
             }
     }
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        return
-    }
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event != null && event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            stepDetector.updateAccel(
-                event.timestamp,
-                event.values[0],
-                event.values[1],
-                event.values[2]
-            )
-        }
-    }
-
-    override fun step(time: Long) {
-        StepData.steps++
-        step_count1.text = StepData.steps.toString()
+    /**
+     * @author M. Rose
+     */
+    override fun stepEvent(steps: Int) {
+        step_count1.text = steps.toString()
         distance_actual1.text = StepData.getDistanceWithUnit()
+    }
+
+    /**
+     * @author M. Rose
+     */
+    override fun updateVisitedUI(landmarksVisited: Int) {
+        landmarks_visited.text = landmarksVisited.toString()
+    }
+
+    override fun onDestroy() {
+        //unsubscribe to cleanup event calls M. Rose
+        EventBus.unsubscribeToStepEvent(this)
+        EventBus.unsubscribeToLandmarkEvent(this)
+        super.onDestroy()
     }
 }

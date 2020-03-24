@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author Natalia
- * @edited M Rose
  * Homepage activity for app, contains google login handlers
  */
 class MainActivity : AppCompatActivity() {
@@ -37,8 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.sign_in_button -> signIn()
             }
         }
-
-
+        
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()

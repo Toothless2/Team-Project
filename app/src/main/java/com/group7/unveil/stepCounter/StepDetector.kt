@@ -1,15 +1,27 @@
 package com.group7.unveil.stepCounter
 
-import android.view.VelocityTracker
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.location.Location
+import android.location.LocationListener
+import android.os.Bundle
+import com.group7.unveil.Navigation
+import com.group7.unveil.data.StepData
+import com.group7.unveil.util.EventBus
 import kotlin.math.min
 
-class StepDetector {
+/**
+ * Detects steps by reading values from the accelerometer
+ * @author Adapted from a GitHub repo that I cant find anymore (M. Rose)
+ */
+class StepDetector : SensorEventListener {
     private companion object {
         const val ACCEL_RING_SIZE = 50
         const val VEL_RINGSIZE = 10
 
         //sensitivity for counting a step
-        const val STEP_THRESHOLD = 50f
+        const val STEP_THRESHOLD = 200f
 
         const val STEP_DELAY_NS = 250000000
     }
@@ -22,12 +34,6 @@ class StepDetector {
     private var velRing = Array(ACCEL_RING_SIZE) { 0f }
     private var lastStepTime: Long = 0
     private var oldVelEstimate = 0f
-
-    private lateinit var stepListener: StepListener
-
-    fun registerListener(listener: StepListener) {
-        this.stepListener = listener
-    }
 
     fun updateAccel(timeNs: Long, x: Float, y: Float, z: Float) {
         val currentAccel = arrayOf(x, y, z)
@@ -44,7 +50,7 @@ class StepDetector {
         worldZ[0] = accelRingZ.sum() / min(accelRingCounter, ACCEL_RING_SIZE)
 
         val normilizationFactor = SensorFilter.norm(worldZ)
-        worldZ.forEach { x -> x / normilizationFactor }
+        worldZ.forEach { it / normilizationFactor }
 
         val currentZ = SensorFilter.dot(worldZ, currentAccel) - normilizationFactor
         velRingCounter++
@@ -53,9 +59,24 @@ class StepDetector {
         val velEst = velRing.sum()
 
         if (velEst > STEP_THRESHOLD && oldVelEstimate <= STEP_THRESHOLD && (timeNs - lastStepTime > STEP_DELAY_NS)) {
-            stepListener.step(timeNs)
+            EventBus.callStepEvent(++StepData.steps)
             lastStepTime = timeNs
         }
         oldVelEstimate = velEst
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        return
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event != null && event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+            updateAccel(
+                event.timestamp,
+                event.values[0],
+                event.values[1],
+                event.values[2]
+            )
+        }
     }
 }
