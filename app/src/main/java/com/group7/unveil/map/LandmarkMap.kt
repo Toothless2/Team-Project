@@ -7,14 +7,13 @@ import com.google.android.gms.maps.model.*
 import com.group7.unveil.data.Landmark
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
-import com.group7.unveil.map.RouteHelpers.RouteHeap
+import com.group7.unveil.map.routeHelpers.RouteHeap
 
 /**
  * Contains methods for the map
  * @author Max Rose
  */
-class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map) :
-    GoogleMap.OnMarkerClickListener {
+class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map) : GoogleMap.OnMarkerClickListener {
 
     private lateinit var polyLine: Polyline
     private var userMarker: Marker? = null

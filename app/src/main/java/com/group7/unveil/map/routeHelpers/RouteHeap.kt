@@ -1,6 +1,5 @@
-package com.group7.unveil.map.RouteHelpers
+package com.group7.unveil.map.routeHelpers
 
-import android.util.Size
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.Route
 import com.group7.unveil.data.Routes
