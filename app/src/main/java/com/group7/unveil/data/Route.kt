@@ -7,9 +7,21 @@ import com.google.android.gms.maps.model.LatLng
  * @author Max Rose
  */
 data class Route(val landmarks: List<Landmark>, val description: String) {
+    fun getFirst() = landmarks.first()
+    fun getLast() = landmarks.last()
+    fun getSize() = landmarks.size
+
     fun getStartPos(): LatLng {
         return landmarks[0].getLatLong()
     }
+
+    /**
+     * Creates a name for a given route
+     */
+    fun getName() : String =
+        "${getFirst().name} -> ${getLast().name} ${landmarks.size.takeIf { it > 2 }
+            ?.let { "(via ${landmarks[getSize() / 2].name})" }
+            ?: ""}"
 }
 
 /**
@@ -48,12 +60,4 @@ object Routes {
             "Greys -> USB via SU"
         )
     )
-
-    /**
-     * Creates a name for a given route
-     */
-    fun routeName(route: Route): String =
-        "${route.landmarks[0].name} -> ${route.landmarks[route.landmarks.size - 1].name} ${route.landmarks.size.takeIf { it > 2 }
-            ?.let { "(via ${route.landmarks[(route.landmarks.size) / 2].name})" }
-            ?: ""}"
 }
