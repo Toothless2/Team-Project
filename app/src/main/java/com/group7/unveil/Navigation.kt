@@ -20,11 +20,12 @@ import com.group7.unveil.data.StepData
 import com.group7.unveil.stepCounter.LandmarkCounterHeap
 import com.group7.unveil.stepCounter.StepDetector
 import com.group7.unveil.util.AppContext
-import com.group7.unveil.util.EventBus
-import com.group7.unveil.util.LandmarkListener
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkListener
 import kotlinx.android.synthetic.main.activity_navigation.*
 
-class Navigation : AppCompatActivity(), LandmarkListener, LocationListener {
+class Navigation : AppCompatActivity(),
+    LandmarkListener, LocationListener {
 
     private lateinit var stepDetector: StepDetector
 

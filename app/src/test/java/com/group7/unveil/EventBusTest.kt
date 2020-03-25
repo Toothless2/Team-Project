@@ -1,14 +1,15 @@
 package com.group7.unveil
 
-import com.group7.unveil.util.EventBus
-import com.group7.unveil.util.LandmarkListener
-import com.group7.unveil.util.StepListener
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkListener
+import com.group7.unveil.events.StepListener
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.lang.IllegalArgumentException
 
-class EventBusTest : LandmarkListener, StepListener {
+class EventBusTest : LandmarkListener,
+    StepListener {
 
     lateinit var eventCallSuccessful : Pair<Boolean, Int>
 

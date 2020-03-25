@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.group7.unveil.data.StepData
 import androidx.fragment.app.Fragment
-import com.group7.unveil.util.EventBus
-import com.group7.unveil.util.LandmarkListener
-import com.group7.unveil.util.StepListener
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkListener
+import com.group7.unveil.events.StepListener
 
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class UserPage : Fragment(), StepListener, LandmarkListener {
+class UserPage : Fragment(), StepListener,
+    LandmarkListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)

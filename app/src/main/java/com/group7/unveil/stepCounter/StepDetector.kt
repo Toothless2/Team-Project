@@ -3,12 +3,8 @@ package com.group7.unveil.stepCounter
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
-import android.location.Location
-import android.location.LocationListener
-import android.os.Bundle
-import com.group7.unveil.Navigation
 import com.group7.unveil.data.StepData
-import com.group7.unveil.util.EventBus
+import com.group7.unveil.events.EventBus
 import kotlin.math.min
 
 /**
