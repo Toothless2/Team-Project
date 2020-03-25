@@ -1,6 +1,4 @@
-package com.group7.unveil.util
-
-import com.group7.unveil.data.Landmarks
+package com.group7.unveil.events
 
 /**
  * Event Bus using interfaces for updating things throughout the app
@@ -42,13 +40,3 @@ object EventBus {
     }
 }
 
-// Event Interfaces, best practice would be to place in separate files but easier to read keeping them together since they arnt used for anything else
-interface LandmarkListener
-{
-    fun updateVisitedCount() { return }
-    fun updateVisitedUI(landmarksVisited : Int) { return }
-}
-
-interface StepListener {
-    fun stepEvent(steps: Int)
-}

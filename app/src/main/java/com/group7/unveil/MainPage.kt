@@ -8,15 +8,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.group7.unveil.data.StepData
-import com.group7.unveil.util.EventBus
-import com.group7.unveil.util.LandmarkListener
-import com.group7.unveil.util.StepListener
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkListener
+import com.group7.unveil.events.StepListener
 import kotlinx.android.synthetic.main.activity_main_page.*
 
 /**
  * @author E Verdi
  */
-class MainPage : Fragment(), StepListener, LandmarkListener {
+class MainPage : Fragment(), StepListener,
+    LandmarkListener {
     internal lateinit var navigationView: NavigationView
     internal lateinit var drawer: DrawerLayout
 
