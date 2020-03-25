@@ -8,6 +8,13 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.lang.IllegalArgumentException
 
+/**
+ * Tests most functionality of the event bus
+ * <p>
+ *     Note: Does not test some functionality as requires an instrumented test @see TODO: create implemented test
+ * </p>
+ * @author M. Rose
+ */
 class EventBusTest : LandmarkListener,
     StepListener {
 
