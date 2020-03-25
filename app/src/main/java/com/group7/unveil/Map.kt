@@ -74,7 +74,7 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
         val buttons = mutableListOf<MapRouteButtonModel>()
 
         for (i in RouteHeap.getHeap())
-            buttons.add(this.routeButton(Routes.routeName(i), i))
+            buttons.add(this.routeButton(i))
 
         return buttons
     }
@@ -82,9 +82,9 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     /**
      * Creates a button for a route given a route and its name
      */
-    private fun routeButton(routeName: String, route: Route): MapRouteButtonModel {
+    private fun routeButton(route: Route): MapRouteButtonModel {
         val b = Button(recyclerView.context)
-        b.text = routeName
+        b.text = route.getName()
         b.setOnClickListener { mapHelper?.generateRoute(route) }
 
         return MapRouteButtonModel(b)
