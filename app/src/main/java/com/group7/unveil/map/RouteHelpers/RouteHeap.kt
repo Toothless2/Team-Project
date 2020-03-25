@@ -36,16 +36,9 @@ object RouteHeap {
     private fun minHeapify(pos: Int) {
         if (!isLeaf(pos)) {
             //store the distances to avoid re-calculation as it will be slow
-            val posDist =
-                DistanceHelper.getDistace(heap[pos].landmarks[0].getLatLong(), userLoc)
-            val leftDist = DistanceHelper.getDistace(
-                heap[leftChild(pos)].landmarks[0].getLatLong(),
-                userLoc
-            )
-            val rightDist = DistanceHelper.getDistace(
-                heap[rightChild(pos)].landmarks[0].getLatLong(),
-                userLoc
-            )
+            val posDist = DistanceHelper.getDistace(heap[pos].getStartPos(), userLoc)
+            val leftDist = DistanceHelper.getDistace(heap[leftChild(pos)].getStartPos(),userLoc)
+            val rightDist = DistanceHelper.getDistace(heap[rightChild(pos)].getStartPos(), userLoc)
 
             if (posDist > leftDist || posDist > rightDist) {
                 if (leftDist < rightDist) {
@@ -85,11 +78,7 @@ object RouteHeap {
      */
     fun printHeap() {
         for (i in 0 until (heap.size - 1) / 2)
-            print(
-                "Parent: ${Routes.routeName(heap[i])} | Left Child: ${Routes.routeName(heap[i * 2])} | Right Child:  ${Routes.routeName(
-                    heap[i * 2 + 1]
-                )}\n"
-            )
+            print("Parent: ${heap[i].getName()} | Left Child: ${heap[i * 2].getName()} | Right Child:  ${heap[i * 2 + 1].getName()}\n")
     }
 
     /**
