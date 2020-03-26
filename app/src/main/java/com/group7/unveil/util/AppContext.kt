@@ -10,11 +10,10 @@ class AppContext : Application() {
     companion object {
         var locationPerms = false
 
-        private lateinit var sApplication: Application
+        lateinit var sApplication: Application
+            private set
 
-        fun getApplication() = sApplication
-
-        fun getContext() = getApplication().applicationContext
+        fun getContext() = sApplication.applicationContext
     }
 
     override fun onCreate() {

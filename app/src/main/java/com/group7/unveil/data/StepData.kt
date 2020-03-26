@@ -18,7 +18,7 @@ object StepData {
 
     /**
      * The distance the user has moved
-     * @return The distance in miles (assuming waking pase of 3mph)
+     * @return The distance in miles (assuming waking pace of 3mph)
      */
     fun getDistance() = round((steps * 0.00045) * 100.0) / 100.0
 

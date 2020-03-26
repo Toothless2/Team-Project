@@ -13,9 +13,8 @@ import com.group7.unveil.map.routeHelpers.RouteHeap
  * Contains methods for the map
  * @author Max Rose
  */
-class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map) : GoogleMap.OnMarkerClickListener {
+class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unveil.Map) : GoogleMap.OnMarkerClickListener {
 
-    private lateinit var polyLine: Polyline
     private var userMarker: Marker? = null
     private var line = PolylineOptions()
 
@@ -40,7 +39,7 @@ class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map)
             val mark = tag as Landmark
             Log.d("Marker Clicked", "Marker ${mark.name} Clicked, Description: ${mark.descriptor}")
 
-            val dialog = AlertDialog.Builder(parentActivity.context)
+            val dialog = AlertDialog.Builder(parentFragment.context?.applicationContext)
             dialog.setTitle(mark.name).setMessage(mark.descriptor)
 
             dialog.create()
@@ -54,7 +53,6 @@ class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map)
      * Adds the selected route line to the map
      */
     fun generateRoute(route: Route) {
-
         Log.d("Generate Route", "Generate Route: ${route.description}")
 
         map.clear()
@@ -69,7 +67,6 @@ class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map)
         route.landmarks.forEach { l -> line.add(l.getLatLong()) }
 
         map.addPolyline(line)
-
     }
 
     /**
@@ -78,6 +75,6 @@ class LandmarkMap(val map: GoogleMap, val parentActivity: com.group7.unveil.Map)
     fun updateRouteHeap(userLocation: LatLng) {
         RouteHeap.createMinHeap(LatLng(userLocation.latitude, userLocation.longitude))
 
-        parentActivity.updateRouteButtons()
+        parentFragment.updateRouteButtons()
     }
 }

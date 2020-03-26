@@ -12,14 +12,14 @@ import com.group7.unveil.util.DistanceHelper
 object LandmarkCounterHeap {
     private var distanceMax = 50f
 
-    private var heap = Landmarks.landmarks.copyOf().toMutableList()
+    var heap = Landmarks.landmarks.copyOf().toMutableList()
+        private set
+
     lateinit var userLoc: LatLng
 
     private fun parent(pos: Int): Int = pos / 2
     private fun leftChild(pos: Int): Int = pos * 2
     private fun rightChild(pos: Int): Int = (pos * 2) + 1
-
-    fun getHeap(): List<Landmark> = heap
 
     private fun isLeaf(pos: Int): Boolean {
         if (pos >= heap.size / 2 && pos <= heap.size)
@@ -107,6 +107,9 @@ object LandmarkCounterHeap {
         return heap[0]
     }
 
+    /**
+     * Returns if a landmark can be visited (if it is within range of the user)
+     */
     fun landmarkCanBeVisited(): Boolean =
         (DistanceHelper.getDistace(peekTop().getLatLong(), userLoc) <= distanceMax)
 }

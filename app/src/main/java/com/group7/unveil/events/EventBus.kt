@@ -1,5 +1,7 @@
 package com.group7.unveil.events
 
+import com.group7.unveil.data.Landmarks
+
 /**
  * Event Bus using interfaces for updating things throughout the app
  * @author M. Rose
@@ -34,7 +36,7 @@ object EventBus {
 
     fun callLandmarkUIUpdate(landmarksVisited: Int) {
         require(landmarksVisited >= 0) { "Cannot have negative landmarks"}
-//        require(landmarksVisited <= Landmarks.landmarks.size) { "Cannot visit more landmarks than exist!" }
+        require(landmarksVisited <= Landmarks.landmarks.size) { "Cannot visit more landmarks than exist!" }
 
         landmarkEventListeners.forEach { it.updateVisitedUI(landmarksVisited) }
     }
