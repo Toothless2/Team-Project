@@ -10,14 +10,13 @@ import com.group7.unveil.util.DistanceHelper
  * @author Max Rose
  */
 object RouteHeap {
-    private var heap = Routes.routes.copyOf().toMutableList()
+    var heap = Routes.routes.copyOf().toMutableList()
+        private set
     lateinit var userLoc: LatLng
 
     private fun parent(pos: Int): Int = pos / 2
     private fun leftChild(pos: Int): Int = pos * 2
     private fun rightChild(pos: Int): Int = (pos * 2) + 1
-
-    fun getHeap(): List<Route> = heap
 
     private fun isLeaf(pos: Int): Boolean {
         if (pos >= heap.size / 2 && pos <= heap.size)

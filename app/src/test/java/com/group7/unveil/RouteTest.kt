@@ -14,6 +14,8 @@ class RouteTest {
     lateinit var landmarks:List<Landmark>
     lateinit var route:Route
 
+    private val routeDescription = "test route name"
+
     @Before
     fun before()
     {
@@ -23,7 +25,13 @@ class RouteTest {
             Landmark(2, "test 3", 81.1, 74.0, "test 3")
         )
 
-        route = Route(landmarks, "description")
+        route = Route(landmarks, routeDescription)
+    }
+
+    @Test
+    fun testRouteDescription()
+    {
+        Assert.assertEquals(routeDescription, route.description)
     }
 
     @Test
@@ -32,6 +40,15 @@ class RouteTest {
         val expectedName = "${landmarks[0].name} -> ${landmarks.last().name} (via ${landmarks[landmarks.size/2].name})"
 
         Assert.assertEquals(expectedName, route.getName())
+    }
+
+    @Test
+    fun testShortRouteName()
+    {
+        val r = Route(listOf(landmarks[0], landmarks[1]), "name")
+        val expectedName = "${landmarks[0].name} -> ${landmarks[1].name}"
+
+        Assert.assertEquals(expectedName, r.getName())
     }
 
     @Test

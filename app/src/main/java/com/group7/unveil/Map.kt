@@ -72,7 +72,7 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private fun routeButtons(): List<MapRouteButtonModel> {
         val buttons = mutableListOf<MapRouteButtonModel>()
 
-        for (i in RouteHeap.getHeap())
+        for (i in RouteHeap.heap)
             buttons.add(this.routeButton(i))
 
         return buttons

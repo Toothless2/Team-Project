@@ -30,7 +30,7 @@ object Landmarks {
     val centre = LatLng(54.9733026, -1.6249138)
 
     /**
-     * All landmarks with infomation about them
+     * All landmarks with information about them
      * @note array is used instead of database as it overkill
      */
     val landmarks = arrayOf(

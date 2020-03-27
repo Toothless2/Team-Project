@@ -19,8 +19,8 @@ data class Route(val landmarks: List<Landmark>, val description: String) {
      * Creates a name for a given route
      */
     fun getName() : String =
-        "${getFirst().name} -> ${getLast().name} ${landmarks.size.takeIf { it > 2 }
-            ?.let { "(via ${landmarks[getSize() / 2].name})" }
+        "${getFirst().name} -> ${getLast().name}${landmarks.size.takeIf { it > 2 }
+            ?.let { " (via ${landmarks[getSize() / 2].name})" }
             ?: ""}"
 }
 
