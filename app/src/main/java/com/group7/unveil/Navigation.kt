@@ -57,7 +57,7 @@ class Navigation : AppCompatActivity(),
             var fragment: Fragment? = null
             when (it.itemId) {
                 R.id.nav_home -> fragment = MainPage()
-                R.id.nav_user -> fragment = UserPage()
+                R.id.nav_user -> fragment = Settings()
                 R.id.nav_map -> fragment = Map()
             }
 
