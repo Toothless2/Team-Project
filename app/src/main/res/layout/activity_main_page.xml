@@ -76,13 +76,15 @@
 
             <TextView
                 android:id="@+id/step_count"
+                android:layout_margin="12dp"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/placeholder"
-                app:layout_gravity="left|center" />
+                app:layout_gravity="top|center" />
 
 
             <TextView
                 android:id="@+id/distance_actual"
+                android:layout_margin="12dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/placeholder"
@@ -91,13 +93,15 @@
 
             <TextView
                 android:id="@+id/landmarks_visited"
+                android:layout_margin="12dp"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/placeholder"
-                app:layout_gravity="right|center" />
+                app:layout_gravity="top|center" />
 
 
             <TextView
                 android:id="@+id/steps_name"
+                android:layout_margin="12dp"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/steps"
                 android:textSize="12sp"
@@ -106,6 +110,7 @@
 
             <TextView
                 android:id="@+id/distance_name"
+                android:layout_margin="12dp"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/distance"
                 android:textSize="12sp"
@@ -114,6 +119,7 @@
 
             <TextView
                 android:id="@+id/landmark_name"
+                android:layout_margin="12dp"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/landmarks"
                 android:textSize="12sp"
