@@ -7,6 +7,7 @@
     <string name="placeholder">Placeholder</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_userpage">User Page</string>
+    <string name="popular_tours_main_page">Popular Tours</string>
 
     <!-- Info Box Text -->
     <string name="steps">Steps</string>
