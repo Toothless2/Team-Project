@@ -1,15 +1,21 @@
 package com.group7.unveil
 
-import com.group7.unveil.util.EventBus
-import com.group7.unveil.util.LandmarkListener
-import com.group7.unveil.util.StepListener
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkListener
+import com.group7.unveil.events.StepListener
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.lang.IllegalArgumentException
 
+/**
+ * Tests most functionality of the event bus
+ * <p>
+ *     Note: Does not test some functionality as requires an instrumented test @see EventBusInstrumentedTest
+ * </p>
+ * @author M. Rose
+ */
 class EventBusTest : LandmarkListener, StepListener {
-
     lateinit var eventCallSuccessful : Pair<Boolean, Int>
 
     @Test
@@ -25,6 +31,24 @@ class EventBusTest : LandmarkListener, StepListener {
     }
 
     @Test
+    fun testStepDuplicateEventSubscription()
+    {
+        EventBus.subscribeToStepEvent(this)
+        EventBus.subscribeToStepEvent(this)
+
+        val f = EventBus.javaClass.getDeclaredField("stepEventListeners")
+        f.isAccessible = true
+
+        var counter = 0
+
+        for(l in f.get(EventBus) as MutableList<*>)
+            if(l == this)
+                counter++
+
+        assertEquals(1, counter)
+    }
+
+    @Test
     fun testLandmarkEventSubscription()
     {
         EventBus.subscribeToLandmarkEvent(this)
@@ -34,6 +58,24 @@ class EventBusTest : LandmarkListener, StepListener {
 
         //need to cast to MutableList<*> as ANY is returned, * is to stop warning
         assertTrue((f.get(EventBus) as MutableList<*>).contains(this))
+    }
+
+    @Test
+    fun testLandmarkDuplicateEventSubscription()
+    {
+        EventBus.subscribeToLandmarkEvent(this)
+        EventBus.subscribeToLandmarkEvent(this)
+
+        val f = EventBus.javaClass.getDeclaredField("landmarkEventListeners")
+        f.isAccessible = true
+
+        var counter = 0
+
+        for(l in f.get(EventBus) as MutableList<*>)
+            if(l == this)
+                counter++
+
+        assertEquals(1, counter)
     }
 
     @Test
@@ -90,34 +132,7 @@ class EventBusTest : LandmarkListener, StepListener {
         EventBus.callLandmarkUIUpdate(-1)
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun testInvalidLandmarkCountTooManyLandmarks()
-    {
-        //TODO: Convert to an instrumented test
-        throw IllegalArgumentException()
-//        val landmarkCount = Landmarks.landmarks.size
-//        EventBus.callLandmarkUIUpdate(landmarkCount + 1)
-    }
-
-    @Test
-    fun testLandmarkUIEventCall()
-    {
-        //TODO: Convert to an instrumented test
-        assertTrue(true)
-//        EventBus.subscribeToLandmarkEvent(this)
-//
-//        val nMarks = 1
-//
-//        EventBus.callLandmarkUIUpdate(nMarks)
-//        assertTrue(eventCallSuccessful.first)
-//        assertEquals(eventCallSuccessful.second, nMarks)
-    }
-
     override fun stepEvent(steps: Int) {
         eventCallSuccessful = Pair(true, steps)
     }
-
-//    override fun updateVisitedUI(landmarksVisited: Int) {
-//        eventCallSuccessful = Pair(true, landmarksVisited)
-//    }
 }

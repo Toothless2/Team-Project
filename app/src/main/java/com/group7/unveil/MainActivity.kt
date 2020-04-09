@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.sign_in_button -> signIn()
             }
         }
-        
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         try {
             AccountInformation.account =
                 completedTask.getResult<ApiException>(ApiException::class.java)?.account
-            startActivity(Intent(this, MainPage::class.java))
+            startActivity(Intent(this, Navigation::class.java))
         } catch (e: ApiException) {
             Log.w("Sign in Error", "Fail Code: ${e.statusCode}")
 

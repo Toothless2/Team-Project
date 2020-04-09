@@ -22,10 +22,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
-import com.group7.unveil.data.Routes
 import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
-import com.group7.unveil.map.RouteHelpers.RouteHeap
+import com.group7.unveil.map.routeHelpers.RouteHeap
 import com.group7.unveil.util.AppContext
 import kotlinx.android.synthetic.main.activity_map.*
 
@@ -73,8 +72,8 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private fun routeButtons(): List<MapRouteButtonModel> {
         val buttons = mutableListOf<MapRouteButtonModel>()
 
-        for (i in RouteHeap.getHeap())
-            buttons.add(this.routeButton(Routes.routeName(i), i))
+        for (i in RouteHeap.heap)
+            buttons.add(this.routeButton(i))
 
         return buttons
     }
@@ -82,9 +81,9 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     /**
      * Creates a button for a route given a route and its name
      */
-    private fun routeButton(routeName: String, route: Route): MapRouteButtonModel {
+    private fun routeButton(route: Route): MapRouteButtonModel {
         val b = Button(recyclerView.context)
-        b.text = routeName
+        b.text = route.getName()
         b.setOnClickListener { mapHelper?.generateRoute(route) }
 
         return MapRouteButtonModel(b)

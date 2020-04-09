@@ -1,6 +1,5 @@
 package com.group7.unveil.data
 
-import android.widget.TextView
 import kotlin.math.round
 
 /**
@@ -12,10 +11,14 @@ object StepData {
      * Number of steps the user has done
      */
     var steps = 0
+        set(value) {
+            require(value >= 0) { "Steps cannot be negative "}
+            field = value
+        }
 
     /**
      * The distance the user has moved
-     * @return The distnace in miles (assuming waking pase of 3mph)
+     * @return The distance in miles (assuming waking pace of 3mph)
      */
     fun getDistance() = round((steps * 0.00045) * 100.0) / 100.0
 
@@ -25,7 +28,12 @@ object StepData {
     fun getDistanceWithUnit() = "${getDistance()} miles"
 
     /**
-     * THe number of locations a user has visited
+     * The number of locations a user has visited
      */
     var locationsVisited = 0
+        set(value) {
+            require(value >= 0) { "Cannot have negative landmarks"}
+            require(value <= Landmarks.landmarks.size) { "Cannot have more landmarks than their are"}
+            field = value
+        }
 }

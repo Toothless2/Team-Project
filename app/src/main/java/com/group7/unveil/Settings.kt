@@ -1,11 +1,10 @@
 package com.group7.unveil
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.*
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
-import android.view.Gravity
-import android.view.View
 
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
@@ -21,19 +20,21 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 
 
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.*
+import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.group7.unveil.data.StepData
-import com.group7.unveil.util.EventBus
-import com.group7.unveil.util.LandmarkListener
-import com.group7.unveil.util.StepListener
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkListener
+import com.group7.unveil.events.StepListener
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, StepListener, LandmarkListener {
+class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener,
+    StepListener,
+    LandmarkListener {
 
      val mAppBarConfiguration: AppBarConfiguration? = null
      lateinit var navigationView: NavigationView
@@ -47,37 +48,30 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
      lateinit var mGoogleSignInClient: GoogleSignInClient
     internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
     internal var textSizes = arrayOf("Small", "Medium", "Big")
-//    var PRIVATE_MODE = 0
-//    val PREF_NAME = "com.example.group7.unveil"
-//    val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
-//    lateinit var fontSizePref: String
-//    var themeID: Int = R.style.FontMedium
 
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        getActivity()?.let { Utils.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
-        Utils.onActivityCreateSetTheme(this)
-
-        setContentView(R.layout.settings)
-
+        val rootView = inflater.inflate(R.layout.settings, container, false)
+//        super.onCreate(savedInstanceState)
         EventBus.subscribeToLandmarkEvent(this)
         EventBus.subscribeToStepEvent(this)
 
-        stepEvent(0)
-        updateVisitedUI(StepData.locationsVisited)
+        val imageView = ImageView(context)
+        imageView.setImageResource(R.drawable.me)
+        return rootView
+    }
 
-//        fontSizePref = sharedPref.getString("FONT_SIZE", "Medium").toString()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        drawer = findViewById(R.id.drawer_layout)
-        val set = findViewById<FloatingActionButton>(R.id.set)
+        drawer = getView()!!.findViewById(R.id.drawer_layout)
+        val set = view!!.findViewById<FloatingActionButton>(R.id.set)
         set.setOnClickListener { drawer.openDrawer(Gravity.RIGHT) }
-
-
-        navigationView = findViewById(R.id.nav_view)
+        navigationView = getView()!!.findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val menu = navigationView.menu
-
         val menuColorBlind = menu.findItem(R.id.colorblind)
         val actionViewColorBlind = MenuItemCompat.getActionView(menuColorBlind)
 
@@ -101,9 +95,9 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         //switch_id2.isChecked = true
         switch_id2.setOnClickListener {
             if (switch_id2.isChecked) {
-                Utils.changeToTheme(this, Utils.Dyslexic)
+                getActivity()?.let { it1 -> Utils.changeToTheme(it1, Utils.Dyslexic) }
             } else if (!switch_id2.isChecked) {
-                Utils.changeToTheme(this, Utils.LightTheme)
+                getActivity()?.let { it1 -> Utils.changeToTheme(it1, Utils.LightTheme) }
 
             }
         }
@@ -114,7 +108,7 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         //button to turn dark mode
         dark = actionViewDarkTh.findViewById(R.id.imagebutt)
         dark.setOnClickListener {
-            Utils.changeToTheme(this, Utils.DarkTheme)
+            getActivity()?.let { it1 -> Utils.changeToTheme(it1, Utils.DarkTheme) }
 
         }
 
@@ -124,16 +118,17 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         //button to turn light mode
         light = actionViewLightTh.findViewById(R.id.imagebutt2)
         light.setOnClickListener {
-            Utils.changeToTheme(this, Utils.LightTheme)
+            getActivity()?.let { it1 -> Utils.changeToTheme(it1, Utils.LightTheme) }
         }
 
         //spinner for languages
         val spinner = navigationView.menu.findItem(R.id.lang).actionView as Spinner
-        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, language)
+        spinner.adapter =
+            context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_dropdown_item, language) }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
-                Toast.makeText(this@Settings, language[position], Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, language[position], Toast.LENGTH_SHORT).show()
 
             }
 
@@ -141,16 +136,17 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
 
 
-        //spinner for text sizes
+      //  spinner for text sizes
         val spinner2 = navigationView.menu.findItem(R.id.textsize).actionView as Spinner
-        spinner2.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, textSizes)
+        spinner2.adapter =
+            context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_dropdown_item, textSizes) }
         spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
                 when(position) {
 
-                    1 -> Utils.changeToTheme(this@Settings, Utils.Medium)
-                    2 -> Utils.changeToTheme(this@Settings, Utils.Big)
+                    1 -> getActivity()?.let { Utils.changeToTheme(it, Utils.Medium) }
+                    2 -> getActivity()?.let { Utils.changeToTheme(it, Utils.Big) }
                 }
 //
             }
@@ -166,7 +162,7 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             .requestEmail()
             .build()
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(this.requireActivity(), gso)
 
 
         signOut.setOnClickListener { v ->
@@ -175,60 +171,62 @@ class Settings : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             }
         }
 
-        val imageView = ImageView(this)
-        imageView.setImageResource(R.drawable.me)
+
+        // update the ui M. Rose
+        stepEvent(StepData.steps)
+        updateVisitedUI(StepData.locationsVisited)
     }
 
-
-    override fun onBackPressed() {
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
-        menuInflater.inflate(R.menu.settings, menu)
-        return true
-    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        val id = item.itemId
-//
-//        if (id == R.id.action_settings) {
-//            drawer.openDrawer(GravityCompat.END)
-//            return true
-//        } else
-//            return super.onOptionsItemSelected(item)
+//     fun onBackPressed() {
+//        val drawer = getView()!!.findViewById<DrawerLayout>(R.id.drawer_layout)
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START)
+//        } else {
+//            onBackPressed()
+//        }
 //    }
+
+     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+        inflater.inflate(R.menu.settings, menu)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.action_settings) {
+            drawer.openDrawer(GravityCompat.END)
+            return true
+        } else
+            return super.onOptionsItemSelected(item)
+    }
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawer = getView()!!.findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration!!) || super.onSupportNavigateUp()
-    }
+//     fun onSupportNavigateUp(): Boolean {
+//        val navController = Navigation.findNavController(this.requireActivity(), R.id.nav_host_fragment)
+//        return NavigationUI.navigateUp(navController, mAppBarConfiguration!!) || onSupportNavigateUp()
+//    }
 
 
     private fun signOut() {
-        mGoogleSignInClient.signOut()
-            .addOnCompleteListener(this) {
+        getActivity()?.let {
+            mGoogleSignInClient.signOut()
+                .addOnCompleteListener(it) {
 
-                Toast.makeText(this@Settings, "Successfully signed out", Toast.LENGTH_LONG).show()
-
-                finish()
-            }
+                    Toast.makeText(context, "Successfully signed out", Toast.LENGTH_LONG).show()
+                    activity?.finish()
+                }
+        }
     }
 
     /**

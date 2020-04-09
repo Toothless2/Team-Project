@@ -1,6 +1,5 @@
-package com.group7.unveil.map.RouteHelpers
+package com.group7.unveil.map.routeHelpers
 
-import android.util.Size
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.Route
 import com.group7.unveil.data.Routes
@@ -11,14 +10,13 @@ import com.group7.unveil.util.DistanceHelper
  * @author Max Rose
  */
 object RouteHeap {
-    private var heap = Routes.routes.copyOf().toMutableList()
+    var heap = Routes.routes.copyOf().toMutableList()
+        private set
     lateinit var userLoc: LatLng
 
     private fun parent(pos: Int): Int = pos / 2
     private fun leftChild(pos: Int): Int = pos * 2
     private fun rightChild(pos: Int): Int = (pos * 2) + 1
-
-    fun getHeap(): List<Route> = heap
 
     private fun isLeaf(pos: Int): Boolean {
         if (pos >= heap.size / 2 && pos <= heap.size)
@@ -36,16 +34,9 @@ object RouteHeap {
     private fun minHeapify(pos: Int) {
         if (!isLeaf(pos)) {
             //store the distances to avoid re-calculation as it will be slow
-            val posDist =
-                DistanceHelper.getDistace(heap[pos].landmarks[0].getLatLong(), userLoc)
-            val leftDist = DistanceHelper.getDistace(
-                heap[leftChild(pos)].landmarks[0].getLatLong(),
-                userLoc
-            )
-            val rightDist = DistanceHelper.getDistace(
-                heap[rightChild(pos)].landmarks[0].getLatLong(),
-                userLoc
-            )
+            val posDist = DistanceHelper.getDistace(heap[pos].getStartPos(), userLoc)
+            val leftDist = DistanceHelper.getDistace(heap[leftChild(pos)].getStartPos(),userLoc)
+            val rightDist = DistanceHelper.getDistace(heap[rightChild(pos)].getStartPos(), userLoc)
 
             if (posDist > leftDist || posDist > rightDist) {
                 if (leftDist < rightDist) {
@@ -85,11 +76,7 @@ object RouteHeap {
      */
     fun printHeap() {
         for (i in 0 until (heap.size - 1) / 2)
-            print(
-                "Parent: ${Routes.routeName(heap[i])} | Left Child: ${Routes.routeName(heap[i * 2])} | Right Child:  ${Routes.routeName(
-                    heap[i * 2 + 1]
-                )}\n"
-            )
+            print("Parent: ${heap[i].getName()} | Left Child: ${heap[i * 2].getName()} | Right Child:  ${heap[i * 2 + 1].getName()}\n")
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.group7.unveil.util
+package com.group7.unveil.events
 
 import com.group7.unveil.data.Landmarks
 
@@ -36,19 +36,9 @@ object EventBus {
 
     fun callLandmarkUIUpdate(landmarksVisited: Int) {
         require(landmarksVisited >= 0) { "Cannot have negative landmarks"}
-//        require(landmarksVisited <= Landmarks.landmarks.size) { "Cannot visit more landmarks than exist!" }
+        require(landmarksVisited <= Landmarks.landmarks.size) { "Cannot visit more landmarks than exist!" }
 
         landmarkEventListeners.forEach { it.updateVisitedUI(landmarksVisited) }
     }
 }
 
-// Event Interfaces, best practice would be to place in separate files but easier to read keeping them together since they arnt used for anything else
-interface LandmarkListener
-{
-    fun updateVisitedCount() { return }
-    fun updateVisitedUI(landmarksVisited : Int) { return }
-}
-
-interface StepListener {
-    fun stepEvent(steps: Int)
-}
