@@ -9,7 +9,7 @@ import kotlin.math.sqrt
 object DistanceHelper {
     /**
      * Gets the distance between a given point and the user
-     * @author Adapted from https://www.movable-type.co.uk/scripts/latlong.html by M. Rose
+     * @author Adapted from https://www.movable-type.co.uk/scripts/latlong.html
      */
     fun getDistace(pos1: LatLng, pos2: LatLng): Double {
         val r = 6371e3

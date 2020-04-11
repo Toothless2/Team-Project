@@ -96,7 +96,12 @@
 
     <!-- Map Page -->
     <string name="routes">Routes</string>
+
+    <!-- Route Creation Page -->
     <string name="createARoute">Create a Route</string>
+    <string name="addLandmark">Add Landmark</string>
+    <string name="startRoute">Start Route</string>
+    <string name="totalDistance">Total Distance</string>
 
     <!-- Landmark Infomation Page -->
     <string name="moreInformation">More Info</string>
