@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import com.group7.unveil.data.Landmark
 import kotlinx.android.synthetic.main.landmark_information_fragment.*
 
+/**
+ * Fills out information the "more landmark info" page
+ * @author M. Rose
+ */
 class LandmarkInformationPage(private val landmark : Landmark) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

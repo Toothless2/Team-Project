@@ -94,7 +94,12 @@
     <string name="bamburghc_name">Bamburgh Castle</string>
     <string name="bamburghc_description">Museum on one of the most complete sections of hadrians wall</string>
 
+    <!-- Map Page -->
+    <string name="routes">Routes</string>
+    <string name="createARoute">Create a Route</string>
+
     <!-- Landmark Infomation Page -->
+    <string name="moreInformation">More Info</string>
     <string name="landmarkVisitedText">You have visited this landmark!</string>
     <string name="landmarkNotVisitedText">You have not visited this landmark</string>
 </resources>

@@ -14,14 +14,14 @@ import com.group7.unveil.map.routeHelpers.RouteHeap
 
 /**
  * Contains methods for the map
- * @author Max Rose
+ * @author M. Rose
  */
 class LandmarkMap : GoogleMap.OnMarkerClickListener {
 
     val map : GoogleMap
     private val parentFragment : Map
 
-    constructor(map: GoogleMap, parentFragment: com.group7.unveil.Map) {
+    constructor(map: GoogleMap, parentFragment: Map) {
         this.map = map
         this.parentFragment = parentFragment
         this.map.setOnMarkerClickListener(this)
@@ -53,7 +53,7 @@ class LandmarkMap : GoogleMap.OnMarkerClickListener {
             Log.d("Marker Clicked", "Marker ${mark.name} Clicked, Description: ${mark.descriptor}")
 
             val dialog = AlertDialog.Builder(parentFragment.context)
-            dialog.setTitle(mark.name).setMessage(mark.descriptor).setPositiveButton(parentFragment.id, DialogInterface.OnClickListener { dialogInterface, i ->
+            dialog.setTitle(mark.name).setMessage(mark.descriptor).setPositiveButton(com.group7.unveil.R.string.moreInformation , DialogInterface.OnClickListener { _, _ ->
                 parentFragment.activity!!.supportFragmentManager.beginTransaction().add(parentFragment.id, LandmarkInformationPage(mark)).addToBackStack(null).commit()
             }).show()
         }

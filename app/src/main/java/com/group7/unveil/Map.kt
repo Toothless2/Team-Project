@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_map.*
 
 /**
  * Map page activity
- * @author Max Rose
+ * @author M. Rose
  */
 class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private var mapHelper: LandmarkMap? = null
