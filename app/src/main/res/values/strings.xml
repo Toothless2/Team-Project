@@ -16,7 +16,7 @@
     <string name="today">Today</string>
     <string name="buttons">Button</string>
 
-  <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -47,7 +47,7 @@
     <string name="menu_blindmode">Colour Blind Mode</string>
     <string name="menu_fontsize">Text Size</string>
     <string name="pplaceholder" />
-  
+
     <!-- Landmark Info -->
     <string name="usb_name">USB</string>
     <string name="usb_description">The Urban Science Building</string>
@@ -55,6 +55,46 @@
     <string name="su_name">Students Union</string>
     <string name="su_description">Students Union Building</string>
 
-    <string name="greysmon_name">Grey&quot;s Monument</string>
+    <string name="greysmon_name">Grey\'s Monument</string>
     <string name="greysmon_description">The monument in the middle of town</string>
+
+    <string name="millenbridge_name">Millennium Bridge</string>
+    <string name="millenbridge_description">Tilt bridge over River Tyne</string>
+
+    <string name="vindolanda_name">Vindolanda</string>
+    <string name="vindolanda_description">First Roman frontier in the north</string>
+
+    <string name="thesill_name">The Sill National Landscape Discovery Centre</string>
+    <string name="thesill_description">National park visitor attraction</string>
+
+    <string name="kirkleyhall_name">Kirkley Hall Zoological Gardens</string>
+    <string name="kirkleyhall_description">Zoo with over one hundred animals</string>
+
+    <string name="kielder_name">Keilder Water and Forest Park</string>
+    <string name="kielder_description">Englands largest forest and man made lake</string>
+
+    <string name="whitehousefarm_name">Whitehouse Farm Centre</string>
+    <string name="whitehousefarm_description">Northumberlands largest farm attraction</string>
+
+    <string name="romanarmym_name">Roman Army Museum</string>
+    <string name="romanarmym_description">Museum on one of the most complete sections of hadrians wall</string>
+
+    <string name="woodhornm_name">Woodhorn Museum</string>
+    <string name="woodhornm_description">Museum depicting lives of coal miners</string>
+
+    <string name="morpethm_name">Morpeth Chantry Bagpipe Museum</string>
+    <string name="morpethm_description">Museum specialising in the history of Northumbrian small pipes</string>
+
+    <string name="alnwickc_name">Alnwick Castle</string>
+    <string name="alnwickc_description">Second largest inhabited castle in England. Home of Duke of Northumberlands family</string>
+
+    <string name="hexhamabbey_name">Hexham Abbey</string>
+    <string name="hexhamabbey_description">Place of christian worship dedicated to St Andrew</string>
+
+    <string name="bamburghc_name">Bamburgh Castle</string>
+    <string name="bamburghc_description">Museum on one of the most complete sections of hadrians wall</string>
+
+    <!-- Landmark Infomation Page -->
+    <string name="landmarkVisitedText">You have visited this landmark!</string>
+    <string name="landmarkNotVisitedText">You have not visited this landmark</string>
 </resources>

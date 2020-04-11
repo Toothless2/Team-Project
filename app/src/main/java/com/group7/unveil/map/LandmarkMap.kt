@@ -1,9 +1,12 @@
 package com.group7.unveil.map
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.util.Log
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
+import com.group7.unveil.LandmarkInformationPage
+import com.group7.unveil.Map
 import com.group7.unveil.data.Landmark
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
@@ -13,7 +16,17 @@ import com.group7.unveil.map.routeHelpers.RouteHeap
  * Contains methods for the map
  * @author Max Rose
  */
-class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unveil.Map) : GoogleMap.OnMarkerClickListener {
+class LandmarkMap : GoogleMap.OnMarkerClickListener {
+
+    val map : GoogleMap
+    private val parentFragment : Map
+
+    constructor(map: GoogleMap, parentFragment: com.group7.unveil.Map) {
+        this.map = map
+        this.parentFragment = parentFragment
+        this.map.setOnMarkerClickListener(this)
+
+    }
 
     private var userMarker: Marker? = null
     private var line = PolylineOptions()
@@ -39,14 +52,13 @@ class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unv
             val mark = tag as Landmark
             Log.d("Marker Clicked", "Marker ${mark.name} Clicked, Description: ${mark.descriptor}")
 
-            val dialog = AlertDialog.Builder(parentFragment.context?.applicationContext)
-            dialog.setTitle(mark.name).setMessage(mark.descriptor)
-
-            dialog.create()
-            dialog.show()
+            val dialog = AlertDialog.Builder(parentFragment.context)
+            dialog.setTitle(mark.name).setMessage(mark.descriptor).setPositiveButton(parentFragment.id, DialogInterface.OnClickListener { dialogInterface, i ->
+                parentFragment.activity!!.supportFragmentManager.beginTransaction().add(parentFragment.id, LandmarkInformationPage(mark)).addToBackStack(null).commit()
+            }).show()
         }
 
-        return false
+        return true
     }
 
     /**

@@ -26,12 +26,12 @@
             android:name=".Settings"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" />
-      
+
         <activity
             android:name=".MainPage"
             android:label="@string/title_activity_main_page"
             android:theme="@style/AppTheme.NoActionBar" />
-      
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.group7.unveil.Navigation"></activity>
+        <activity android:name="com.group7.unveil.Navigation"/>
     </application>
 
 </manifest>
