@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/Team-Project-app.iml" filepath="$PROJECT_DIR$/app/Team-Project-app.iml" group="unveil/app" />
-      <module fileurl="file://$PROJECT_DIR$/Team-Project-unveil.iml" filepath="$PROJECT_DIR$/Team-Project-unveil.iml" group="unveil" />
       <module fileurl="file://$PROJECT_DIR$/app/AndroidStudioProjects-Team-Project-app.iml" filepath="$PROJECT_DIR$/app/AndroidStudioProjects-Team-Project-app.iml" group="unveil/app" />
       <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-Team-Project-unveil.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-Team-Project-unveil.iml" group="unveil" />
       <module fileurl="file://$PROJECT_DIR$/app/Github-Team-Project-app.iml" filepath="$PROJECT_DIR$/app/Github-Team-Project-app.iml" group="unveil/app" />
       <module fileurl="file://$PROJECT_DIR$/Github-Team-Project-unveil.iml" filepath="$PROJECT_DIR$/Github-Team-Project-unveil.iml" group="unveil" />
-      <module fileurl="file://$PROJECT_DIR$/app/Team-Project-app.iml" filepath="$PROJECT_DIR$/app/Team-Project-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Team-Project-unveil.iml" filepath="$PROJECT_DIR$/Team-Project-unveil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Team-Project-app.iml" filepath="$PROJECT_DIR$/app/Team-Project-app.iml" group="unveil/app" />
+      <module fileurl="file://$PROJECT_DIR$/Team-Project-unveil.iml" filepath="$PROJECT_DIR$/Team-Project-unveil.iml" group="unveil" />
       <module fileurl="file://$PROJECT_DIR$/app/Team-Project7-app.iml" filepath="$PROJECT_DIR$/app/Team-Project7-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/Team-Project7-unveil.iml" filepath="$PROJECT_DIR$/Team-Project7-unveil.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/Team.Project-app.iml" filepath="$PROJECT_DIR$/app/Team.Project-app.iml" />
