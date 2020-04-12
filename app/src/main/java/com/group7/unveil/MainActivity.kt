@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //startActivity(Intent(this, MainPage::class.java))
+//        startActivity(Intent(this, Navigation::class.java))
+//        finish()
 
         val signInButton = findViewById<SignInButton>(R.id.sign_in_button)
         signInButton.setSize(SignInButton.SIZE_STANDARD)
@@ -66,12 +67,15 @@ class MainActivity : AppCompatActivity() {
             AccountInformation.account =
                 completedTask.getResult<ApiException>(ApiException::class.java)?.account
             startActivity(Intent(this, Navigation::class.java))
+            finish()
         } catch (e: ApiException) {
             Log.w("Sign in Error", "Fail Code: ${e.statusCode}")
 
             //error with api key so ignore fow now, wil be fixed eventually
-            if (e.statusCode == 10)
+            if (e.statusCode == 10) {
                 startActivity(Intent(this, Navigation::class.java))
+                finish()
+            }
         }
    }
 }

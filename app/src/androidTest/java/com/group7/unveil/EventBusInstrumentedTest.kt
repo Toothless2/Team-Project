@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkEventData
 import com.group7.unveil.events.LandmarkListener
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -20,30 +21,28 @@ import java.lang.IllegalArgumentException
  */
 @SmallTest
 @RunWith(AndroidJUnit4::class)
-class EventBusInstrumentedTest: LandmarkListener {
+class EventBusInstrumentedTest {
 
-    lateinit var eventCallSuccessful : Pair<Boolean, Int>
+    private lateinit var eventCallSuccessful : Pair<Boolean, Int>
+    private val landmarkEventHandler : (LandmarkEventData) -> Unit = { updateVisitedUI(it.landmarks) }
 
     @Test(expected = IllegalArgumentException::class)
-    fun testInvalidLandmarkCountTooManyLandmarks()
-    {
-        val landmarkCount = Landmarks.landmarks.size
-        EventBus.callLandmarkUIUpdate(landmarkCount + 1)
-    }
+    fun testInvalidLandmarkCountTooManyLandmarks() = EventBus.landmarkEvent(LandmarkEventData(Landmarks.landmarks.size + 1))
 
     @Test
     fun testLandmarkUIEventCall()
     {
-        EventBus.subscribeToLandmarkEvent(this)
+        EventBus.landmarkEvent += landmarkEventHandler
 
         val nMarks = Landmarks.landmarks.size
 
-        EventBus.callLandmarkUIUpdate(nMarks)
+        EventBus.landmarkEvent(LandmarkEventData(nMarks))
         assertTrue(eventCallSuccessful.first)
         assertEquals(eventCallSuccessful.second, nMarks)
+        EventBus.landmarkEvent -= landmarkEventHandler
     }
 
-    override fun updateVisitedUI(landmarksVisited: Int) {
+    private fun updateVisitedUI(landmarksVisited: Int) {
         eventCallSuccessful = Pair(true, landmarksVisited)
     }
 }

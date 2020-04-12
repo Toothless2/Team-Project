@@ -27,14 +27,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.group7.unveil.data.StepData
-import com.group7.unveil.events.EventBus
-import com.group7.unveil.events.LandmarkListener
-import com.group7.unveil.events.StepListener
+import com.group7.unveil.events.*
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener,
-    StepListener,
-    LandmarkListener {
+class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
      val mAppBarConfiguration: AppBarConfiguration? = null
      lateinit var navigationView: NavigationView
@@ -49,14 +45,16 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener,
     internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
     internal var textSizes = arrayOf("Small", "Medium", "Big")
 
+    private val stepEventHandler : (StepEventData)-> Unit = {stepEvent(it.steps)}
+    private val landmarkEventHandler : (LandmarkEventData) -> Unit = {updateVisitedUI(it.landmarks)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         getActivity()?.let { Utils.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)
 //        super.onCreate(savedInstanceState)
-        EventBus.subscribeToLandmarkEvent(this)
-        EventBus.subscribeToStepEvent(this)
+        EventBus.stepEvent += stepEventHandler
+        EventBus.landmarkEvent += landmarkEventHandler
 
         val imageView = ImageView(context)
         imageView.setImageResource(R.drawable.me)
@@ -232,7 +230,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener,
     /**
      * @author M. Rose
      */
-    override fun stepEvent(steps: Int) {
+    private fun stepEvent(steps: Int) {
         step_count1.text = steps.toString()
         distance_actual1.text = StepData.getDistanceWithUnit()
     }
@@ -240,14 +238,14 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener,
     /**
      * @author M. Rose
      */
-    override fun updateVisitedUI(landmarksVisited: Int) {
+    private fun updateVisitedUI(landmarksVisited: Int) {
         landmarks_visited.text = landmarksVisited.toString()
     }
 
     override fun onDestroy() {
         //unsubscribe to cleanup event calls M. Rose
-        EventBus.unsubscribeToStepEvent(this)
-        EventBus.unsubscribeToLandmarkEvent(this)
+        EventBus.stepEvent -= stepEventHandler
+        EventBus.landmarkEvent -= landmarkEventHandler
         super.onDestroy()
     }
 }
