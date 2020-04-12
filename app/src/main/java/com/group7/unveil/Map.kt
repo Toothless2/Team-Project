@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
@@ -27,10 +28,11 @@ import com.group7.unveil.map.*
 import com.group7.unveil.map.routeHelpers.RouteHeap
 import com.group7.unveil.util.AppContext
 import kotlinx.android.synthetic.main.activity_map.*
+import kotlin.math.log
 
 /**
  * Map page activity
- * @author Max Rose
+ * @author M. Rose
  */
 class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private var mapHelper: LandmarkMap? = null
@@ -50,6 +52,10 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
         //makes the map
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync(this)
+
+        createRouteButton.setOnClickListener {
+            activity!!.supportFragmentManager.beginTransaction().add(id, RouteCreatetion(mapHelper!!)).addToBackStack(null).commit()
+        }
     }
 
     /**
