@@ -21,11 +21,11 @@ import com.group7.unveil.stepCounter.LandmarkCounterHeap
 import com.group7.unveil.stepCounter.StepDetector
 import com.group7.unveil.util.AppContext
 import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkEventData
 import com.group7.unveil.events.LandmarkListener
 import kotlinx.android.synthetic.main.activity_navigation.*
 
-class Navigation : AppCompatActivity(),
-    LandmarkListener, LocationListener {
+class Navigation : AppCompatActivity(), LocationListener {
 
     private lateinit var stepDetector: StepDetector
 
@@ -83,14 +83,14 @@ class Navigation : AppCompatActivity(),
         }
     }
 
-    override fun updateVisitedCount() {
+    private fun updateVisitedCount() {
         if(LandmarkCounterHeap.landmarkCanBeVisited() && !LandmarkCounterHeap.peekTop().visited)
         {
 //            Log.d("Navigation", "Landmark ${LandmarkCounterHeap.peekTop().name} Visited!")
             LandmarkCounterHeap.peekTop().visited = true
             StepData.locationsVisited++
 
-            EventBus.callLandmarkUIUpdate(StepData.locationsVisited)
+            EventBus.landmarkEvent(LandmarkEventData(StepData.locationsVisited))
         }
     }
 

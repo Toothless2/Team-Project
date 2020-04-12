@@ -5,6 +5,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import com.group7.unveil.data.StepData
 import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.StepEventData
 import kotlin.math.min
 
 /**
@@ -55,7 +56,8 @@ class StepDetector : SensorEventListener {
         val velEst = velRing.sum()
 
         if (velEst > STEP_THRESHOLD && oldVelEstimate <= STEP_THRESHOLD && (timeNs - lastStepTime > STEP_DELAY_NS)) {
-            EventBus.callStepEvent(++StepData.steps)
+            EventBus.stepEvent(StepEventData(++StepData.steps))
+//            EventBus.callStepEvent(++StepData.steps)
             lastStepTime = timeNs
         }
         oldVelEstimate = velEst

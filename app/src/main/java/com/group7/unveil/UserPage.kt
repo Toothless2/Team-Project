@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.group7.unveil.data.StepData
 import androidx.fragment.app.Fragment
-import com.group7.unveil.events.EventBus
-import com.group7.unveil.events.LandmarkListener
-import com.group7.unveil.events.StepListener
+import com.group7.unveil.events.*
 
 import kotlinx.android.synthetic.main.activity_user_page.*
 
-class UserPage : Fragment(), StepListener,
-    LandmarkListener {
+class UserPage : Fragment() {
+
+    private val stepEventHandler : (StepEventData) -> Unit = { stepEvent(it.steps) }
+    private val landmarkEventHandler : (LandmarkEventData) -> Unit = { updateVisitedUI(it.landmarks) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
@@ -32,8 +32,8 @@ class UserPage : Fragment(), StepListener,
         //constraintLayout.addView(imageView)
 
         //subscribe to events
-        EventBus.subscribeToStepEvent(this)
-        EventBus.subscribeToLandmarkEvent(this)
+        EventBus.stepEvent += stepEventHandler
+        EventBus.landmarkEvent += landmarkEventHandler
 
         return rootView
     }
@@ -49,7 +49,7 @@ class UserPage : Fragment(), StepListener,
     /**
      * @author M. Rose
      */
-    override fun stepEvent(steps: Int) {
+    private fun stepEvent(steps: Int) {
         step_count1?.text = steps.toString()
         distance_actual1?.text = StepData.getDistanceWithUnit()
     }
@@ -57,14 +57,14 @@ class UserPage : Fragment(), StepListener,
     /**
      * @author M. Rose
      */
-    override fun updateVisitedUI(landmarksVisited: Int) {
+    private fun updateVisitedUI(landmarksVisited: Int) {
         landmarks_visited?.text = landmarksVisited.toString()
     }
 
     override fun onDestroyView() {
         // unsubscribe to cleanup event calls M. Rose
-        EventBus.unsubscribeToStepEvent(this)
-        EventBus.unsubscribeToLandmarkEvent(this)
+        EventBus.stepEvent -= stepEventHandler
+        EventBus.landmarkEvent -= landmarkEventHandler
 
         super.onDestroyView()
     }

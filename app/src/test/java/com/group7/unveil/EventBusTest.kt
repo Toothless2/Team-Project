@@ -1,8 +1,6 @@
 package com.group7.unveil
 
-import com.group7.unveil.events.EventBus
-import com.group7.unveil.events.LandmarkListener
-import com.group7.unveil.events.StepListener
+import com.group7.unveil.events.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -15,105 +13,86 @@ import java.lang.IllegalArgumentException
  * </p>
  * @author M. Rose
  */
-class EventBusTest : LandmarkListener, StepListener {
+class EventBusTest {
     lateinit var eventCallSuccessful : Pair<Boolean, Int>
+
+    private val stepEventHandler : (StepEventData) -> Unit = { stepEvent(it.steps) }
+    private val landmarkEventHandler : (LandmarkEventData) -> Unit = {  }
 
     @Test
     fun testStepEventSubscription()
     {
-        EventBus.subscribeToStepEvent(this)
+        EventBus.stepEvent.clear() // clear the event before
 
-        val f = EventBus.javaClass.getDeclaredField("stepEventListeners")
-        f.isAccessible = true
+        EventBus.stepEvent += stepEventHandler
 
         //need to cast to MutableList<*> as ANY is returned, * is to stop warning
-        assertTrue((f.get(EventBus) as MutableList<*>).contains(this))
+        assertEquals(1, EventBus.stepEvent.size)
     }
 
     @Test
     fun testStepDuplicateEventSubscription()
     {
-        EventBus.subscribeToStepEvent(this)
-        EventBus.subscribeToStepEvent(this)
+        EventBus.stepEvent.clear() // clear the event before
 
-        val f = EventBus.javaClass.getDeclaredField("stepEventListeners")
-        f.isAccessible = true
+        EventBus.stepEvent += stepEventHandler
+        EventBus.stepEvent += stepEventHandler
 
-        var counter = 0
-
-        for(l in f.get(EventBus) as MutableList<*>)
-            if(l == this)
-                counter++
-
-        assertEquals(1, counter)
+        assertEquals(1, EventBus.stepEvent.size)
     }
 
     @Test
     fun testLandmarkEventSubscription()
     {
-        EventBus.subscribeToLandmarkEvent(this)
+        EventBus.landmarkEvent.clear()
+        EventBus.landmarkEvent += landmarkEventHandler
 
-        val f = EventBus.javaClass.getDeclaredField("landmarkEventListeners")
-        f.isAccessible = true
-
-        //need to cast to MutableList<*> as ANY is returned, * is to stop warning
-        assertTrue((f.get(EventBus) as MutableList<*>).contains(this))
+        assertEquals(1, EventBus.landmarkEvent.size)
     }
 
     @Test
     fun testLandmarkDuplicateEventSubscription()
     {
-        EventBus.subscribeToLandmarkEvent(this)
-        EventBus.subscribeToLandmarkEvent(this)
+        EventBus.landmarkEvent.clear()
+        EventBus.landmarkEvent += landmarkEventHandler
+        EventBus.landmarkEvent += landmarkEventHandler
 
-        val f = EventBus.javaClass.getDeclaredField("landmarkEventListeners")
-        f.isAccessible = true
-
-        var counter = 0
-
-        for(l in f.get(EventBus) as MutableList<*>)
-            if(l == this)
-                counter++
-
-        assertEquals(1, counter)
+        assertEquals(1, EventBus.landmarkEvent.size)
     }
 
     @Test
     fun testStepEventUnsubscribe()
     {
-        EventBus.subscribeToStepEvent(this) // subscribe to the event so that we can unsubscribe
+        EventBus.stepEvent.clear() // clear the event before
 
-        EventBus.unsubscribeToStepEvent(this)
+        EventBus.stepEvent += stepEventHandler // subscribe to the event so that we can unsubscribe
 
-        val f = EventBus.javaClass.getDeclaredField("stepEventListeners")
-        f.isAccessible = true
+        EventBus.stepEvent -= stepEventHandler
 
-        //need to cast to MutableList<*> as ANY is returned, * is to stop warning
-        assertTrue(!(f.get(EventBus) as MutableList<*>).contains(this))
+        assertEquals(0, EventBus.stepEvent.size)
     }
 
     @Test
     fun testLandmarkEventUnsubscribe()
     {
-        EventBus.subscribeToLandmarkEvent(this) // subscribe to the event so that we can unsubscribe
+        EventBus.landmarkEvent.clear()
+        EventBus.landmarkEvent += landmarkEventHandler // subscribe to the event so that we can unsubscribe
 
-        EventBus.unsubscribeToLandmarkEvent(this)
+        EventBus.landmarkEvent -= landmarkEventHandler
 
-        val f = EventBus.javaClass.getDeclaredField("landmarkEventListeners")
-        f.isAccessible = true
-
-        //need to cast to MutableList<*> as ANY is returned, * is to stop warning
-        assertTrue(!(f.get(EventBus) as MutableList<*>).contains(this))
+        assertEquals(0, EventBus.landmarkEvent.size)
     }
 
     @Test
     fun testCallStepEvent()
     {
-        EventBus.subscribeToStepEvent(this) // subscribe to the event so that it can be tested
+        EventBus.stepEvent.clear() // clear the event before
+
+        EventBus.stepEvent += stepEventHandler // subscribe to the event so that it can be tested
 
         val nSteps = 100
 
-        EventBus.callStepEvent(nSteps)
+        EventBus.stepEvent(StepEventData(nSteps))
 
         //call was successful if the pair was updated
         assertTrue(eventCallSuccessful.first)
@@ -121,18 +100,12 @@ class EventBusTest : LandmarkListener, StepListener {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun testCallStepEventInvalidStep()
-    {
-        EventBus.callStepEvent(-1)
-    }
+    fun testCallStepEventInvalidStep()= EventBus.stepEvent(StepEventData(-1))
 
     @Test(expected = IllegalArgumentException::class)
-    fun testInvalidLandmarkCountLessThan0()
-    {
-        EventBus.callLandmarkUIUpdate(-1)
-    }
+    fun testInvalidLandmarkCountLessThan0() = EventBus.landmarkEvent(LandmarkEventData(-1))
 
-    override fun stepEvent(steps: Int) {
+    private fun stepEvent(steps: Int) {
         eventCallSuccessful = Pair(true, steps)
     }
 }
