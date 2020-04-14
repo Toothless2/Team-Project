@@ -8,7 +8,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.provider.Settings
+import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,22 +16,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.R
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.LocationData
 import com.group7.unveil.data.Route
+import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
-import com.group7.unveil.map.routeHelpers.RouteHeap
+import com.group7.unveil.routes.RouteHeap
 import kotlinx.android.synthetic.main.map_fragment.*
 
 /**
  * Map page activity
  * @author M. Rose
  */
-class Map : Fragment(), LocationListener, OnMapReadyCallback {
+class Map : Fragment(), OnMapReadyCallback, LocationListener {
     private var mapHelper: LandmarkMap? = null
     private lateinit var map: GoogleMap
     private lateinit var locationManager: LocationManager
@@ -98,7 +99,7 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     private fun mapLocationPerms() {
         map.isMyLocationEnabled = LocationData.locationPermission
         map.uiSettings.isMyLocationButtonEnabled = LocationData.locationPermission
-        getLocation()
+//        getLocation()
 
         //still need to add the route buttons so use the map centre
         if (!LocationData.locationPermission)
@@ -116,19 +117,17 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && context!!.checkSelfPermission(
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        )
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, this)
-        } else
-            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
     }
 
     override fun onLocationChanged(loc: Location?) {
-        mapHelper?.updateRouteHeap(
-            LatLng(
-                loc!!.latitude,
-                loc.longitude
-            )
-        )  // use to update the route heap
+//        mapHelper?.updateRouteHeap(
+//            LatLng(
+//                loc!!.latitude,
+//                loc.longitude
+//            )
+//        )  // use to update the route heap
     }
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
@@ -148,19 +147,19 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-//        mapLocationPerms()
-//
-//        map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
-//        map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
-//        map.setOnMarkerClickListener(mapHelper)
-//
-//        mapHelper = LandmarkMap(map, this)
-//        mapHelper!!.addLandmarks()
-//
-//        mapHelper?.updateRouteHeap(Landmarks.centre)
-//
-//        if (SelectedRouteFromHome.selectedRoute != null)
-//            mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
+        mapLocationPerms()
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
+        map.setOnMarkerClickListener(mapHelper)
+
+        mapHelper = LandmarkMap(map, this)
+        mapHelper!!.addLandmarks()
+
+        mapHelper?.updateRouteHeap(Landmarks.centre)
+
+        if (SelectedRouteFromHome.selectedRoute != null)
+            mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
     }
 
     override fun onResume() {

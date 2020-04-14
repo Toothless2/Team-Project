@@ -8,27 +8,21 @@ import com.google.android.gms.maps.model.*
 import com.group7.unveil.data.Landmark
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
-import com.group7.unveil.map.routeHelpers.RouteHeap
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.UserMovedEventData
+import com.group7.unveil.routes.RouteHeap
 import com.group7.unveil.pages.LandmarkInformationPage
 
 /**
  * Contains methods for the map
  * @author M. Rose
  */
-class LandmarkMap : GoogleMap.OnMarkerClickListener {
-
-    val map : GoogleMap
-    private val parentFragment : com.group7.unveil.pages.Map
-
-    constructor(map: GoogleMap, parentFragment: com.group7.unveil.pages.Map) {
-        this.map = map
-        this.parentFragment = parentFragment
-        this.map.setOnMarkerClickListener(this)
-
-    }
+class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unveil.pages.Map) : GoogleMap.OnMarkerClickListener {
 
     private var userMarker: Marker? = null
     private var line = PolylineOptions()
+
+    private val userMovedEventHandler : (UserMovedEventData)->Unit = {updateRouteHeap(it.location)}
 
     /**
      * Adds the landmarks to the map
@@ -87,5 +81,18 @@ class LandmarkMap : GoogleMap.OnMarkerClickListener {
         RouteHeap.createMinHeap(LatLng(userLocation.latitude, userLocation.longitude))
 
         parentFragment.updateRouteButtons()
+    }
+
+    init {
+        this.map.setOnMarkerClickListener(this)
+        EventBus.userMovedEvent+= userMovedEventHandler
+    }
+
+    /**
+     * removed the handler when the class is destroyed (needed for cleanup)
+     */
+    fun finalize()
+    {
+        EventBus.userMovedEvent -= userMovedEventHandler
     }
 }

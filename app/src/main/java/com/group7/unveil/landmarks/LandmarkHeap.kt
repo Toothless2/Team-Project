@@ -3,13 +3,15 @@ package com.group7.unveil.landmarks
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.Landmark
 import com.group7.unveil.data.Landmarks
+import com.group7.unveil.events.EventBus
 import com.group7.unveil.util.DistanceHelper
 
 /**
  * Heap for landmark ordering
  * @author M. Rose
  */
-object LandmarkCounterHeap {
+object LandmarkHeap {
+
     private var distanceMax = 50f
 
     var heap = Landmarks.landmarks.copyOf().toMutableList()
@@ -124,7 +126,7 @@ object LandmarkCounterHeap {
      * @param userLoc Location of the user so the heap can be made
      */
     fun createMinHeap(userLoc: LatLng) {
-        LandmarkCounterHeap.userLoc = userLoc
+        LandmarkHeap.userLoc = userLoc
         for (i in heap.size / 2 downTo 0)
             minHeapify(i)
     }
@@ -152,7 +154,7 @@ object LandmarkCounterHeap {
      * Returns if a landmark can be visited (if it is within range of the user)
      */
     fun landmarkCanBeVisited(): Boolean =
-        (DistanceHelper.getDistace(
+        (::userLoc.isInitialized && DistanceHelper.getDistace(
             peekTop().getLatLong(),
             userLoc
         ) <= distanceMax)
