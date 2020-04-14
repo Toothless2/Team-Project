@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main_page.*
 
 /**
  * @author E Verdi
+ *
  */
 class MainPage : Fragment() {
     internal lateinit var navigationView: NavigationView
