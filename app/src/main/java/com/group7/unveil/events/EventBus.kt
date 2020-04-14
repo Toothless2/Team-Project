@@ -9,6 +9,7 @@ import com.group7.unveil.events.backend.SetEvent
 object EventBus {
     val stepEvent = event<StepEventData>()
     val landmarkEvent = event<LandmarkEventData>()
+    val userMovedEvent = event<UserMovedEventData>()
 }
 
 /**

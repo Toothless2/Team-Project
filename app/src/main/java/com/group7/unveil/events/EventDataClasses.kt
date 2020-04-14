@@ -10,4 +10,4 @@ data class LandmarkEventData(val landmarks : Int) {
         require(Landmarks.landmarks.size > landmarks) { "Cannot visit more landmarks than exist" }
     }
 }
-data class UserMovedEvent(val location : LatLng)
+data class UserMovedEventData(val location : LatLng)

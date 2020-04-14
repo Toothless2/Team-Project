@@ -1,4 +1,4 @@
-package com.group7.unveil.map.routeHelpers
+package com.group7.unveil.routes
 
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.Route
@@ -34,17 +34,38 @@ object RouteHeap {
     private fun minHeapify(pos: Int) {
         if (!isLeaf(pos)) {
             //store the distances to avoid re-calculation as it will be slow
-            val posDist = DistanceHelper.getDistace(heap[pos].getStartPos(), userLoc)
-            val leftDist = DistanceHelper.getDistace(heap[leftChild(pos)].getStartPos(),userLoc)
-            val rightDist = DistanceHelper.getDistace(heap[rightChild(pos)].getStartPos(), userLoc)
+            val posDist = DistanceHelper.getDistace(
+                heap[pos].getStartPos(),
+                userLoc
+            )
+            val leftDist = DistanceHelper.getDistace(
+                heap[leftChild(
+                    pos
+                )].getStartPos(), userLoc
+            )
+            val rightDist = DistanceHelper.getDistace(
+                heap[rightChild(
+                    pos
+                )].getStartPos(), userLoc
+            )
 
             if (posDist > leftDist || posDist > rightDist) {
                 if (leftDist < rightDist) {
-                    swap(pos, leftChild(pos))
-                    minHeapify(leftChild(pos))
+                    swap(
+                        pos,
+                        leftChild(pos)
+                    )
+                    minHeapify(
+                        leftChild(pos)
+                    )
                 } else {
-                    swap(pos, rightChild(pos))
-                    minHeapify(rightChild(pos))
+                    swap(
+                        pos,
+                        rightChild(pos)
+                    )
+                    minHeapify(
+                        rightChild(pos)
+                    )
                 }
             }
         }
@@ -62,11 +83,16 @@ object RouteHeap {
                 heap[current].landmarks[0].getLatLong(),
                 userLoc
             ) < DistanceHelper.getDistace(
-                heap[parent(current)].landmarks[0].getLatLong(),
+                heap[parent(
+                    current
+                )].landmarks[0].getLatLong(),
                 userLoc
             )
         ) {
-            swap(current, parent(current))
+            swap(
+                current,
+                parent(current)
+            )
             current = parent(current)
         }
     }
@@ -84,7 +110,7 @@ object RouteHeap {
      * @param userLoc Location of the user so the heap can be made
      */
     fun createMinHeap(userLoc: LatLng) {
-        this.userLoc = userLoc
+        RouteHeap.userLoc = userLoc
         for (i in heap.size / 2 downTo 0)
             minHeapify(i)
     }

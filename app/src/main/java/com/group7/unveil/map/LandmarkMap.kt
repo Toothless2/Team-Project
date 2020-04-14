@@ -8,7 +8,9 @@ import com.google.android.gms.maps.model.*
 import com.group7.unveil.data.Landmark
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
-import com.group7.unveil.map.routeHelpers.RouteHeap
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.UserMovedEventData
+import com.group7.unveil.routes.RouteHeap
 import com.group7.unveil.pages.LandmarkInformationPage
 
 /**
@@ -19,6 +21,8 @@ class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unv
 
     private var userMarker: Marker? = null
     private var line = PolylineOptions()
+
+    private val userMovedEventHandler : (UserMovedEventData)->Unit = {updateRouteHeap(it.location)}
 
     /**
      * Adds the landmarks to the map
@@ -81,5 +85,14 @@ class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unv
 
     init {
         this.map.setOnMarkerClickListener(this)
+        EventBus.userMovedEvent+= userMovedEventHandler
+    }
+
+    /**
+     * removed the handler when the class is destroyed (needed for cleanup)
+     */
+    fun finalize()
+    {
+        EventBus.userMovedEvent -= userMovedEventHandler
     }
 }
