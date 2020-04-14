@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/app/Team-Project-app.iml" filepath="$PROJECT_DIR$/app/Team-Project-app.iml" group="unveil/app" />
+      <module fileurl="file://$PROJECT_DIR$/Team-Project-unveil.iml" filepath="$PROJECT_DIR$/Team-Project-unveil.iml" group="unveil" />
+>>>>>>> Eldar
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="unveil/app" />
       <module fileurl="file://$PROJECT_DIR$/unveil.iml" filepath="$PROJECT_DIR$/unveil.iml" group="unveil" />
     </modules>
