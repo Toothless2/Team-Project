@@ -1,9 +1,11 @@
 package com.group7.unveil
 
+import android.R.bool
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -12,6 +14,10 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.group7.unveil.data.AccountInformation
+<<<<<<< HEAD:app/src/main/java/com/group7/unveil/LoginPage.kt
+=======
+
+>>>>>>> Eldar:app/src/main/java/com/group7/unveil/MainActivity.kt
 
 class LoginPage : AppCompatActivity() {
 

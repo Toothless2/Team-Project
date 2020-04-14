@@ -29,6 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
+=======
+
+        <activity android:name="com.group7.unveil.Navigation"
+            android:theme="@style/AppTheme"/>
+>>>>>>> Eldar
     </application>
 
 </manifest>
