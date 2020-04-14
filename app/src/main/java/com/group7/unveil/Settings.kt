@@ -32,23 +32,28 @@ import kotlinx.android.synthetic.main.activity_user_page.*
 
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
-     val mAppBarConfiguration: AppBarConfiguration? = null
-     lateinit var navigationView: NavigationView
-     lateinit var drawer: DrawerLayout
-     lateinit var switch_id: SwitchCompat
+    val mAppBarConfiguration: AppBarConfiguration? = null
+    lateinit var navigationView: NavigationView
+    lateinit var drawer: DrawerLayout
+    lateinit var switch_id: SwitchCompat
     lateinit var switch_id2: SwitchCompat
-     lateinit var seekbar: SeekBar
-     lateinit var dark: ImageButton
-     lateinit var light: ImageButton
-     lateinit var signOut: Button
-     lateinit var mGoogleSignInClient: GoogleSignInClient
+    lateinit var seekbar: SeekBar
+    lateinit var dark: ImageButton
+    lateinit var light: ImageButton
+    lateinit var signOut: Button
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
     internal var textSizes = arrayOf("Small", "Medium", "Big")
 
-    private val stepEventHandler : (StepEventData)-> Unit = {stepEvent(it.steps)}
-    private val landmarkEventHandler : (LandmarkEventData) -> Unit = {updateVisitedUI(it.landmarks)}
+    private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
+    private val landmarkEventHandler: (LandmarkEventData) -> Unit =
+        { updateVisitedUI(it.landmarks) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         getActivity()?.let { Utils.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)
@@ -86,7 +91,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         }
 
         val menuDyslexic = menu.findItem(R.id.dyslex)
-        val actionViewDyslexic= MenuItemCompat.getActionView(menuDyslexic)
+        val actionViewDyslexic = MenuItemCompat.getActionView(menuDyslexic)
 
         //dyslexic font switch
         switch_id2 = actionViewDyslexic.findViewById(R.id.switch_id2)
@@ -110,7 +115,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
         }
 
-        val menuLightTheme= menu.findItem(R.id.whitebutton)
+        val menuLightTheme = menu.findItem(R.id.whitebutton)
         val actionViewLightTh = MenuItemCompat.getActionView(menuLightTheme)
 
         //button to turn light mode
@@ -122,9 +127,20 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         //spinner for languages
         val spinner = navigationView.menu.findItem(R.id.lang).actionView as Spinner
         spinner.adapter =
-            context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_dropdown_item, language) }
+            context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    language
+                )
+            }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
 
                 Toast.makeText(context, language[position], Toast.LENGTH_SHORT).show()
 
@@ -134,14 +150,25 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         }
 
 
-      //  spinner for text sizes
+        //  spinner for text sizes
         val spinner2 = navigationView.menu.findItem(R.id.textsize).actionView as Spinner
         spinner2.adapter =
-            context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_dropdown_item, textSizes) }
+            context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    textSizes
+                )
+            }
         spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
 
-                when(position) {
+                when (position) {
 
                     1 -> getActivity()?.let { Utils.changeToTheme(it, Utils.Medium) }
                     2 -> getActivity()?.let { Utils.changeToTheme(it, Utils.Big) }
@@ -184,7 +211,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 //        }
 //    }
 
-     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
         inflater.inflate(R.menu.settings, menu)
 

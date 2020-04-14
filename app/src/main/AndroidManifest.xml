@@ -41,7 +41,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.group7.unveil.Navigation"/>
+        <activity android:name="com.group7.unveil.Navigation"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
