@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
@@ -17,7 +18,6 @@ import kotlinx.android.synthetic.main.main_page_fragment.*
 
 /**
  * @author E Verdi
- *
  */
 class MainPage : Fragment() {
     internal lateinit var navigationView: NavigationView

@@ -21,7 +21,6 @@ import com.group7.unveil.landmarks.LandmarkHeap
 import com.group7.unveil.pages.MainPage
 import com.group7.unveil.pages.Settings
 import kotlinx.android.synthetic.main.activity_navigation.*
-import java.util.jar.Manifest
 
 class Navigation : AppCompatActivity(), LocationListener {
 

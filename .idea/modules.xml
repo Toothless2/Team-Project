@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="unveil/app" />
-      <module fileurl="file://$PROJECT_DIR$/unveil.iml" filepath="$PROJECT_DIR$/unveil.iml" group="unveil" />
+      <module fileurl="file://$PROJECT_DIR$/app/Team-Project-app.iml" filepath="$PROJECT_DIR$/app/Team-Project-app.iml" group="unveil/app" />
+      <module fileurl="file://$PROJECT_DIR$/Team-Project-unveil.iml" filepath="$PROJECT_DIR$/Team-Project-unveil.iml" group="unveil" />
+      <module fileurl="file://$PROJECT_DIR$/Unveil.iml" filepath="$PROJECT_DIR$/Unveil.iml" group="Unveil" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Unveil/app" />
     </modules>
   </component>
 </project>
