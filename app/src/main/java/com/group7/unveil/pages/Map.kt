@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
@@ -23,6 +24,7 @@ import com.group7.unveil.R
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.LocationData
 import com.group7.unveil.data.Route
+import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
 import com.group7.unveil.map.routeHelpers.RouteHeap
 import kotlinx.android.synthetic.main.map_fragment.*
@@ -148,19 +150,19 @@ class Map : Fragment(), LocationListener, OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-//        mapLocationPerms()
-//
-//        map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
-//        map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
-//        map.setOnMarkerClickListener(mapHelper)
-//
-//        mapHelper = LandmarkMap(map, this)
-//        mapHelper!!.addLandmarks()
-//
-//        mapHelper?.updateRouteHeap(Landmarks.centre)
-//
-//        if (SelectedRouteFromHome.selectedRoute != null)
-//            mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
+        mapLocationPerms()
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(Landmarks.centre))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(Landmarks.centre, 16f))
+        map.setOnMarkerClickListener(mapHelper)
+
+        mapHelper = LandmarkMap(map, this)
+        mapHelper!!.addLandmarks()
+
+        mapHelper?.updateRouteHeap(Landmarks.centre)
+
+        if (SelectedRouteFromHome.selectedRoute != null)
+            mapHelper!!.generateRoute(SelectedRouteFromHome.selectedRoute!!)
     }
 
     override fun onResume() {

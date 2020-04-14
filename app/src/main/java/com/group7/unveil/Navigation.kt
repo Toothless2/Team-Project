@@ -11,19 +11,13 @@ import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.LocationData
-import com.group7.unveil.data.StepData
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.LandmarkEventData
 import com.group7.unveil.landmarks.LandmarkCounterHeap
 import com.group7.unveil.pages.MainPage
 import com.group7.unveil.pages.Settings
-import com.group7.unveil.util.AppContext
 import kotlinx.android.synthetic.main.activity_navigation.*
 
 class Navigation : AppCompatActivity(), LocationListener {
