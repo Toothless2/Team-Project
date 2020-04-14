@@ -45,11 +45,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-<<<<<<< HEAD:app/src/main/java/com/group7/unveil/pages/Settings.kt
         getActivity()?.let { ThemeHelper.onActivityCreateSetTheme(it) }
-=======
-        getActivity()?.let { Utils.onActivityCreateSetTheme(it) }
->>>>>>> Eldar:app/src/main/java/com/group7/unveil/Settings.kt
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)
 //        super.onCreate(savedInstanceState)

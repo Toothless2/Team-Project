@@ -14,10 +14,6 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.group7.unveil.data.AccountInformation
-<<<<<<< HEAD:app/src/main/java/com/group7/unveil/LoginPage.kt
-=======
-
->>>>>>> Eldar:app/src/main/java/com/group7/unveil/MainActivity.kt
 
 class LoginPage : AppCompatActivity() {
 
