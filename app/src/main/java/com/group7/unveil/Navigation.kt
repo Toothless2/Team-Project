@@ -1,71 +1,53 @@
 package com.group7.unveil
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.maps.model.LatLng
+import com.group7.unveil.data.LocationData
 import com.group7.unveil.data.StepData
-import com.group7.unveil.stepCounter.LandmarkCounterHeap
-import com.group7.unveil.stepCounter.StepDetector
-import com.group7.unveil.util.AppContext
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.LandmarkEventData
-import com.group7.unveil.events.LandmarkListener
+import com.group7.unveil.landmarks.LandmarkCounterHeap
+import com.group7.unveil.pages.MainPage
+import com.group7.unveil.pages.Settings
+import com.group7.unveil.util.AppContext
 import kotlinx.android.synthetic.main.activity_navigation.*
 
 class Navigation : AppCompatActivity(), LocationListener {
-
-    private lateinit var stepDetector: StepDetector
-
-//    private lateinit var locationManager: LocationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            1
-        )
+        bottomNavigation.setOnNavigationItemSelectedListener(navListener)
+        supportFragmentManager.beginTransaction().replace(fragmentHost.id, MainPage()).commit()
 
-        val sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
-        stepDetector = StepDetector()
-        sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_FASTEST)
-
-        bottom_navigation.setOnNavigationItemSelectedListener(navListener)
-
-        supportFragmentManager.beginTransaction().replace(R.id.fragmetHolder, MainPage()).commit()
     }
 
     private val navListener: BottomNavigationView.OnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener {
             var fragment: Fragment? = null
             when (it.itemId) {
-                R.id.nav_home -> fragment = MainPage()
-                R.id.nav_user -> fragment = Settings()
-                R.id.nav_map -> fragment = Map()
+                R.id.navigation_home -> fragment = MainPage()
+                R.id.navigation_user -> fragment = Settings()
+                R.id.navigation_map -> fragment = com.group7.unveil.pages.Map()
             }
 
             if (fragment != null) {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.fragmetHolder,
-                    fragment
-                ).commit()
+                supportFragmentManager.beginTransaction().replace(fragmentHost.id, fragment).commit()
             }
 
             true
@@ -75,7 +57,7 @@ class Navigation : AppCompatActivity(), LocationListener {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d("Location perms", "true")
-            AppContext.locationPerms = true
+            LocationData.locationPermission = true
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
             // premission has been granted android is being annoying
@@ -88,9 +70,9 @@ class Navigation : AppCompatActivity(), LocationListener {
         {
 //            Log.d("Navigation", "Landmark ${LandmarkCounterHeap.peekTop().name} Visited!")
             LandmarkCounterHeap.peekTop().visited = true
-            StepData.locationsVisited++
+            LocationData.locationsVisited++
 
-            EventBus.landmarkEvent(LandmarkEventData(StepData.locationsVisited))
+            EventBus.landmarkEvent(LandmarkEventData(LocationData.locationsVisited))
         }
     }
 

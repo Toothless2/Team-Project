@@ -11,7 +11,6 @@ import com.group7.unveil.R
 import com.group7.unveil.data.Landmark
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
-import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.util.DistanceHelper
 import kotlinx.android.synthetic.main.route_creation_fragment.*
 import kotlin.math.round

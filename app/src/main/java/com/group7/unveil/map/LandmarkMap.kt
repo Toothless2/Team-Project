@@ -5,12 +5,11 @@ import android.content.DialogInterface
 import android.util.Log
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
-import com.group7.unveil.LandmarkInformationPage
-import com.group7.unveil.Map
 import com.group7.unveil.data.Landmark
 import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.Route
 import com.group7.unveil.map.routeHelpers.RouteHeap
+import com.group7.unveil.pages.LandmarkInformationPage
 
 /**
  * Contains methods for the map
@@ -19,9 +18,9 @@ import com.group7.unveil.map.routeHelpers.RouteHeap
 class LandmarkMap : GoogleMap.OnMarkerClickListener {
 
     val map : GoogleMap
-    private val parentFragment : Map
+    private val parentFragment : com.group7.unveil.pages.Map
 
-    constructor(map: GoogleMap, parentFragment: Map) {
+    constructor(map: GoogleMap, parentFragment: com.group7.unveil.pages.Map) {
         this.map = map
         this.parentFragment = parentFragment
         this.map.setOnMarkerClickListener(this)
