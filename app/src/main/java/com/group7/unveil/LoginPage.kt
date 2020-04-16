@@ -60,18 +60,13 @@ class LoginPage : AppCompatActivity() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            AccountInformation.account =
-                completedTask.getResult<ApiException>(ApiException::class.java)?.account
-            startActivity(Intent(this, Navigation::class.java))
-            finish()
-        } catch (e: ApiException) {
-            Log.w("Sign in Error", "Fail Code: ${e.statusCode}")
-
-            //error with api key so ignore fow now, wil be fixed eventually
-            if (e.statusCode == 10) {
+            if (completedTask.isSuccessful) {
+                AccountInformation.account = completedTask.result
                 startActivity(Intent(this, Navigation::class.java))
                 finish()
             }
+        } catch (e: ApiException) {
+            Log.w("Sign in Error", "Fail Code: ${e.statusCode}")
         }
     }
 }
