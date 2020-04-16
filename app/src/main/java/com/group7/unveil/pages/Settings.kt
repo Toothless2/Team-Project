@@ -15,10 +15,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.group7.unveil.R
+import com.group7.unveil.data.AccountInformation
 import com.group7.unveil.data.LocationData
 import com.group7.unveil.data.StepData
 import com.group7.unveil.events.*
 import com.group7.unveil.util.ThemeHelper
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.app_bar_settings.*
 
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
@@ -59,6 +61,8 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setAccountName()
 
         drawer = getView()!!.findViewById(R.id.drawer_layout)
         val set = view!!.findViewById<FloatingActionButton>(R.id.set)
@@ -258,6 +262,20 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
      */
     private fun updateVisitedUI(landmarksVisited: Int) {
         landmarks_visited.text = landmarksVisited.toString()
+    }
+
+    private fun setAccountName()
+    {
+        if(AccountInformation.account == null)
+        {
+            userDisplayName.text = ""
+            avatar.setImageURI(null)
+        }
+        else
+        {
+            userDisplayName.text = AccountInformation.account!!.displayName
+            Picasso.get().load(AccountInformation.getPhotoURI()).into(avatar)
+        }
     }
 
     override fun onDestroy() {
