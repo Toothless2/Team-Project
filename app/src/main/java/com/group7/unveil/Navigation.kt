@@ -23,6 +23,11 @@ import com.group7.unveil.pages.Settings
 import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlin.math.roundToLong
 
+/**
+ * Contains the logic for navigating between pages of the app.
+ * Also contains methods to update user location and related functions
+ * @author M. Rose
+ */
 class Navigation : AppCompatActivity(), LocationListener {
 
     private val userMovedEventHandler : (UserMovedEventData) -> Unit = {updateVisitedCount()}
@@ -44,6 +49,9 @@ class Navigation : AppCompatActivity(), LocationListener {
         super.onDestroy()
     }
 
+    /**
+     * logic for switching between pages using the bottom nav bar
+     */
     private val navListener: BottomNavigationView.OnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener {
             var fragment: Fragment? = null
@@ -71,7 +79,6 @@ class Navigation : AppCompatActivity(), LocationListener {
     {
         Log.d("Location perms", "true")
 
-        // permission has been granted android is being annoying
         if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), 123)
             return
@@ -83,6 +90,9 @@ class Navigation : AppCompatActivity(), LocationListener {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, this)
     }
 
+    /**
+     * Calls to updated the number of visited landmarks
+     */
     private fun updateVisitedCount() {
         if(LandmarkHeap.landmarkCanBeVisited() && !LandmarkHeap.peekTop().visited)
         {
@@ -97,22 +107,17 @@ class Navigation : AppCompatActivity(), LocationListener {
     override fun onLocationChanged(p0: Location?) {
         if(p0 == null) return
 
+        //get the user position to 4dp
         val userLoc = LatLng((p0.latitude * 10000.0).roundToLong() / 10000.0, (p0.longitude * 10000.0).roundToLong() /10000.0) // rounds to 4dp as any further is inaccurate
+
+        //remake the heap so that it is correct for the new location
         LandmarkHeap.createMinHeap(userLoc)
+
+        //call the event
         EventBus.userMovedEvent(UserMovedEventData(userLoc))
     }
 
-    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
-        return
-    }
-
-    override fun onProviderEnabled(p0: String?) {
-        Log.d("Provider Information", p0!!)
-        return
-    }
-
-    override fun onProviderDisabled(p0: String?) {
-        Log.d("Provider Information", p0!!)
-        return
-    }
+    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) { return }
+    override fun onProviderEnabled(p0: String?) { return }
+    override fun onProviderDisabled(p0: String?) { return }
 }

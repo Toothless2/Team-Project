@@ -5,7 +5,7 @@ import com.group7.unveil.util.DistanceHelper
 
 /**
  * Min Heap to store the nearest route to the user
- * @author Max Rose
+ * @author M. Rose
  */
 object RouteHeap {
     var heap = Routes.routes.copyOf().toMutableList()

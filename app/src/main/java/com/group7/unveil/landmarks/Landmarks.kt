@@ -6,7 +6,7 @@ import com.group7.unveil.util.AppContext
 
 /**
  * Static container for landmarks in the app
- * @author Max Rose
+ * @author M. Rose
  */
 object Landmarks {
     /**
@@ -16,8 +16,7 @@ object Landmarks {
 
     /**
      * All landmarks with information about them
-     * @author M. Rose
-     * @edited A. Musgrove
+     * @author A. Musgrove
      * @note array is used instead of database as it overkill
      */
     val landmarks = arrayOf(

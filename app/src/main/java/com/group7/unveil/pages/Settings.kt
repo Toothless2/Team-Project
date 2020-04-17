@@ -24,6 +24,10 @@ import com.group7.unveil.util.ThemeHelper
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.app_bar_settings.*
 
+/**
+ * Logic for settings in the app
+ * @author N.K. Chmurak
+ */
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     private val mAppBarConfiguration: AppBarConfiguration? = null

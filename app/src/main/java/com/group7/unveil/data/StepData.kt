@@ -3,7 +3,7 @@ package com.group7.unveil.data
 import kotlin.math.round
 
 /**
- * @author Max Rose
+ * @author M. Rose
  * Contains data for the step counter visible throughout the app
  */
 object StepData {
