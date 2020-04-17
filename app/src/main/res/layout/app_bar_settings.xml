@@ -35,9 +35,12 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="679dp"
-        android:layout_height="466dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="116dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/white_paint2"
         tools:srcCompat="@drawable/white_paint2" />
@@ -71,7 +74,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="337dp"
             android:layout_height="match_parent"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -82,8 +85,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/placeholder"
+                app:layout_constraintEnd_toStartOf="@+id/distance_actual1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,12 +110,14 @@
                 android:id="@+id/landmarks_visited"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/cghotic"
-                android:text="@string/placeholder"
 
+                android:text="@string/placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/distance_actual1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -164,7 +171,7 @@
         android:layout_height="36dp"
         android:fontFamily="@font/cghotic"
         android:gravity="center"
-        android:text="Dimitar Anastasov"
+        android:text="@string/name"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -177,7 +184,7 @@
         android:layout_width="66dp"
         android:layout_height="33dp"
         android:fontFamily="@font/cghotic"
-        android:text="Today"
+        android:text="@string/today"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/usageInfo"
         app:layout_constraintEnd_toEndOf="parent"
