@@ -21,6 +21,7 @@ import com.group7.unveil.landmarks.LandmarkHeap
 import com.group7.unveil.pages.MainPage
 import com.group7.unveil.pages.Settings
 import kotlinx.android.synthetic.main.activity_navigation.*
+import kotlin.math.roundToLong
 
 class Navigation : AppCompatActivity(), LocationListener {
 
@@ -35,7 +36,7 @@ class Navigation : AppCompatActivity(), LocationListener {
 
         EventBus.userMovedEvent += userMovedEventHandler
 
-        permissonGranted()
+        permissionGranted()
     }
 
     override fun onDestroy() {
@@ -62,15 +63,15 @@ class Navigation : AppCompatActivity(), LocationListener {
     @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            permissonGranted()
+            permissionGranted()
         }
     }
 
-    private fun permissonGranted()
+    private fun permissionGranted()
     {
         Log.d("Location perms", "true")
 
-        // premission has been granted android is being annoying
+        // permission has been granted android is being annoying
         if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), 123)
             return
@@ -96,7 +97,7 @@ class Navigation : AppCompatActivity(), LocationListener {
     override fun onLocationChanged(p0: Location?) {
         if(p0 == null) return
 
-        val userLoc = LatLng(Math.round(p0.latitude * 10000.0) / 10000.0, Math.round(p0.longitude * 10000.0)/10000.0) // rounds to 4dp as any further is inaccurate
+        val userLoc = LatLng((p0.latitude * 10000.0).roundToLong() / 10000.0, (p0.longitude * 10000.0).roundToLong() /10000.0) // rounds to 4dp as any further is inaccurate
         LandmarkHeap.createMinHeap(userLoc)
         EventBus.userMovedEvent(UserMovedEventData(userLoc))
     }

@@ -1,8 +1,6 @@
 package com.group7.unveil
 
-import android.R.bool
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +15,8 @@ import com.group7.unveil.data.AccountInformation
 
 class LoginPage : AppCompatActivity() {
 
-    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    @Suppress("PrivatePropertyName")
     private var RC_SIGN_IN = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

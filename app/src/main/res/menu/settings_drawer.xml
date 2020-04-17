@@ -8,58 +8,53 @@
     >
 
 
-    <item android:title="Theme">
+    <item android:title="@string/menu_theme">
         <menu>
 
             <item
                 android:id="@+id/darkbutton"
-                app:actionLayout="@layout/imagebutt"
-                android:title=""/>
+                android:title=""
+                app:actionLayout="@layout/imagebutt" />
 
             <item
                 android:id="@+id/whitebutton"
-                app:actionLayout="@layout/imagebutt2"
                 android:title=""
-                />
-
-
-
+                app:actionLayout="@layout/imagebutt2" />
 
 
         </menu>
     </item>
 
-    <item android:title="Accessibility">
+    <item android:title="@string/menu_accessibility">
         <menu>
             <item
                 android:id="@+id/lang"
                 android:title="@string/menu_language"
-                app:actionLayout="@layout/spinner"/>
+                app:actionLayout="@layout/spinner" />
 
 
             <item
                 android:id="@+id/colorblind"
                 android:title="@string/menu_blindmode"
 
-                app:actionLayout="@layout/switch_menu"/>
+                app:actionLayout="@layout/switch_menu" />
 
             <item
                 android:id="@+id/dyslex"
                 android:title="@string/menu_dyslexic"
-                app:actionLayout="@layout/switch_menu2"/>
+                app:actionLayout="@layout/switch_menu2" />
 
 
             <item
                 android:id="@+id/textsize"
                 android:title="@string/menu_fontsize"
-                app:actionLayout="@layout/spinner2"
-                />
+                app:actionLayout="@layout/spinner2" />
 
 
             <item
                 android:id="@+id/signOutButton"
-                app:actionLayout="@layout/signoutbutton"
-                android:title="" />
+                android:title=""
+                app:actionLayout="@layout/signoutbutton" />
 
 
         </menu>

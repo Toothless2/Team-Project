@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.group7.unveil.R
-import com.group7.unveil.data.Landmark
-import com.group7.unveil.data.Landmarks
-import com.group7.unveil.data.Route
+import com.group7.unveil.landmarks.Landmark
+import com.group7.unveil.landmarks.Landmarks
+import com.group7.unveil.routes.Route
 import com.group7.unveil.util.DistanceHelper
 import kotlinx.android.synthetic.main.route_creation_fragment.*
 import kotlin.math.round
@@ -19,7 +19,7 @@ import kotlin.math.round
  * Controls Creation of routes
  * @author M. Rose
  */
-class RouteCreatetion(private val map : LandmarkMap) : Fragment() {
+class RouteCreation(private val map : LandmarkMap) : Fragment() {
 
     private val landmarkList = mutableListOf<Landmark>()
 
@@ -57,7 +57,7 @@ class RouteCreatetion(private val map : LandmarkMap) : Fragment() {
 
     private fun totalRouteDistance() : Double
     {
-        return round((landmarkList.zipWithNext { a, b -> DistanceHelper.getDistace(a.getLatLong(), b.getLatLong()) }.sum() * 0.000621371) * 100) / 100 // get the distance and scale to 2dp
+        return round((landmarkList.zipWithNext { a, b -> DistanceHelper.getDistance(a.getLatLong(), b.getLatLong()) }.sum() * 0.000621371) * 100) / 100 // get the distance and scale to 2dp
     }
 
     private fun startRoute() {

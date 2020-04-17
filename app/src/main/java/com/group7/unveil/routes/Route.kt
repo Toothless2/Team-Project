@@ -1,6 +1,7 @@
-package com.group7.unveil.data
+package com.group7.unveil.routes
 
 import com.google.android.gms.maps.model.LatLng
+import com.group7.unveil.landmarks.Landmark
 
 /**
  * Contains a route for the app consisting of a list of landmarks

@@ -11,7 +11,7 @@ import com.group7.unveil.R
  * @author M. Rose
  * Adaptor for the map recycler view
  */
-class MapRecyclerAdaptor(val buttons: List<MapRouteButtonModel>) : RecyclerView.Adapter<MapRecyclerAdaptor.ButtonViewHolder>() {
+class MapRecyclerAdaptor(private val buttons: List<MapRouteButtonModel>) : RecyclerView.Adapter<MapRecyclerAdaptor.ButtonViewHolder>() {
     /**
      * View holder for the button in the recycler view
      */

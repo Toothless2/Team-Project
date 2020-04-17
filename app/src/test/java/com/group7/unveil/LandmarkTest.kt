@@ -1,7 +1,7 @@
 package com.group7.unveil
 
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.data.Landmark
+import com.group7.unveil.landmarks.Landmark
 import org.junit.Assert
 import org.junit.Test
 

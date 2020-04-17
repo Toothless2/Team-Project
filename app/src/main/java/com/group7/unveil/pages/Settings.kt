@@ -1,5 +1,6 @@
 package com.group7.unveil.pages
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,18 +26,18 @@ import kotlinx.android.synthetic.main.app_bar_settings.*
 
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
-    val mAppBarConfiguration: AppBarConfiguration? = null
-    lateinit var navigationView: NavigationView
-    lateinit var drawer: DrawerLayout
-    lateinit var switch_id: SwitchCompat
-    lateinit var switch_id2: SwitchCompat
-    lateinit var seekbar: SeekBar
-    lateinit var dark: ImageButton
-    lateinit var light: ImageButton
-    lateinit var signOut: Button
-    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val mAppBarConfiguration: AppBarConfiguration? = null
+    private lateinit var navigationView: NavigationView
+    private lateinit var drawer: DrawerLayout
+    private lateinit var switchId: SwitchCompat
+    private lateinit var switchId2: SwitchCompat
+    private lateinit var seekbar: SeekBar
+    private lateinit var dark: ImageButton
+    private lateinit var light: ImageButton
+    private lateinit var signOut: Button
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
-    internal var textSizes = arrayOf("Small", "Medium", "Big")
+    private var textSizes = arrayOf("Small", "Medium", "Big")
 
     private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
     private val landmarkEventHandler: (LandmarkEventData) -> Unit =
@@ -47,7 +48,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        getActivity()?.let { ThemeHelper.onActivityCreateSetTheme(it) }
+        activity?.let { ThemeHelper.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)
 //        super.onCreate(savedInstanceState)
@@ -59,28 +60,29 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         return rootView
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setAccountName()
 
-        drawer = getView()!!.findViewById(R.id.drawer_layout)
-        val set = view!!.findViewById<FloatingActionButton>(R.id.set)
+        drawer = requireView().findViewById(R.id.drawer_layout)
+        val set = view.findViewById<FloatingActionButton>(R.id.set)
         set.setOnClickListener { drawer.openDrawer(Gravity.RIGHT) }
-        navigationView = getView()!!.findViewById(R.id.nav_view)
+        navigationView = requireView().findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val menu = navigationView.menu
         val menuColorBlind = menu.findItem(R.id.colorblind)
         val actionViewColorBlind = MenuItemCompat.getActionView(menuColorBlind)
 
         //colorblind mode switch
-        switch_id = actionViewColorBlind.findViewById(R.id.switch_id)
+        switchId = actionViewColorBlind.findViewById(R.id.switch_id)
         //switch_id.isChecked = true
-        switch_id.setOnClickListener {
+        switchId.setOnClickListener {
 
-            if (switch_id.isChecked) {
+            if (switchId.isChecked) {
                 //code to turn on colorblind mode
-            } else if (!switch_id.isChecked) {
+            } else if (!switchId.isChecked) {
                 //code to turn off colorblind mode
             }
         }
@@ -89,13 +91,13 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         val actionViewDyslexic = MenuItemCompat.getActionView(menuDyslexic)
 
         //dyslexic font switch
-        switch_id2 = actionViewDyslexic.findViewById(R.id.switch_id2)
+        switchId2 = actionViewDyslexic.findViewById(R.id.switch_id2)
         //switch_id2.isChecked = true
-        switch_id2.setOnClickListener {
-            if (switch_id2.isChecked) {
-                getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.Dyslexic) }
-            } else if (!switch_id2.isChecked) {
-                getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
+        switchId2.setOnClickListener {
+            if (switchId2.isChecked) {
+                activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.Dyslexic) }
+            } else if (!switchId2.isChecked) {
+                activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
 
             }
         }
@@ -106,7 +108,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         //button to turn dark mode
         dark = actionViewDarkTh.findViewById(R.id.imagebutt)
         dark.setOnClickListener {
-            getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme) }
+            activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme) }
 
         }
 
@@ -116,7 +118,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         //button to turn light mode
         light = actionViewLightTh.findViewById(R.id.imagebutt2)
         light.setOnClickListener {
-            getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
+            activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
         }
 
         //spinner for languages
@@ -165,8 +167,8 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
                 when (position) {
 
-                    1 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
-                    2 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
+                    1 -> activity?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
+                    2 -> activity?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
                 }
 //
             }
@@ -212,6 +214,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     }
 
+    @Suppress("LiftReturnOrAssignment")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
@@ -227,7 +230,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        val drawer = getView()!!.findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawer = view!!.findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
@@ -239,7 +242,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
 
     private fun signOut() {
-        getActivity()?.let {
+        activity?.let {
             mGoogleSignInClient.signOut()
                 .addOnCompleteListener(it) {
 
@@ -264,6 +267,9 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         landmarks_visited.text = landmarksVisited.toString()
     }
 
+    /**
+     * @author M. Rose
+     */
     private fun setAccountName()
     {
         if(AccountInformation.account == null)

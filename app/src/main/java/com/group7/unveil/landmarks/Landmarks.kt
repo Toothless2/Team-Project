@@ -1,4 +1,4 @@
-package com.group7.unveil.data
+package com.group7.unveil.landmarks
 
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.R
@@ -17,7 +17,7 @@ object Landmarks {
     /**
      * All landmarks with information about them
      * @author M. Rose
-     * @edited Alex Musgrove
+     * @edited A. Musgrove
      * @note array is used instead of database as it overkill
      */
     val landmarks = arrayOf(
