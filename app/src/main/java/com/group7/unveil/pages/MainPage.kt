@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
@@ -23,10 +22,15 @@ class MainPage : Fragment() {
     internal lateinit var navigationView: NavigationView
     internal lateinit var drawer: DrawerLayout
 
-    private val stepEventHandler : (StepEventData) -> Unit = {stepEvent(it.steps)}
-    private val landmarkEventHandler : (LandmarkEventData) -> Unit = {updateVisitedUI(it.landmarks)}
+    private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
+    private val landmarkEventHandler: (LandmarkEventData) -> Unit =
+        { updateVisitedUI(it.landmarks) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.main_page_fragment, container, false)
 
         EventBus.stepEvent += stepEventHandler
@@ -65,4 +69,6 @@ class MainPage : Fragment() {
 
         super.onDestroyView()
     }
+
+
 }

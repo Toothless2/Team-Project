@@ -40,11 +40,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val landmarkEventHandler: (LandmarkEventData) -> Unit =
         { updateVisitedUI(it.landmarks) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         getActivity()?.let { ThemeHelper.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)

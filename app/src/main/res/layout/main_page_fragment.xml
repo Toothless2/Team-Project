@@ -14,12 +14,12 @@
             android:id="@+id/logoNoName"
             android:layout_width="108dp"
             android:layout_height="104dp"
-            android:elevation="2dp"
             android:src="@drawable/logononame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="32dp" />
+<!--            android:elevation="2dp"-->
 
 <!--        <ImageView-->
 <!--            android:id="@+id/imageView4"-->
@@ -185,7 +185,7 @@
                 android:paddingRight="32dp">
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/tourOne"
                     android:layout_width="203dp"
                     android:layout_height="148dp"
                     android:layout_marginStart="16dp"
@@ -196,12 +196,13 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/buttonimage"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+                    app:layout_constraintEnd_toStartOf="@+id/tourThree"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.571" />
 
                 <ImageButton
+                    android:id="@+id/tourTwo"
                     android:layout_width="203dp"
                     android:layout_height="148dp"
                     android:layout_marginStart="76dp"
@@ -213,12 +214,12 @@
                     android:src="@drawable/buttonimage"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton3"
+                    app:layout_constraintStart_toEndOf="@+id/tourThree"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.571" />
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/tourThree"
                     android:layout_width="203dp"
                     android:layout_height="148dp"
                     android:layout_marginStart="76dp"
@@ -228,7 +229,7 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/buttonimage"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton2"
+                    app:layout_constraintStart_toEndOf="@+id/tourTwo"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.571" />
 
