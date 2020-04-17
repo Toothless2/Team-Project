@@ -1,13 +1,12 @@
 package com.group7.unveil.map
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.util.Log
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
-import com.group7.unveil.data.Landmark
-import com.group7.unveil.data.Landmarks
-import com.group7.unveil.data.Route
+import com.group7.unveil.landmarks.Landmark
+import com.group7.unveil.landmarks.Landmarks
+import com.group7.unveil.routes.Route
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.UserMovedEventData
 import com.group7.unveil.routes.RouteHeap
@@ -38,6 +37,7 @@ class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unv
     /**
      * Shows a dialog with marker information after clicking on a marker
      */
+    @Suppress("MoveLambdaOutsideParentheses") // I don't like this style
     override fun onMarkerClick(marker: Marker): Boolean {
         val tag = marker.tag
 
@@ -46,9 +46,10 @@ class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unv
             Log.d("Marker Clicked", "Marker ${mark.name} Clicked, Description: ${mark.descriptor}")
 
             val dialog = AlertDialog.Builder(parentFragment.context)
-            dialog.setTitle(mark.name).setMessage(mark.descriptor).setPositiveButton(com.group7.unveil.R.string.moreInformation , DialogInterface.OnClickListener { _, _ ->
-                parentFragment.activity!!.supportFragmentManager.beginTransaction().add(parentFragment.id, LandmarkInformationPage(mark)).addToBackStack(null).commit()
-            }).show()
+            dialog.setTitle(mark.name).setMessage(mark.descriptor).setPositiveButton(com.group7.unveil.R.string.moreInformation ,
+                { _, _ ->
+                    parentFragment.activity!!.supportFragmentManager.beginTransaction().add(parentFragment.id, LandmarkInformationPage(mark)).addToBackStack(null).commit()
+                }).show()
         }
 
         return true

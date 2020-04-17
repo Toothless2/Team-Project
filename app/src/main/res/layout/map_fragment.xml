@@ -40,8 +40,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16sp"
-                android:text="@string/routes" />
+                android:paddingStart="16sp"
+                android:text="@string/routes"
+                tools:ignore="RtlSymmetry" />
 
         </RelativeLayout>
 

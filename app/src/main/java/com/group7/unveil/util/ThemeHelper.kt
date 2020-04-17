@@ -10,12 +10,12 @@ import com.group7.unveil.R
 object ThemeHelper {
     private var sTheme: Int = 0
 
-    val LightTheme = 0
-    val DarkTheme = 1
-    val Dyslexic = 2
-    val Small = 3
-    val Medium = 4
-    val Big = 5
+    const val LightTheme = 0
+    const val DarkTheme = 1
+    const val Dyslexic = 2
+    const val Small = 3
+    const val Medium = 4
+    const val Big = 5
 
     fun changeToTheme(activity: Activity, theme: Int) {
         sTheme = theme

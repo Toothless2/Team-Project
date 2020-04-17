@@ -1,4 +1,6 @@
-package com.group7.unveil.data
+package com.group7.unveil.routes
+
+import com.group7.unveil.landmarks.Landmarks
 
 /**
  * Static container for all routes in the app

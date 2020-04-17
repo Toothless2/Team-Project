@@ -26,11 +26,11 @@
         android:id="@+id/imageView2"
         android:layout_width="422dp"
         android:layout_height="235dp"
-        android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_page_bg" />
+        app:srcCompat="@drawable/user_page_bg"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -43,7 +43,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/white_paint2"
-        tools:srcCompat="@drawable/white_paint2" />
+        tools:srcCompat="@drawable/white_paint2"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/avatar"
@@ -54,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintVertical_bias="0.446"
+        tools:ignore="ContentDescription" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/usageInfo"
@@ -145,7 +147,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/distance_actual1"
                 app:layout_constraintStart_toStartOf="@+id/distance_actual1"
-                app:layout_constraintTop_toBottomOf="@+id/distance_actual1" />
+                app:layout_constraintTop_toBottomOf="@+id/distance_actual1"
+                tools:ignore="SmallSp" />
 
             <TextView
                 android:id="@+id/landmark_name"
@@ -159,7 +162,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/landmarks_visited"
                 app:layout_constraintStart_toStartOf="@+id/landmarks_visited"
-                app:layout_constraintTop_toBottomOf="@+id/landmarks_visited" />
+                app:layout_constraintTop_toBottomOf="@+id/landmarks_visited"
+                tools:ignore="SmallSp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

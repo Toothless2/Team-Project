@@ -1,5 +1,7 @@
 package com.group7.unveil.data
 
+import com.group7.unveil.landmarks.Landmarks
+
 /**
  * @author M. Rose
  */

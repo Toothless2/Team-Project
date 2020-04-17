@@ -14,7 +14,7 @@ import java.lang.IllegalArgumentException
  * @author M. Rose
  */
 class EventBusTest {
-    lateinit var eventCallSuccessful : Pair<Boolean, Int>
+    private lateinit var eventCallSuccessful : Pair<Boolean, Int>
 
     private val stepEventHandler : (StepEventData) -> Unit = { stepEvent(it.steps) }
     private val landmarkEventHandler : (LandmarkEventData) -> Unit = {  }

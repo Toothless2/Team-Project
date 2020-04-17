@@ -92,14 +92,14 @@
     <string name="kirkleyhall_name">Kirkley Hall Zoological Gardens</string>
     <string name="kirkleyhall_description">Zoo with over one hundred animals</string>
 
-    <string name="kielder_name">Keilder Water and Forest Park</string>
-    <string name="kielder_description">Englands largest forest and man made lake</string>
+    <string name="kielder_name">Kielder Water and Forest Park</string>
+    <string name="kielder_description">England\'s largest forest and man made lake</string>
 
     <string name="whitehousefarm_name">Whitehouse Farm Centre</string>
     <string name="whitehousefarm_description">Northumberlands largest farm attraction</string>
 
     <string name="romanarmym_name">Roman Army Museum</string>
-    <string name="romanarmym_description">Museum on one of the most complete sections of hadrians wall</string>
+    <string name="romanarmym_description">Museum on one of the most complete sections of Hadrian\'s wall</string>
 
     <string name="woodhornm_name">Woodhorn Museum</string>
     <string name="woodhornm_description">Museum depicting lives of coal miners</string>
@@ -125,11 +125,13 @@
     <string name="startRoute">Start Route</string>
     <string name="totalDistance">Total Distance</string>
 
-    <!-- Landmark Infomation Page -->
+    <!-- Landmark Information Page -->
     <string name="moreInformation">More Info</string>
     <string name="landmarkVisitedText">You have visited this landmark!</string>
     <string name="landmarkNotVisitedText">You have not visited this landmark</string>
 
     <!-- Misc -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJ_QfnTxD9iRJbLdY_DoFLQKvopm26H6o</string>
+    <string name="access_logo">Logo</string>
+    <string name="tempUserName">User Name</string>
 </resources>
