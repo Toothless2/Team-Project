@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 
+/**
+ * Exposes a public getter for the current application context
+ * @author M. Rose
+ */
 class AppContext : Application() {
     companion object{
         lateinit var appContext : Context

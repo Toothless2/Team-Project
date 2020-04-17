@@ -4,7 +4,7 @@ import com.group7.unveil.landmarks.Landmarks
 
 /**
  * Static container for all routes in the app
- * @author Max Rose
+ * @author M. Rose
  */
 object Routes {
     /**

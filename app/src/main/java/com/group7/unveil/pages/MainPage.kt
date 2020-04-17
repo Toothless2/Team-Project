@@ -16,7 +16,7 @@ import com.group7.unveil.events.StepEventData
 import kotlinx.android.synthetic.main.main_page_fragment.*
 
 /**
- * @author E Verdi
+ * @author E. Verdi
  */
 class MainPage : Fragment() {
     internal lateinit var navigationView: NavigationView

@@ -5,7 +5,7 @@ import com.group7.unveil.landmarks.Landmark
 
 /**
  * Contains a route for the app consisting of a list of landmarks
- * @author Max Rose
+ * @author M. Rose
  */
 data class Route(val landmarks: List<Landmark>, val description: String) {
     fun getFirst() = landmarks.first()

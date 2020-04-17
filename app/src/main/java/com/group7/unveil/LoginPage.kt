@@ -13,6 +13,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.group7.unveil.data.AccountInformation
 
+/**
+ * Logic for logging into the users google account and passing the information into the rest of the app
+ * @author N.K. Chmurak
+ */
 class LoginPage : AppCompatActivity() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient

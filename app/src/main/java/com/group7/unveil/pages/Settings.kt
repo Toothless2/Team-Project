@@ -28,6 +28,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.app_bar_settings.*
 import java.util.*
 
+/**
+ * Logic for settings in the app
+ * @author N.K. Chmurak
+ */
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     val mAppBarConfiguration: AppBarConfiguration? = null

@@ -1,7 +1,6 @@
 package com.group7.unveil.events.backend
 
 /**
- *
  * @author M. Rose
  */
 interface Event<T> : MutableCollection<(T) -> Unit> {
