@@ -29,17 +29,13 @@ class MainPage : Fragment() {
     internal lateinit var drawer: DrawerLayout
 
     private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
+
+    // Event handler for landmarks on the main page
     private val landmarkEventHandler: (LandmarkEventData) -> Unit =
         { updateVisitedUI(it.landmarks) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.main_page_fragment, container, false)
-
-
 
         EventBus.stepEvent += stepEventHandler
         EventBus.landmarkEvent += landmarkEventHandler
@@ -54,7 +50,19 @@ class MainPage : Fragment() {
         stepEvent(StepData.steps)
         updateVisitedUI(LocationData.locationsVisited)
 
-        tourThree.setOnClickListener(){
+        tourOne.setOnClickListener(){
+            ToursAlert.openDialog(this, Routes.routes[0])
+        }
+
+        tourTwo.setOnClickListener(){
+            ToursAlert.openDialog(this, Routes.routes[1])
+        }
+
+        tourThree.setOnClickListener() {
+            ToursAlert.openDialog(this, Routes.routes[2])
+        }
+
+        tourFour.setOnClickListener(){
             ToursAlert.openDialog(this, Routes.routes[3])
         }
 
@@ -82,7 +90,5 @@ class MainPage : Fragment() {
 
         super.onDestroyView()
     }
-
-
 
 }

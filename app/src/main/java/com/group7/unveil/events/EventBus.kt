@@ -5,6 +5,7 @@ import com.group7.unveil.events.backend.SetEvent
 /**
  * Event Bus using interfaces for updating things throughout the app
  * @author M. Rose
+ * @edited E. Verdi
  */
 object EventBus {
     val stepEvent = event<StepEventData>()

@@ -103,10 +103,17 @@
     <string name="startRoute">Start Route</string>
     <string name="totalDistance">Total Distance</string>
 
-    <!-- Landmark Infomation Page -->
+    <!-- Landmark Information Page -->
     <string name="moreInformation">More Info</string>
     <string name="landmarkVisitedText">You have visited this landmark!</string>
     <string name="landmarkNotVisitedText">You have not visited this landmark</string>
+
+
+    <!-- Route Information -->
+    <string name="usbSU">USB to SU</string>
+    <string name="SUUSB">SU to USB</string>
+    <string name="greysUSB">Greys to USB</string>
+    <string name="greysUSBviaSU">Greys to USB via SU</string>
 
     <!-- Button Options -->
     <string name="tourButtonNav">Take me there</string>

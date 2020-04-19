@@ -19,7 +19,7 @@ class ToursAlert(val view: View, val route: Route) {
 
         private var dialog: AlertDialog? = null
 
-        fun dismissDialog(){
+        fun dismissDialog() {
             dialog?.dismiss()
         }
 
@@ -29,7 +29,7 @@ class ToursAlert(val view: View, val route: Route) {
                 return
 
             val builder = AlertDialog.Builder(parent.context)
-            val info = parent.layoutInflater.inflate(R.layout.popular_tours_button, parent.view as ViewGroup, false)
+            val info = parent.layoutInflater.inflate(R.layout.popular_tours_button,parent.view as ViewGroup, false)
 
             val d = ToursAlert(info, route)
             d.buttonBehaviour()
@@ -42,8 +42,8 @@ class ToursAlert(val view: View, val route: Route) {
         }
     }
 
-    private fun buttonBehaviour(){
-        view.tourButton.setOnClickListener(){
+    private fun buttonBehaviour() {
+        view.tourButton.setOnClickListener() {
             EventBus.changeToMap(MapSelectedEventData(route))
             dismissDialog()
         }
