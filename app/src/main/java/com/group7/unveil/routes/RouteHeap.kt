@@ -8,7 +8,7 @@ import com.group7.unveil.util.DistanceHelper
  * @author M. Rose
  */
 object RouteHeap {
-    var heap = Routes.routes.copyOf().toMutableList()
+    var heap = Routes.copyOf()
         private set
     private lateinit var userLoc: LatLng
 

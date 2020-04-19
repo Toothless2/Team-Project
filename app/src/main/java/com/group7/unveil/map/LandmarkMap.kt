@@ -27,7 +27,7 @@ class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unv
      * Adds the landmarks to the map
      */
     fun addLandmarks() {
-        for (place in Landmarks.landmarks) {
+        for (place in Landmarks.copyOf()) {
             val marker =
                 map.addMarker(MarkerOptions().position(place.getLatLong()).title(place.name))
             marker.tag = place
@@ -48,7 +48,7 @@ class LandmarkMap(val map: GoogleMap, private val parentFragment: com.group7.unv
             val dialog = AlertDialog.Builder(parentFragment.context)
             dialog.setTitle(mark.name).setMessage(mark.descriptor).setPositiveButton(com.group7.unveil.R.string.moreInformation ,
                 { _, _ ->
-                    parentFragment.activity!!.supportFragmentManager.beginTransaction().add(parentFragment.id, LandmarkInformationPage(mark)).addToBackStack(null).commit()
+                    parentFragment.requireActivity().supportFragmentManager.beginTransaction().add(parentFragment.id, LandmarkInformationPage(mark)).addToBackStack(null).commit()
                 }).show()
         }
 

@@ -13,7 +13,7 @@ object LandmarkHeap {
 
     private var distanceMax = 50f
 
-    var heap = Landmarks.landmarks.copyOf().toMutableList()
+    var heap = Landmarks.copyOf().toMutableList()
         private set
 
     private lateinit var userLoc: LatLng

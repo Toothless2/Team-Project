@@ -43,7 +43,7 @@ class Map : Fragment(), OnMapReadyCallback {
         mapView?.getMapAsync(this)
 
         createRouteButton.setOnClickListener {
-            activity!!.supportFragmentManager.beginTransaction().add(id, RouteCreation(mapHelper!!)).addToBackStack(null).commit()
+            requireActivity().supportFragmentManager.beginTransaction().add(id, RouteCreation(mapHelper!!)).addToBackStack(null).commit()
         }
     }
 

@@ -10,32 +10,41 @@ object Routes {
     /**
      * Routes in the app
      */
-    val routes = arrayOf(
+    private val routes = mutableListOf(
         Route(
             listOf(
-                Landmarks.landmarks[0],
-                Landmarks.landmarks[1]
+                Landmarks[0],
+                Landmarks[1]
             ), "USB -> SU"
         ),
         Route(
             listOf(
-                Landmarks.landmarks[1],
-                Landmarks.landmarks[0]
+                Landmarks[1],
+                Landmarks[0]
             ), "SU -> USB"
         ),
         Route(
             listOf(
-                Landmarks.landmarks[2],
-                Landmarks.landmarks[0]
+                Landmarks[2],
+                Landmarks[0]
             ), "Greys -> USB"
         ),
         Route(
             listOf(
-                Landmarks.landmarks[2],
-                Landmarks.landmarks[1],
-                Landmarks.landmarks[0]
+                Landmarks[2],
+                Landmarks[1],
+                Landmarks[0]
             ),
             "Greys -> USB via SU"
         )
     )
+
+    fun copyOf() = routes.toTypedArray().copyOf().toMutableList()
+
+    operator fun get(i : Int) = routes[i]
+    operator fun contains(r : Route) = r in routes;
+    operator fun plusAssign(r : Route)
+    {
+        routes.add(r)
+    }
 }

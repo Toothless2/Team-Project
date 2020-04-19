@@ -19,7 +19,7 @@ object Landmarks {
      * @author A. Musgrove
      * @note array is used instead of database as it overkill
      */
-    val landmarks = arrayOf(
+    private val landmarks = arrayOf(
         Landmark(
             0,
             AppContext.appContext.getString(
@@ -186,4 +186,12 @@ object Landmarks {
             )
         )
     )
+
+    val size : Int
+        get() = landmarks.size
+
+    fun copyOf() = landmarks.copyOf()
+
+    operator fun get(i : Int) = landmarks[i]
+    operator fun contains(l :Landmark) = l in landmarks
 }
