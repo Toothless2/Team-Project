@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.group7.unveil.R
 import com.group7.unveil.data.LocationData
+import com.group7.unveil.data.Route
 import com.group7.unveil.data.Routes
 import com.group7.unveil.data.StepData
 import com.group7.unveil.events.EventBus
@@ -52,6 +53,7 @@ class MainPage : Fragment() {
 
         tourOne.setOnClickListener(){
             ToursAlert.openDialog(this, Routes.routes[0])
+
         }
 
         tourTwo.setOnClickListener(){

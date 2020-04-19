@@ -110,6 +110,7 @@
 
 
     <!-- Route Information -->
+    <string name="routeInfo">Route Info</string>
     <string name="usbSU">USB to SU</string>
     <string name="SUUSB">SU to USB</string>
     <string name="greysUSB">Greys to USB</string>
