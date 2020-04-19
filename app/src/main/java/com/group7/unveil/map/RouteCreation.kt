@@ -11,6 +11,7 @@ import com.group7.unveil.R
 import com.group7.unveil.landmarks.Landmark
 import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.routes.Route
+import com.group7.unveil.routes.Routes
 import com.group7.unveil.util.DistanceHelper
 import kotlinx.android.synthetic.main.route_creation_fragment.*
 import kotlin.math.round
@@ -34,7 +35,7 @@ class RouteCreation(private val map : LandmarkMap) : Fragment() {
 
         createRouteDistanceDisplay.text = "${createRouteDistanceDisplay.text}: 0.0 miles"
 
-        landmarkSpinner.adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, Landmarks.landmarks.map { it.name })
+        landmarkSpinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, Landmarks.copyOf().map { it.name })
         addLandmarkToRoute.setOnClickListener {
             addLandmark(landmarkSpinner.selectedItem as String)
         }
@@ -49,7 +50,7 @@ class RouteCreation(private val map : LandmarkMap) : Fragment() {
     {
         createdRouteDisplay.text = "${createdRouteDisplay.text}$landmarkName\n"
 
-        landmarkList.add(Landmarks.landmarks.find { it.name == landmarkName }!!)
+        landmarkList.add(Landmarks.copyOf().find { it.name == landmarkName }!!)
 
         if(landmarkList.size > 1)
             createRouteDistanceDisplay.text = "${getString(R.string.totalDistance)}: ${totalRouteDistance()} miles"
@@ -64,9 +65,10 @@ class RouteCreation(private val map : LandmarkMap) : Fragment() {
 
         if (landmarkList.size > 1) {
             val route = Route(landmarkList, "Custom Route")
+            Routes += route
             map.generateRoute(route)
         }
 
-        activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconDuplicates">
+        <ignore path="src/main/res/drawable/buttonimage.png" />
+        <ignore path="src/main/res/drawable/milleniumbridge.png" />
+    </issue>
+    <issue id="IconDuplicatesConfig">
+        <ignore path="src/main/res/drawable-v24/millbridge.png" />
+        <ignore path="src/main/res/drawable/millbridge.png" />
+    </issue>
+    <issue id="IconLocation">
+        <ignore path="src/main/res/drawable/background.png" />
+        <ignore path="src/main/res/drawable/bgmainpage.png" />
+        <ignore path="src/main/res/drawable/bgmainpage.png" />
+        <ignore path="src/main/res/drawable/bgmainpage.png" />
+        <ignore path="src/main/res/drawable/black.png" />
+        <ignore path="src/main/res/drawable/buttonimage.png" />
+        <ignore path="src/main/res/drawable/iconsett.png" />
+        <ignore path="src/main/res/drawable/logo.png" />
+        <ignore path="src/main/res/drawable/logononame.png" />
+        <ignore path="src/main/res/drawable/mainpageeffect.png" />
+        <ignore path="src/main/res/drawable/me.jpg" />
+        <ignore path="src/main/res/drawable/millbridge.png" />
+        <ignore path="src/main/res/drawable/milleniumbridge.png" />
+        <ignore path="src/main/res/drawable/user_page_bg.png" />
+        <ignore path="src/main/res/drawable/white_paint2.png" />
+    </issue>
+</lint>

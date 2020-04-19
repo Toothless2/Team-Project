@@ -14,7 +14,7 @@ object LocationData {
     var locationsVisited = 0
         set(value) {
             require(value >= 0) { "Cannot have negative landmarks"}
-            require(value <= Landmarks.landmarks.size) { "Cannot have more landmarks than their are"}
+            require(value <= Landmarks.size) { "Cannot have more landmarks than their are"}
             field = value
         }
 }
