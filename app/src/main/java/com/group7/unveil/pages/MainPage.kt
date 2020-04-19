@@ -1,5 +1,6 @@
 package com.group7.unveil.pages
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,9 @@ import com.group7.unveil.data.StepData
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.LandmarkEventData
 import com.group7.unveil.events.StepEventData
+import com.group7.unveil.pages.alerts.ToursAlert
 import kotlinx.android.synthetic.main.main_page_fragment.*
+import kotlinx.android.synthetic.main.popular_tours_button.*
 
 /**
  * @author E Verdi
@@ -37,8 +40,7 @@ class MainPage : Fragment() {
 
         EventBus.stepEvent += stepEventHandler
         EventBus.landmarkEvent += landmarkEventHandler
-
-
+        popularTourButton()
         return rootView
     }
 
@@ -73,6 +75,9 @@ class MainPage : Fragment() {
         super.onDestroyView()
     }
 
-
-
+    private fun popularTourButton(){
+        view?.setOnClickListener(){
+            ToursAlert(info)
+        }
+    }
 }
