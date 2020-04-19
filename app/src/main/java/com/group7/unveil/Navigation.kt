@@ -14,8 +14,10 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.LocationData
+import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.LandmarkEventData
+import com.group7.unveil.events.MapSelectedEventData
 import com.group7.unveil.events.UserMovedEventData
 import com.group7.unveil.landmarks.LandmarkHeap
 import com.group7.unveil.pages.MainPage
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_navigation.*
 class Navigation : AppCompatActivity(), LocationListener {
 
     private val userMovedEventHandler : (UserMovedEventData) -> Unit = {updateVisitedCount()}
+    private val mapSelectedEventHandler : (MapSelectedEventData) -> Unit = {switchToMap(it)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +37,14 @@ class Navigation : AppCompatActivity(), LocationListener {
         supportFragmentManager.beginTransaction().replace(fragmentHost.id, MainPage()).commit()
 
         EventBus.userMovedEvent += userMovedEventHandler
+        EventBus.changeToMap += mapSelectedEventHandler
 
         permissonGranted()
     }
 
     override fun onDestroy() {
         EventBus.userMovedEvent -= userMovedEventHandler
+        EventBus.changeToMap -= mapSelectedEventHandler
         super.onDestroy()
     }
 
@@ -113,5 +118,11 @@ class Navigation : AppCompatActivity(), LocationListener {
     override fun onProviderDisabled(p0: String?) {
         Log.d("Provider Information", p0!!)
         return
+    }
+
+    private fun switchToMap(selectedRoute : MapSelectedEventData){
+        SelectedRouteFromHome.selectedRoute = selectedRoute.route
+        navListener.onNavigationItemSelected(bottomNavigation.menu.getItem(1))
+        bottomNavigation.menu.getItem(1).setChecked(true)
     }
 }

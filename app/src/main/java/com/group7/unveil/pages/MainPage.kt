@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.group7.unveil.R
 import com.group7.unveil.data.LocationData
+import com.group7.unveil.data.Routes
 import com.group7.unveil.data.StepData
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.LandmarkEventData
@@ -38,9 +39,11 @@ class MainPage : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.main_page_fragment, container, false)
 
+
+
         EventBus.stepEvent += stepEventHandler
         EventBus.landmarkEvent += landmarkEventHandler
-        popularTourButton()
+
         return rootView
     }
 
@@ -50,6 +53,11 @@ class MainPage : Fragment() {
         //call the events on created to make the ui work properly M. Rose
         stepEvent(StepData.steps)
         updateVisitedUI(LocationData.locationsVisited)
+
+        tourThree.setOnClickListener(){
+            ToursAlert.openDialog(this, Routes.routes[3])
+        }
+
     }
 
     /**
@@ -75,9 +83,6 @@ class MainPage : Fragment() {
         super.onDestroyView()
     }
 
-    private fun popularTourButton(){
-        view?.setOnClickListener(){
-            ToursAlert(info)
-        }
-    }
+
+
 }

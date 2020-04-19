@@ -10,6 +10,7 @@ object EventBus {
     val stepEvent = event<StepEventData>()
     val landmarkEvent = event<LandmarkEventData>()
     val userMovedEvent = event<UserMovedEventData>()
+    val changeToMap = event<MapSelectedEventData>()
 }
 
 /**

@@ -2,6 +2,8 @@ package com.group7.unveil.events
 
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.data.Landmarks
+import com.group7.unveil.data.Route
+import com.group7.unveil.data.Routes
 
 data class StepEventData(val steps : Int) { init { require(steps >= 0) { "Cannot have negative steps" } } }
 data class LandmarkEventData(val landmarks : Int) {
@@ -11,3 +13,5 @@ data class LandmarkEventData(val landmarks : Int) {
     }
 }
 data class UserMovedEventData(val location : LatLng)
+
+data class MapSelectedEventData(val route : Route)
