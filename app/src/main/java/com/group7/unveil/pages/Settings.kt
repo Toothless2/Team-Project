@@ -1,6 +1,9 @@
 package com.group7.unveil.pages
 
+import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings.Global.getString
 import android.view.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.widget.SwitchCompat
@@ -20,6 +23,7 @@ import com.group7.unveil.data.StepData
 import com.group7.unveil.events.*
 import com.group7.unveil.util.ThemeHelper
 import kotlinx.android.synthetic.main.app_bar_settings.*
+import java.util.*
 
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,8 +37,9 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var light: ImageButton
     lateinit var signOut: Button
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    internal var language = arrayOf("English", "Polish", "German", "Bulgarian")
-    internal var textSizes = arrayOf("Small", "Medium", "Big")
+    val language: Array<String> = arrayOf("English", "Polish")
+    val textSizes: Array<String> = arrayOf("Small", "Medium", "Big")
+
 
     private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
     private val landmarkEventHandler: (LandmarkEventData) -> Unit =
@@ -66,20 +71,6 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         navigationView = getView()!!.findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val menu = navigationView.menu
-        val menuColorBlind = menu.findItem(R.id.colorblind)
-        val actionViewColorBlind = MenuItemCompat.getActionView(menuColorBlind)
-
-        //colorblind mode switch
-        switch_id = actionViewColorBlind.findViewById(R.id.switch_id)
-        //switch_id.isChecked = true
-        switch_id.setOnClickListener {
-
-            if (switch_id.isChecked) {
-                //code to turn on colorblind mode
-            } else if (!switch_id.isChecked) {
-                //code to turn off colorblind mode
-            }
-        }
 
         val menuDyslexic = menu.findItem(R.id.dyslex)
         val actionViewDyslexic = MenuItemCompat.getActionView(menuDyslexic)
@@ -115,6 +106,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
             getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
         }
 
+
         //spinner for languages
         val spinner = navigationView.menu.findItem(R.id.lang).actionView as Spinner
         spinner.adapter =
@@ -133,7 +125,10 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
                 id: Long
             ) {
 
-                Toast.makeText(context, language[position], Toast.LENGTH_SHORT).show()
+              when(position) {
+                  0->setAppLocale("en")
+                  1->setAppLocale("pl")
+              }
 
             }
 
@@ -160,7 +155,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
             ) {
 
                 when (position) {
-
+//                    0 -> getActivity()?.let {ThemeHelper.changeToTheme(it, ThemeHelper.Small)}
                     1 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
                     2 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
                 }
@@ -265,5 +260,17 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         EventBus.stepEvent -= stepEventHandler
         EventBus.landmarkEvent -= landmarkEventHandler
         super.onDestroy()
+    }
+
+    private fun setAppLocale(localeCode: String) {
+        val res = resources
+        val dm = res.displayMetrics
+        val conf = res.configuration
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            conf.setLocale(Locale(localeCode.toLowerCase()))
+        } else {
+            conf.locale = Locale(localeCode.toLowerCase())
+        }
+        res.updateConfiguration(conf, dm)
     }
 }

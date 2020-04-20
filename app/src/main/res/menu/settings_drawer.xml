@@ -8,7 +8,7 @@
     >
 
 
-    <item android:title="Theme">
+    <item android:title="@string/menu_theme">
         <menu>
 
             <item
@@ -29,7 +29,7 @@
         </menu>
     </item>
 
-    <item android:title="Accessibility">
+    <item android:title="@string/menu_accessibility">
         <menu>
             <item
                 android:id="@+id/lang"
@@ -37,11 +37,6 @@
                 app:actionLayout="@layout/spinner"/>
 
 
-            <item
-                android:id="@+id/colorblind"
-                android:title="@string/menu_blindmode"
-
-                app:actionLayout="@layout/switch_menu"/>
 
             <item
                 android:id="@+id/dyslex"
