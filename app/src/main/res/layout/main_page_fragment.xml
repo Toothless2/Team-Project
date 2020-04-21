@@ -1,236 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="com.group7.unveil.pages.MainPage"
-        tools:openDrawer="start">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.group7.unveil.pages.MainPage"
+    tools:openDrawer="start">
 
-        <ImageView
-            android:id="@+id/logoNoName"
-            android:layout_width="108dp"
-            android:layout_height="104dp"
-            android:elevation="2dp"
-            android:src="@drawable/logononame"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="32dp" />
+    <ImageView
+        android:id="@+id/logoNoName"
+        android:layout_width="108dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/logononame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--            android:elevation="2dp"-->
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="603dp"
-            android:layout_height="177dp"
-            android:layout_marginTop="36dp"
-            android:elevation="1dp"
-            android:src="@drawable/mainpageeffect"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.656"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/userData" />
+    <!--        <ImageView-->
+    <!--            android:id="@+id/imageView4"-->
+    <!--            android:layout_width="603dp"-->
+    <!--            android:layout_height="177dp"-->
+    <!--            android:layout_marginTop="36dp"-->
+    <!--            android:elevation="1dp"-->
+    <!--            android:src="@drawable/mainpageeffect"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHorizontal_bias="0.656"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="@+id/userData" />-->
 
-        <ImageView
-            android:id="@+id/backgroundImage"
-            android:layout_width="1125dp"
-            android:layout_height="400dp"
-            android:src="@drawable/bgmainpage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.804"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <!--        <ImageView-->
+    <!--            android:id="@+id/backgroundImage"-->
+    <!--            android:layout_width="1125dp"-->
+    <!--            android:layout_height="400dp"-->
+    <!--            android:src="@drawable/bgmainpage"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHorizontal_bias="0.804"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/todayText"
-            android:layout_width="314dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="48dp"
-            android:fontFamily="@font/cghotic"
-            android:text="@string/today"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logoNoName" />
+    <TextView
+        android:id="@+id/todayText"
+        android:layout_width="314dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="48dp"
+        android:fontFamily="@font/cghotic"
+        android:text="@string/today"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoNoName" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/userData"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/userData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="45dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:cardBackgroundColor="#F5FFFFFF"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayText">
+
+<!--        android:elevation="10dp"-->
+<!--        app:cardMaxElevation="10dp"-->
+<!--        app:cardElevation="10dp"-->
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:columnCount="3">
+
+            <TextView
+                android:id="@+id/step_count"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="@font/cghotic"
+                android:text="@string/placeholder"
+                app:layout_gravity="top|center" />
+
+
+            <TextView
+                android:id="@+id/distance_actual"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="@font/cghotic"
+                android:text="@string/placeholder"
+                app:layout_gravity="top|center" />
+
+
+            <TextView
+                android:id="@+id/landmarks_visited"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="@font/cghotic"
+                android:text="@string/placeholder"
+                app:layout_gravity="top|center" />
+
+
+            <TextView
+                android:id="@+id/steps_name"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/cghotic"
+                android:text="@string/steps"
+                android:textSize="12sp"
+                app:layout_gravity="bottom|center" />
+
+
+            <TextView
+                android:id="@+id/distance_name"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/cghotic"
+                android:text="@string/distance"
+                android:textSize="12sp"
+                app:layout_gravity="bottom|center" />
+
+
+            <TextView
+                android:id="@+id/landmark_name"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/cghotic"
+                android:text="@string/landmarks"
+                android:textSize="12sp"
+                app:layout_gravity="bottom|center" />
+
+
+        </androidx.gridlayout.widget.GridLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/scroll_section"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="48dp"
+        android:text="@string/popular_tours_main_page"
+        android:textColor="@color/black"
+        android:fontFamily="@font/cghotic"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userData" />
+<!--        android:elevation="2dsp"-->
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="411dp"
+        android:layout_height="195dp"
+        android:layout_marginTop="20dp"
+        android:elevation="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_section">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="45dp"
-            android:elevation="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            app:cardBackgroundColor="#F5FFFFFF"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/todayText">
+            android:layout_height="match_parent"
+            android:paddingLeft="32dp"
+            android:paddingRight="64dp">
 
-            <androidx.gridlayout.widget.GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:columnCount="3">
+            <Button
+                android:id="@+id/tourOne"
+                android:layout_width="203dp"
+                android:layout_height="148dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="76dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/buttonimage"
+                android:contentDescription="@string/buttons"
+                android:text="@string/usbSU"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tourTwo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/step_count"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginRight="12dp"
-                    android:fontFamily="@font/cghotic"
-                    android:text="@string/placeholder"
-                    app:layout_gravity="top|center" />
+            <Button
+                android:id="@+id/tourTwo"
+                android:layout_width="203dp"
+                android:layout_height="148dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/buttonimage"
+                android:contentDescription="@string/buttons"
+                android:text="@string/SUUSB"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tourThree"
+                app:layout_constraintTop_toTopOf="parent" />
+            />
 
+            <Button
+                android:id="@+id/tourThree"
+                android:layout_width="203dp"
+                android:layout_height="148dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/buttonimage"
+                android:contentDescription="@string/buttons"
+                android:text="@string/greysUSB"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tourTwo"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/distance_actual"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginRight="12dp"
-                    android:fontFamily="@font/cghotic"
-                    android:text="@string/placeholder"
-                    app:layout_gravity="top|center" />
-
-
-                <TextView
-                    android:id="@+id/landmarks_visited"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginRight="12dp"
-                    android:fontFamily="@font/cghotic"
-                    android:text="@string/placeholder"
-                    app:layout_gravity="top|center" />
-
-
-                <TextView
-                    android:id="@+id/steps_name"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:fontFamily="@font/cghotic"
-                    android:text="@string/steps"
-                    android:textSize="12sp"
-                    app:layout_gravity="bottom|center" />
-
-
-                <TextView
-                    android:id="@+id/distance_name"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:fontFamily="@font/cghotic"
-                    android:text="@string/distance"
-                    android:textSize="12sp"
-                    app:layout_gravity="bottom|center" />
+            <Button
+                android:id="@+id/tourFour"
+                android:layout_width="203dp"
+                android:layout_height="148dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/buttonimage"
+                android:contentDescription="@string/buttons"
+                android:text="@string/greysUSBviaSU"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tourThree"
+                app:layout_constraintTop_toTopOf="parent" />
+            />
 
 
-                <TextView
-                    android:id="@+id/landmark_name"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:fontFamily="@font/cghotic"
-                    android:text="@string/landmarks"
-                    android:textSize="12sp"
-                    app:layout_gravity="bottom|center" />
-
-
-            </androidx.gridlayout.widget.GridLayout>
-        </androidx.cardview.widget.CardView>
-
-
-        <TextView
-            android:id="@+id/scroll_section"
-            android:layout_width="316dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="48dp"
-            android:elevation="2dp"
-            android:fontFamily="@font/cghotic"
-            android:text="@string/popular_tours_main_page"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userData" />
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView2"
-            android:layout_width="411dp"
-            android:layout_height="195dp"
-            android:layout_marginTop="20dp"
-            android:elevation="3dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scroll_section">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingRight="32dp">
-
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="203dp"
-                    android:layout_height="148dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="76dp"
-                    android:layout_marginBottom="16dp"
-                    android:contentDescription="@string/buttons"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/buttonimage"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.571" />
-
-                <ImageButton
-                    android:layout_width="203dp"
-                    android:layout_height="148dp"
-                    android:layout_marginStart="76dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:contentDescription="@string/buttons"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/buttonimage"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton3"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.571" />
-
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="203dp"
-                    android:layout_height="148dp"
-                    android:layout_marginStart="76dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:contentDescription="@string/buttons"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/buttonimage"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.571" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </HorizontalScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

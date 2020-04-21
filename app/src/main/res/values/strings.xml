@@ -125,10 +125,33 @@
     <string name="startRoute">Start Route</string>
     <string name="totalDistance">Total Distance</string>
 
-    <!-- Landmark Infomation Page -->
+    <!-- Landmark Information Page -->
     <string name="moreInformation">More Info</string>
     <string name="landmarkVisitedText">You have visited this landmark!</string>
     <string name="landmarkNotVisitedText">You have not visited this landmark</string>
+
+
+    <!-- Route Information -->
+    <string name="usbSU">USB to SU</string>
+    <string name="SUUSB">SU to USB</string>
+    <string name="greysUSB">Greys to USB</string>
+    <string name="greysUSBviaSU">Greys to USB via SU</string>
+
+    <!-- Route Description -->
+    <string name="usbSU_description">TO DO</string>
+
+    <string name="SUUSB_description">
+        Starting at the Students Union, situated inside the Newcastle University campus,
+        this route takes you past prominent university buildings, the iconic St James park
+        and onto the university\'s newest campus, The Helix, where the USB resides.
+    </string>
+
+    <string name="greysUSB_description">TO DO</string>
+
+    <string name="greysUSBviaSU_description">TO DO</string>
+
+    <!-- Button Options -->
+    <string name="tourButtonNav">Take me there</string>
 
     <!-- Misc -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJ_QfnTxD9iRJbLdY_DoFLQKvopm26H6o</string>
