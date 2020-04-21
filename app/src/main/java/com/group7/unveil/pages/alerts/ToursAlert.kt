@@ -12,6 +12,10 @@ import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.MapSelectedEventData
 import kotlinx.android.synthetic.main.popular_tours_button.view.*
+/**
+ * Tours Alert class
+ * @author E.Verdi
+*/
 
 class ToursAlert(val view: View, val route: Route) {
 
@@ -43,6 +47,8 @@ class ToursAlert(val view: View, val route: Route) {
     }
 
     private fun buttonBehaviour() {
+        view.routeTitle.text = route.getName()
+        view.routeDesc.text = route.description
         view.tourButton.setOnClickListener() {
             EventBus.changeToMap(MapSelectedEventData(route))
             dismissDialog()

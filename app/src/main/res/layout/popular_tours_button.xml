@@ -8,47 +8,49 @@
 
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="114dp"
-        android:layout_height="42dp"
+        android:id="@+id/routeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:layout_marginTop="76dp"
-        android:text="@string/routeInfo"
+        android:layout_marginTop="32dp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/routeImage"
         android:layout_width="261dp"
         android:layout_height="175dp"
         android:layout_margin="32dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/routeTitle"
         app:srcCompat="@drawable/buttonimage" />
 
     <TextView
-        android:id="@+id/info"
+        android:id="@+id/routeDesc"
         android:layout_width="250dp"
         android:layout_height="136dp"
         android:layout_margin="32dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/routeImage" />
 
     <Button
         android:id="@+id/tourButton"
         android:layout_width="194dp"
         android:layout_height="66dp"
         android:layout_margin="32dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/tourButtonNav"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info" />
+        app:layout_constraintTop_toBottomOf="@+id/routeDesc" />
 
 
 
