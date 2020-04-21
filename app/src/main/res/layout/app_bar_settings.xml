@@ -34,9 +34,12 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="679dp"
-        android:layout_height="466dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="116dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/white_paint2"
         tools:srcCompat="@drawable/white_paint2" />
@@ -75,10 +78,10 @@
             app:columnCount="3">
 
             <TextView
-                android:id="@+id/step_count"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="12dp"
+                android:id="@+id/step_count1"
                 android:fontFamily="@font/cghotic"
                 android:text="@string/placeholder"
                 app:layout_gravity="top|center" />
@@ -100,6 +103,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="12dp"
                 android:fontFamily="@font/cghotic"
+
                 android:text="@string/placeholder"
                 app:layout_gravity="top|center" />
 
@@ -149,7 +153,7 @@
         android:layout_height="36dp"
         android:fontFamily="@font/cghotic"
         android:gravity="center"
-        android:text="Dimitar Anastasov"
+        android:text="@string/name"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -162,7 +166,7 @@
         android:layout_width="66dp"
         android:layout_height="33dp"
         android:fontFamily="@font/cghotic"
-        android:text="Today"
+        android:text="@string/today"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/usageInfo"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,132 @@
+<resources>
+    <string name="app_name">Unveil</string>
+
+    <string name="homepage_explore">Odkrywaj</string>
+    <string name="title_activity_main_page">Strona Główna</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="title_activity_map">Mapa</string>
+    <string name="title_activity_userpage">Strona użytkownika</string>
+    <string name="popular_tours_main_page">Popularne trasy</string>
+
+    <!-- Info Box Text -->
+    <string name="steps">Kroki</string>
+    <string name="distance">Dystans</string>
+    <string name="landmarks">Odwiedzone punkty</string>
+    <string name="today">Dziś</string>
+    <string name="buttons">Przycisk</string>
+
+    <string name="title_activity_settings">Ustawienia</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Wiadomości</string>
+    <string name="sync_header">Synchronizacja</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Twój podpis</string>
+    <string name="reply_title">Domyślne odpowiedzi</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Synchronizuj e-mail okresowo</string>
+    <string name="attachment_title">Pobierz przychodzące załączniki</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Pobierz załączniki tylko wtedy kiedy zażądane</string>
+    <string name="navigation_drawer_open">Otwórz ustawienia</string>
+    <string name="navigation_drawer_close">Zamknij ustawienia</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Nawigacja</string>
+
+    <string name="menu_accessibility">Ułatwienia dostępu</string>
+    <string name="menu_language">Język</string>
+    <string name="menu_dyslexic">Czcionka dyslektyczna</string>
+    <string name="menu_colourblind">Colour Blind Mode</string>
+    <string name="menu_textsize">Rozmiar czcionki</string>
+    <string name="menu_theme">Motyw</string>
+    <string name="menu_blindmode">Colour Blind Mode</string>
+    <string name="menu_fontsize">Rozmiar czcionki</string>
+    <string name="English">Angielski</string>
+    <string name="Polish">Polski</string>
+    <string name="small">Mała</string>
+    <string name="medium">Średnia</string>
+    <string name="big">Duża</string>
+    <string name="pplaceholder" />
+    <string-array name="languages">
+        <item>Angielski</item>
+        <item>Polski</item>
+    </string-array>
+    <string-array name="sizes">
+        <item>Mała</item>
+        <item>Średnia</item>
+        <item>Duża</item>
+    </string-array>
+
+
+    <!-- Landmark Info -->
+    <string name="usb_name">USB</string>
+    <string name="usb_description">Budynek nauk urbanistycznych - część Uniwersytetu Newcastle</string>
+
+    <string name="su_name">Students Union</string>
+    <string name="su_description">Budynek Samorządu Studenckiego</string>
+
+    <string name="greysmon_name">Grey\'s Monument</string>
+    <string name="greysmon_description">Pomnik w centrum miasta Newcastle</string>
+
+    <string name="millenbridge_name">Most Millennium Bridge</string>
+    <string name="millenbridge_description">Most nad rzeką Tyne</string>
+
+    <string name="vindolanda_name">Vindolanda</string>
+    <string name="vindolanda_description">Pierwszy obóz rzymski na północy</string>
+
+    <string name="thesill_name">The Sill National Landscape Discovery Centre</string>
+    <string name="thesill_description">Park narodowy i krajobrazowy, atrakcja dla zwiedzających</string>
+
+    <string name="kirkleyhall_name">Zoologiczne Ogrody Kirkley Hall</string>
+    <string name="kirkleyhall_description">Zoo z ponad sto zwięrzetami</string>
+
+    <string name="kielder_name">Keilder Water and Forest Park</string>
+    <string name="kielder_description">Największy las anglii i jezioro stworzone przez człowieka</string>
+
+    <string name="whitehousefarm_name">Whitehouse Farm Centre </string>
+    <string name="whitehousefarm_description">Największy punkt agroturystyczny w Northumberland</string>
+
+    <string name="romanarmym_name">Muzeum Armii Rzymskiej - Roman Army Museum</string>
+    <string name="romanarmym_description">Muzeum w jednej z najbardziej kompletnych części Wału Hadriana</string>
+
+    <string name="woodhornm_name">Muzeum Woodhorn</string>
+    <string name="woodhornm_description">Muzeum przedstawiające życie górników</string>
+
+    <string name="morpethm_name">Muzeum Morpeth Chantry Bagpipe</string>
+    <string name="morpethm_description">Muzeum specjalizujące się w historii dud z Northumbrii</string>
+
+    <string name="alnwickc_name">Zamek Alnwick</string>
+    <string name="alnwickc_description">Drugi największy zamieszkany zamek w Anglii. Rezydencja książąt Northumberland</string>
+
+    <string name="hexhamabbey_name">Hexham Abbey</string>
+    <string name="hexhamabbey_description">Chrześcijański kościół parafialny, punkt religijny dedykowany Świętemu Andrzejowi</string>
+
+    <string name="bamburghc_name">Zamek Bamburgh</string>
+    <string name="bamburghc_description">Muzeum w jednej z najbardziej kompletnych części Wału Hadriana</string>
+
+    <!-- Map Page -->
+    <string name="routes">Trasy</string>
+
+    <!-- Route Creation Page -->
+    <string name="createARoute">Stwórz trasę</string>
+    <string name="addLandmark">Dodaj punkt</string>
+    <string name="startRoute">Zacznij trasę</string>
+    <string name="totalDistance">Całkowity dystans</string>
+
+    <!-- Landmark Infomation Page -->
+    <string name="moreInformation">Więcej informacji</string>
+    <string name="landmarkVisitedText">Odwiedziłeś/aś ten punkt!</string>
+    <string name="landmarkNotVisitedText">Nie odwiedziłeś/aś tego punktu</string>
+
+    <!-- Misc -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJ_QfnTxD9iRJbLdY_DoFLQKvopm26H6o</string>
+    <string name="SignOut">Wyloguj się</string>
+    <string name="Home">Dom</string>
+    <string name="User">Użytkownik</string>
+    <string name="name">Imię i nazwisko</string>
+</resources>
