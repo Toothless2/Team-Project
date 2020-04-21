@@ -52,12 +52,8 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private val landmarkEventHandler: (LandmarkEventData) -> Unit =
         { updateVisitedUI(it.landmarks) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        activity?.let { ThemeHelper.onActivityCreateSetTheme(it) }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        getActivity()?.let { ThemeHelper.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)
 //        super.onCreate(savedInstanceState)
@@ -254,8 +250,8 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
      * @author M. Rose
      */
     private fun stepEvent(steps: Int) {
-        step_count1.text = steps.toString()
-        distance_actual1.text = StepData.getDistanceWithUnit()
+        step_count.text = steps.toString()
+        distance_actual.text = StepData.getDistanceWithUnit()
     }
 
     /**
