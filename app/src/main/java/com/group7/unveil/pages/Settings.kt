@@ -86,14 +86,13 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         val actionViewDyslexic = MenuItemCompat.getActionView(menuDyslexic)
 
         //dyslexic font switch
-        switchId2 = actionViewDyslexic.findViewById(R.id.switch_id2)
+        switch_id2 = actionViewDyslexic.findViewById(R.id.switch_id2)
         //switch_id2.isChecked = true
-        switchId2.setOnClickListener {
-            if (switchId2.isChecked) {
+        switch_id2.setOnClickListener {
+            if (switch_id2.isChecked) {
                 activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.Dyslexic) }
-            } else if (!switchId2.isChecked) {
+            } else if (!switch_id2.isChecked) {
                 activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
-
             }
         }
 
