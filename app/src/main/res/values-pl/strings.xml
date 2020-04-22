@@ -29,8 +29,7 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Synchronizuj e-mail okresowo</string>
     <string name="attachment_title">Pobierz przychodzące załączniki</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Pobierz załączniki tylko wtedy kiedy zażądane</string>
     <string name="navigation_drawer_open">Otwórz ustawienia</string>
     <string name="navigation_drawer_close">Zamknij ustawienia</string>
@@ -122,6 +121,43 @@
     <string name="moreInformation">Więcej informacji</string>
     <string name="landmarkVisitedText">Odwiedziłeś/aś ten punkt!</string>
     <string name="landmarkNotVisitedText">Nie odwiedziłeś/aś tego punktu</string>
+
+    <!-- Route Information -->
+    <string name="usbSU">USB to SU</string>
+    <string name="SUUSB">SU to USB</string>
+    <string name="greysUSB">Greys to USB</string>
+    <string name="greysUSBviaSU">Greys to USB via SU</string>
+
+    <!-- Route Description -->
+    <string name="usbSU_description">
+        Począwszy od USB, znajdującego się w The Helix (najnowszy kampus uniwersytetu)
+        ta trasa prowadzi obok słynnego stadionu piłkarskiego St. James \ 'Park i dalej
+        Kampus Uniwersytetu Newcastle, w którym znajduje się wiele znanych budynków uniwersyteckich
+        w tym Związek Studentów.
+    </string>
+
+    <string name="SUUSB_description">
+        Począwszy od Związku Studentów, położonego na terenie kampusu Uniwersytetu Newcastle,
+        ta trasa prowadzi obok znanych budynków uniwersyteckich, kultowego St James Park
+        i na najnowszy kampus uniwersytecki, The Helix, gdzie znajduje się USB.
+    </string>
+
+    <string name="greysUSB_description">
+        Ta trasa zaczyna się przy pomniku Graya, położonym w centrum Newcastle i trwa minąłeś
+        Eldon Square (duże centrum handlowe i gastronomiczne), obok słynnego parku St. James Park
+        i na najnowszy kampus uniwersytecki, The Helix, gdzie znajduje się USB.
+    </string>
+
+    <string name="greysUSBviaSU_description">
+        Zaczynając od pomnika Graya, który znajduje się w centrum miasta, ta trasa prowadzi
+        minął Eldon Square (duża dzielnica handlowa i gastronomiczna) przez kampus Uniwersytetu
+        Newcastlegdzie mieszka Związek Studentów i inne znaczące budynki uniwersyteckie,
+        obok St. James Zaparkuj i na najnowszy kampus uniwersytecki, The Helix, gdzie znajduje
+        się USB.
+    </string>
+
+    <!-- Button Options -->
+    <string name="tourButtonNav">Zabierz mnie tam</string>
 
     <!-- Misc -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJ_QfnTxD9iRJbLdY_DoFLQKvopm26H6o</string>
