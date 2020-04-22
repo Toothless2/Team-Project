@@ -14,7 +14,7 @@ import com.group7.unveil.events.MapSelectedEventData
 import kotlinx.android.synthetic.main.popular_tours_button.view.*
 /**
  * Tours Alert class
- * @author E.Verdi
+ * @author Eldar Verdi
 */
 
 class ToursAlert(val view: View, val route: Route) {

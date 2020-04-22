@@ -6,6 +6,7 @@ import com.group7.unveil.util.AppContext
 /**
  * Static container for all routes in the app
  * @author Max Rose
+ * @edited Eldar Verdi
  */
 object Routes {
     /**

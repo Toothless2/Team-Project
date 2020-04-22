@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.main_page_fragment.*
 import kotlinx.android.synthetic.main.popular_tours_button.*
 
 /**
- * @author E Verdi
+ * @author Eldar Verdi
  */
 class MainPage : Fragment() {
     internal lateinit var navigationView: NavigationView
