@@ -250,7 +250,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
      * @author M. Rose
      */
     private fun stepEvent(steps: Int) {
-        step_count.text = steps.toString()
+        step_count1.text = steps.toString()
         distance_actual.text = StepData.getDistanceWithUnit()
     }
 

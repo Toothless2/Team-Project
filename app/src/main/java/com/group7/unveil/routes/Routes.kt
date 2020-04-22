@@ -1,6 +1,7 @@
 package com.group7.unveil.routes
 
 import com.group7.unveil.R
+import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.util.AppContext
 
 /**
@@ -14,24 +15,24 @@ object Routes {
     private val routes = mutableListOf(
         Route(
             listOf(
-                Landmarks.landmarks[0],
-                Landmarks.landmarks[1]
+                Landmarks[0],
+                Landmarks[1]
             ), AppContext.appContext.getString(
                 R.string.usbSU_description
             )
         ),
         Route(
             listOf(
-                Landmarks.landmarks[1],
-                Landmarks.landmarks[0]
+                Landmarks[1],
+                Landmarks[0]
             ), AppContext.appContext.getString(
                 R.string.SUUSB_description
             )
         ),
         Route(
             listOf(
-                Landmarks.landmarks[2],
-                Landmarks.landmarks[0]
+                Landmarks[2],
+                Landmarks[0]
             ), AppContext.appContext.getString(
                 R.string.greysUSB_description
             )

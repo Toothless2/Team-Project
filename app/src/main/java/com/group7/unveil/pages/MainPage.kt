@@ -1,26 +1,21 @@
 package com.group7.unveil.pages
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.group7.unveil.R
 import com.group7.unveil.data.LocationData
-import com.group7.unveil.data.Route
-import com.group7.unveil.data.Routes
 import com.group7.unveil.data.StepData
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.LandmarkEventData
 import com.group7.unveil.events.StepEventData
 import com.group7.unveil.pages.alerts.ToursAlert
+import com.group7.unveil.routes.Routes
 import kotlinx.android.synthetic.main.main_page_fragment.*
-import kotlinx.android.synthetic.main.popular_tours_button.*
 
 /**
  * @author E. Verdi
@@ -52,20 +47,20 @@ class MainPage : Fragment() {
         updateVisitedUI(LocationData.locationsVisited)
 
         tourOne.setOnClickListener(){
-            ToursAlert.openDialog(this, Routes.routes[0])
+            ToursAlert.openDialog(this, Routes[0])
 
         }
 
         tourTwo.setOnClickListener(){
-            ToursAlert.openDialog(this, Routes.routes[1])
+            ToursAlert.openDialog(this, Routes[1])
         }
 
         tourThree.setOnClickListener() {
-            ToursAlert.openDialog(this, Routes.routes[2])
+            ToursAlert.openDialog(this, Routes[2])
         }
 
         tourFour.setOnClickListener(){
-            ToursAlert.openDialog(this, Routes.routes[3])
+            ToursAlert.openDialog(this, Routes[3])
         }
 
     }

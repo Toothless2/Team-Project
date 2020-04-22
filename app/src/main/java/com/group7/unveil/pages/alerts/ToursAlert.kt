@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.group7.unveil.R
-import com.group7.unveil.data.Route
-import com.group7.unveil.data.Routes
 import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.MapSelectedEventData
+import com.group7.unveil.routes.Route
 import kotlinx.android.synthetic.main.popular_tours_button.view.*
 /**
  * Tours Alert class
