@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,6 +19,7 @@ import com.group7.unveil.routes.Route
 import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.map.*
 import com.group7.unveil.routes.RouteHeap
+import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlinx.android.synthetic.main.map_fragment.*
 
 /**
@@ -43,7 +45,7 @@ class Map : Fragment(), OnMapReadyCallback {
         mapView?.getMapAsync(this)
 
         createRouteButton.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().add(id, RouteCreation(mapHelper!!)).addToBackStack(null).commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(requireActivity().findViewById<FragmentContainerView>(R.id.fragmentHost).id, RouteCreation(mapHelper!!)).addToBackStack(null).commit()
         }
     }
 

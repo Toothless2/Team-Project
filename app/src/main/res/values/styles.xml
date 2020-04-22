@@ -8,10 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DarkTheme" parent="AppTheme">
+    <style name="DarkTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:background">#2C2727</item>
         <item name="android:textColor">@color/lightyellow</item>
         <item name="android:fontFamily">@font/cghotic</item>
+        <item name="recyclerViewStyle">@style/darkRecyclerView</item>
+        <item name="android:windowBackground">#2C2727</item>
+        <item name="android:colorBackground">#2C2727</item>
+    </style>
+
+    <style name="darkRecyclerView" parent="DarkTheme">
+        <item name="android:background">#2C2727</item>
+        <item name="android:backgroundTint">#2C2727</item>
     </style>
 
     <style name="LightTheme" parent="AppTheme">

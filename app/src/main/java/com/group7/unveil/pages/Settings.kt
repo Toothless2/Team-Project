@@ -83,6 +83,11 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
         //dyslexic font switch
         switch_id2 = actionViewDyslexic.findViewById(R.id.switch_id2)
+
+        if(ThemeHelper.sTheme == ThemeHelper.Dyslexic)
+            switch_id2.isChecked = true
+
+
         //switch_id2.isChecked = true
         switch_id2.setOnClickListener {
             if (switch_id2.isChecked) {
@@ -98,7 +103,9 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         //button to turn dark mode
         dark = actionViewDarkTh.findViewById(R.id.imagebutt)
         dark.setOnClickListener {
-            activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme) }
+            activity?.let { it1 ->
+                ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme)
+            }
 
         }
 
@@ -164,7 +171,6 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
                     1 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
                     2 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
                 }
-//
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -224,7 +230,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        val drawer = view!!.findViewById<DrawerLayout>(R.id.drawer_layout)
+        val drawer = requireView().findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)
         return true
     }

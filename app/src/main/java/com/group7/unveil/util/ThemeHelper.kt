@@ -8,7 +8,9 @@ import com.group7.unveil.R
  * @author Natalia
  */
 object ThemeHelper {
-    private var sTheme: Int = 0
+    var sTheme: Int = 0
+
+    var changedTheme = false
 
     const val LightTheme = 0
     const val DarkTheme = 1
@@ -19,10 +21,9 @@ object ThemeHelper {
 
     fun changeToTheme(activity: Activity, theme: Int) {
         sTheme = theme
+        changedTheme = true
         activity.finish()
-
         activity.startActivity(Intent(activity, activity::class.java))
-
     }
 
     fun onActivityCreateSetTheme(activity: Activity) {

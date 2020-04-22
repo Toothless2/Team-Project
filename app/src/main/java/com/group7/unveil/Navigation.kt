@@ -22,6 +22,7 @@ import com.group7.unveil.events.UserMovedEventData
 import com.group7.unveil.landmarks.LandmarkHeap
 import com.group7.unveil.pages.MainPage
 import com.group7.unveil.pages.Settings
+import com.group7.unveil.util.ThemeHelper
 import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlin.math.roundToLong
 
@@ -41,6 +42,14 @@ class Navigation : AppCompatActivity(), LocationListener {
 
         bottomNavigation.setOnNavigationItemSelectedListener(navListener)
         supportFragmentManager.beginTransaction().replace(fragmentHost.id, MainPage()).commit()
+
+        if(ThemeHelper.changedTheme)
+        {
+            ThemeHelper.changedTheme = false
+            navListener.onNavigationItemSelected(bottomNavigation.menu.getItem(2))
+            bottomNavigation.menu.getItem(2).setChecked(true)
+        }
+
 
         EventBus.userMovedEvent += userMovedEventHandler
         EventBus.changeToMap += mapSelectedEventHandler
