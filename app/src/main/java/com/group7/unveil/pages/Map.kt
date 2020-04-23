@@ -13,13 +13,15 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.group7.unveil.R
-import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.data.LocationData
-import com.group7.unveil.routes.Route
 import com.group7.unveil.data.SelectedRouteFromHome
-import com.group7.unveil.map.*
+import com.group7.unveil.landmarks.Landmarks
+import com.group7.unveil.map.LandmarkMap
+import com.group7.unveil.map.MapRecyclerAdaptor
+import com.group7.unveil.map.MapRouteButtonModel
+import com.group7.unveil.map.RouteCreation
+import com.group7.unveil.routes.Route
 import com.group7.unveil.routes.RouteHeap
-import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlinx.android.synthetic.main.map_fragment.*
 
 /**
@@ -29,7 +31,6 @@ import kotlinx.android.synthetic.main.map_fragment.*
 class Map : Fragment(), OnMapReadyCallback {
     private var mapHelper: LandmarkMap? = null
     private lateinit var map: GoogleMap
-    private lateinit var locationManager: LocationManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)

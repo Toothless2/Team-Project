@@ -1,22 +1,21 @@
 package com.group7.unveil.pages.alerts
 
 import android.app.AlertDialog
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.group7.unveil.R
-import com.group7.unveil.data.SelectedRouteFromHome
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.MapSelectedEventData
 import com.group7.unveil.routes.Route
 import kotlinx.android.synthetic.main.popular_tours_button.view.*
+
 /**
  * Tours Alert class
  * @author E.Verdi
 */
 
-class ToursAlert(val view: View, val route: Route) {
+class ToursAlert(private val view: View, val route: Route) {
 
     companion object {
 
@@ -48,7 +47,7 @@ class ToursAlert(val view: View, val route: Route) {
     private fun buttonBehaviour() {
         view.routeTitle.text = route.getName()
         view.routeDesc.text = route.description
-        view.tourButton.setOnClickListener() {
+        view.tourButton.setOnClickListener {
             EventBus.changeToMap(MapSelectedEventData(route))
             dismissDialog()
         }

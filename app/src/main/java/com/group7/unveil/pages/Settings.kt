@@ -32,14 +32,13 @@ import java.util.*
  */
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
-    val mAppBarConfiguration: AppBarConfiguration? = null
-    lateinit var navigationView: NavigationView
-    lateinit var drawer: DrawerLayout
-    lateinit var dyslexicFontButton: SwitchCompat
-    lateinit var signOut: Button
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    val language: Array<String> = arrayOf("English", "Polish")
-    val textSizes: Array<String> = arrayOf("Small", "Medium", "Big")
+    private lateinit var navigationView: NavigationView
+    private lateinit var drawer: DrawerLayout
+    private lateinit var dyslexicFontButton: SwitchCompat
+    private lateinit var signOut: Button
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val language: Array<String> = arrayOf("English", "Polish")
+    private val textSizes: Array<String> = arrayOf("Small", "Medium", "Big")
 
 
     private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
@@ -47,7 +46,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         { updateVisitedUI(it.landmarks) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getActivity()?.let { ThemeHelper.onActivityCreateSetTheme(it) }
+        activity?.let { ThemeHelper.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)
 //        super.onCreate(savedInstanceState)
@@ -170,8 +169,8 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
                 when (position) {
 //                    0 -> getActivity()?.let {ThemeHelper.changeToTheme(it, ThemeHelper.Small)}
-                    1 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
-                    2 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
+                    1 -> activity?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
+                    2 -> activity?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
                 }
             }
 
@@ -297,11 +296,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         val res = resources
         val dm = res.displayMetrics
         val conf = res.configuration
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            conf.setLocale(Locale(localeCode.toLowerCase()))
-        } else {
-            conf.locale = Locale(localeCode.toLowerCase())
-        }
+        conf.setLocale(Locale(localeCode.toLowerCase(Locale.getDefault())))
         res.updateConfiguration(conf, dm)
     }
 }

@@ -27,7 +27,7 @@ class LandmarkCounterHeapInstrumentedTest {
     @Before
     fun before()
     {
-        LandmarkHeap.createMinHeap(Landmarks.landmarks[0].getLatLong())
+        LandmarkHeap.createMinHeap(Landmarks[0].getLatLong())
     }
 
     @Test

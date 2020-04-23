@@ -24,6 +24,6 @@ class LandmarkInstrumentedTest {
     @Test
     fun testLandmarkArraySize()
     {
-        Assert.assertTrue(Landmarks.landmarks.isNotEmpty())
+        Assert.assertTrue(Landmarks.size > 0)
     }
 }

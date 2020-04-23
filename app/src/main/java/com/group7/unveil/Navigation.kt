@@ -47,7 +47,7 @@ class Navigation : AppCompatActivity(), LocationListener {
         {
             ThemeHelper.changedTheme = false
             navListener.onNavigationItemSelected(bottomNavigation.menu.getItem(2))
-            bottomNavigation.menu.getItem(2).setChecked(true)
+            bottomNavigation.menu.getItem(2).isChecked = true
         }
 
 
@@ -148,6 +148,6 @@ class Navigation : AppCompatActivity(), LocationListener {
     private fun switchToMap(selectedRoute : MapSelectedEventData){
         SelectedRouteFromHome.selectedRoute = selectedRoute.route
         navListener.onNavigationItemSelected(bottomNavigation.menu.getItem(1))
-        bottomNavigation.menu.getItem(1).setChecked(true)
+        bottomNavigation.menu.getItem(1).isChecked = true
     }
 }

@@ -9,6 +9,9 @@ import com.group7.unveil.util.AppContext
  * @author M. Rose
  */
 object Routes {
+    val size : Int
+    get() = routes.size
+
     /**
      * Routes in the app
      */
@@ -52,7 +55,7 @@ object Routes {
     fun copyOf() = routes.toTypedArray().copyOf().toMutableList()
 
     operator fun get(i : Int) = routes[i]
-    operator fun contains(r : Route) = r in routes;
+    operator fun contains(r : Route) = r in routes
     operator fun plusAssign(r : Route)
     {
         routes.add(r)

@@ -21,8 +21,6 @@ import kotlinx.android.synthetic.main.main_page_fragment.*
  * @author E. Verdi
  */
 class MainPage : Fragment() {
-    internal lateinit var navigationView: NavigationView
-    internal lateinit var drawer: DrawerLayout
 
     private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
 
@@ -46,20 +44,20 @@ class MainPage : Fragment() {
         stepEvent(StepData.steps)
         updateVisitedUI(LocationData.locationsVisited)
 
-        tourOne.setOnClickListener(){
+        tourOne.setOnClickListener {
             ToursAlert.openDialog(this, Routes[0])
 
         }
 
-        tourTwo.setOnClickListener(){
+        tourTwo.setOnClickListener {
             ToursAlert.openDialog(this, Routes[1])
         }
 
-        tourThree.setOnClickListener() {
+        tourThree.setOnClickListener {
             ToursAlert.openDialog(this, Routes[2])
         }
 
-        tourFour.setOnClickListener(){
+        tourFour.setOnClickListener {
             ToursAlert.openDialog(this, Routes[3])
         }
 

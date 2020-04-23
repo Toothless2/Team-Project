@@ -19,7 +19,7 @@ class StepsDataInstrumentedTest {
     @Test
     fun testValidLocationValue()
     {
-        val locVal = Landmarks.landmarks.size
+        val locVal = Landmarks.size
         LocationData.locationsVisited = locVal
         Assert.assertEquals(locVal, LocationData.locationsVisited)
     }
@@ -33,6 +33,6 @@ class StepsDataInstrumentedTest {
     @Test(expected = IllegalArgumentException::class)
     fun testInvalidLocationValueTooLarge()
     {
-        LocationData.locationsVisited = Landmarks.landmarks.size + 1
+        LocationData.locationsVisited = Landmarks.size + 1
     }
 }

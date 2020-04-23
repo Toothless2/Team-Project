@@ -27,14 +27,14 @@ class EventBusInstrumentedTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun testInvalidLandmarkCountTooManyLandmarks() = EventBus.landmarkEvent(LandmarkEventData(
-        Landmarks.landmarks.size + 1))
+        Landmarks.size + 1))
 
     @Test
     fun testLandmarkUIEventCall()
     {
         EventBus.landmarkEvent += landmarkEventHandler
 
-        val nMarks = Landmarks.landmarks.size
+        val nMarks = Landmarks.size
 
         EventBus.landmarkEvent(LandmarkEventData(nMarks))
         assertTrue(eventCallSuccessful.first)

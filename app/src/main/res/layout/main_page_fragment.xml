@@ -19,30 +19,8 @@
         android:src="@drawable/logononame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!--            android:elevation="2dp"-->
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/imageView4"-->
-    <!--            android:layout_width="603dp"-->
-    <!--            android:layout_height="177dp"-->
-    <!--            android:layout_marginTop="36dp"-->
-    <!--            android:elevation="1dp"-->
-    <!--            android:src="@drawable/mainpageeffect"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.656"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/userData" />-->
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/backgroundImage"-->
-    <!--            android:layout_width="1125dp"-->
-    <!--            android:layout_height="400dp"-->
-    <!--            android:src="@drawable/bgmainpage"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.804"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/access_logo" />
 
     <TextView
         android:id="@+id/todayText"
@@ -115,7 +93,6 @@
 
 
             <TextView
-                android:id="@+id/steps_name"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
@@ -127,7 +104,6 @@
 
 
             <TextView
-                android:id="@+id/distance_name"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
@@ -139,7 +115,6 @@
 
 
             <TextView
-                android:id="@+id/landmark_name"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
@@ -171,7 +146,6 @@
 <!--        android:elevation="2dsp"-->
 
     <HorizontalScrollView
-        android:id="@+id/horizontalScrollView2"
         android:layout_width="411dp"
         android:layout_height="195dp"
         android:layout_marginTop="20dp"
@@ -180,11 +154,11 @@
         app:layout_constraintTop_toBottomOf="@+id/scroll_section">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="32dp"
-            android:paddingRight="64dp">
+            android:paddingRight="64dp"
+            tools:ignore="RtlHardcoded">
 
             <Button
                 android:id="@+id/tourOne"
@@ -219,7 +193,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tourThree"
                 app:layout_constraintTop_toTopOf="parent" />
-            />
 
             <Button
                 android:id="@+id/tourThree"

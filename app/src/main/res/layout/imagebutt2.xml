@@ -1,7 +1,8 @@
-<ImageButton android:id="@+id/imagebutt2"
-    android:layout_width="100dp"
+<ImageButton android:layout_width="100dp"
     android:layout_height="match_parent"
     android:clickable="false"
     app:srcCompat="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="ContentDescription"
+    xmlns:tools="http://schemas.android.com/tools" />

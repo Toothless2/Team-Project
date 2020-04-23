@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.group7.unveil.R
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.MapSelectedEventData
 import com.group7.unveil.landmarks.Landmark
 import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.routes.Route
@@ -63,12 +65,15 @@ class RouteCreation(private val map : LandmarkMap) : Fragment() {
 
     private fun startRoute() {
 
+        lateinit var route : Route
+
         if (landmarkList.size > 1) {
-            val route = Route(landmarkList, "Custom Route")
-            Routes += route
-            map.generateRoute(route)
+            route = Route(landmarkList, "Custom Route")
         }
+        else
+            return
 
         requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        EventBus.changeToMap(MapSelectedEventData(route))
     }
 }

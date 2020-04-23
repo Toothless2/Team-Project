@@ -17,6 +17,6 @@ class RouteInstrumentedTest {
     @Test
     fun testRouteCreated()
     {
-        Assert.assertTrue(Routes.routes.isNotEmpty())
+        Assert.assertTrue(Routes.size > 0)
     }
 }
