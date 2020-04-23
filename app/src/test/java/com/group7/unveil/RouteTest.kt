@@ -1,7 +1,7 @@
 package com.group7.unveil
 
-import com.group7.unveil.data.Landmark
-import com.group7.unveil.data.Route
+import com.group7.unveil.landmarks.Landmark
+import com.group7.unveil.routes.Route
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -11,8 +11,8 @@ import org.junit.Test
  * @author M. Rose
  */
 class RouteTest {
-    lateinit var landmarks:List<Landmark>
-    lateinit var route:Route
+    private lateinit var landmarks:List<Landmark>
+    private lateinit var route: Route
 
     private val routeDescription = "test route name"
 

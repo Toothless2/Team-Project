@@ -4,8 +4,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.filters.MediumTest
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.data.Landmark
-import com.group7.unveil.data.Route
+import com.group7.unveil.landmarks.Landmark
+import com.group7.unveil.routes.Route
 import com.group7.unveil.routes.RouteHeap
 import com.group7.unveil.util.DistanceHelper
 import org.junit.Assert
@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 class RouteHeapInstrumentedTest {
     private val testLocation = LatLng(0.0, 0.0)
 
-    lateinit var testRoute: Route
+    private lateinit var testRoute: Route
 
     @Before
     fun before()
@@ -75,9 +75,9 @@ class RouteHeapInstrumentedTest {
     {
         for (i in 0 until (RouteHeap.heap.size - 1) / 2)
         {
-            val parentDist = DistanceHelper.getDistace(testLocation, RouteHeap.heap[i].getStartPos())
-            val leftChild = DistanceHelper.getDistace(testLocation, RouteHeap.heap[i*2].getStartPos())
-            val rightChild = DistanceHelper.getDistace(testLocation, RouteHeap.heap[i*2+1].getStartPos())
+            val parentDist = DistanceHelper.getDistance(testLocation, RouteHeap.heap[i].getStartPos())
+            val leftChild = DistanceHelper.getDistance(testLocation, RouteHeap.heap[i*2].getStartPos())
+            val rightChild = DistanceHelper.getDistance(testLocation, RouteHeap.heap[i*2+1].getStartPos())
 
             Assert.assertTrue(parentDist <= leftChild)
             Assert.assertTrue(parentDist < rightChild)

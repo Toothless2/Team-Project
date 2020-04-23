@@ -2,6 +2,7 @@ package com.group7.unveil
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -22,12 +23,20 @@ import com.group7.unveil.events.UserMovedEventData
 import com.group7.unveil.landmarks.LandmarkHeap
 import com.group7.unveil.pages.MainPage
 import com.group7.unveil.pages.Settings
+import com.group7.unveil.util.ThemeHelper
 import kotlinx.android.synthetic.main.activity_navigation.*
+import kotlin.math.roundToLong
 
+/**
+ * Contains the logic for navigating between pages of the app.
+ * Also contains methods to update user location and related functions
+ * @author M. Rose
+ */
 class Navigation : AppCompatActivity(), LocationListener {
 
     private val userMovedEventHandler : (UserMovedEventData) -> Unit = {updateVisitedCount()}
     private val mapSelectedEventHandler : (MapSelectedEventData) -> Unit = {switchToMap(it)}
+    private val userSignedOutEventHandler : (Int?) -> Unit = {signOut()}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +45,31 @@ class Navigation : AppCompatActivity(), LocationListener {
         bottomNavigation.setOnNavigationItemSelectedListener(navListener)
         supportFragmentManager.beginTransaction().replace(fragmentHost.id, MainPage()).commit()
 
+        if(ThemeHelper.changedTheme)
+        {
+            ThemeHelper.changedTheme = false
+            navListener.onNavigationItemSelected(bottomNavigation.menu.getItem(2))
+            bottomNavigation.menu.getItem(2).isChecked = true
+        }
+
+
         EventBus.userMovedEvent += userMovedEventHandler
         EventBus.changeToMap += mapSelectedEventHandler
+        EventBus.userSignedOutEvent += userSignedOutEventHandler
 
-        permissonGranted()
+        permissionGranted()
     }
 
     override fun onDestroy() {
         EventBus.userMovedEvent -= userMovedEventHandler
         EventBus.changeToMap -= mapSelectedEventHandler
+        EventBus.userSignedOutEvent -= userSignedOutEventHandler
         super.onDestroy()
     }
 
+    /**
+     * logic for switching between pages using the bottom nav bar
+     */
     private val navListener: BottomNavigationView.OnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener {
             var fragment: Fragment? = null
@@ -67,15 +89,14 @@ class Navigation : AppCompatActivity(), LocationListener {
     @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            permissonGranted()
+            permissionGranted()
         }
     }
 
-    private fun permissonGranted()
+    private fun permissionGranted()
     {
         Log.d("Location perms", "true")
 
-        // premission has been granted android is being annoying
         if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), 123)
             return
@@ -87,6 +108,9 @@ class Navigation : AppCompatActivity(), LocationListener {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, this)
     }
 
+    /**
+     * Calls to updated the number of visited landmarks
+     */
     private fun updateVisitedCount() {
         if(LandmarkHeap.landmarkCanBeVisited() && !LandmarkHeap.peekTop().visited)
         {
@@ -101,8 +125,13 @@ class Navigation : AppCompatActivity(), LocationListener {
     override fun onLocationChanged(p0: Location?) {
         if(p0 == null) return
 
-        val userLoc = LatLng(Math.round(p0.latitude * 10000.0) / 10000.0, Math.round(p0.longitude * 10000.0)/10000.0) // rounds to 4dp as any further is inaccurate
+        //get the user position to 4dp
+        val userLoc = LatLng((p0.latitude * 10000.0).roundToLong() / 10000.0, (p0.longitude * 10000.0).roundToLong() /10000.0) // rounds to 4dp as any further is inaccurate
+
+        //remake the heap so that it is correct for the new location
         LandmarkHeap.createMinHeap(userLoc)
+
+        //call the event
         EventBus.userMovedEvent(UserMovedEventData(userLoc))
     }
 
@@ -123,6 +152,12 @@ class Navigation : AppCompatActivity(), LocationListener {
     private fun switchToMap(selectedRoute : MapSelectedEventData){
         SelectedRouteFromHome.selectedRoute = selectedRoute.route
         navListener.onNavigationItemSelected(bottomNavigation.menu.getItem(1))
-        bottomNavigation.menu.getItem(1).setChecked(true)
+        bottomNavigation.menu.getItem(1).isChecked = true
+    }
+
+    fun signOut()
+    {
+        startActivity(Intent(this, LoginPage::class.java))
+        finish()
     }
 }

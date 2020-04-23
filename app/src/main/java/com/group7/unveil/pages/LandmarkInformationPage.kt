@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.group7.unveil.R
-import com.group7.unveil.data.Landmark
+import com.group7.unveil.landmarks.Landmark
 import kotlinx.android.synthetic.main.landmark_information_fragment.*
 
 /**

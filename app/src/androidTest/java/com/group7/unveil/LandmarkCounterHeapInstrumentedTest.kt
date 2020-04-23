@@ -4,8 +4,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.filters.MediumTest
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.data.Landmark
-import com.group7.unveil.data.Landmarks
+import com.group7.unveil.landmarks.Landmark
+import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.landmarks.LandmarkHeap
 import com.group7.unveil.routes.RouteHeap
 import com.group7.unveil.util.DistanceHelper
@@ -27,7 +27,7 @@ class LandmarkCounterHeapInstrumentedTest {
     @Before
     fun before()
     {
-        LandmarkHeap.createMinHeap(Landmarks.landmarks[0].getLatLong())
+        LandmarkHeap.createMinHeap(Landmarks[0].getLatLong())
     }
 
     @Test
@@ -66,9 +66,9 @@ class LandmarkCounterHeapInstrumentedTest {
     {
         for (i in 0 until (RouteHeap.heap.size - 1) / 2)
         {
-            val parentDist = DistanceHelper.getDistace(testLocation, RouteHeap.heap[i].getStartPos())
-            val leftChild = DistanceHelper.getDistace(testLocation, RouteHeap.heap[i*2].getStartPos())
-            val rightChild = DistanceHelper.getDistace(testLocation, RouteHeap.heap[i*2+1].getStartPos())
+            val parentDist = DistanceHelper.getDistance(testLocation, RouteHeap.heap[i].getStartPos())
+            val leftChild = DistanceHelper.getDistance(testLocation, RouteHeap.heap[i*2].getStartPos())
+            val rightChild = DistanceHelper.getDistance(testLocation, RouteHeap.heap[i*2+1].getStartPos())
 
             Assert.assertTrue(parentDist <= leftChild)
             Assert.assertTrue(parentDist < rightChild)

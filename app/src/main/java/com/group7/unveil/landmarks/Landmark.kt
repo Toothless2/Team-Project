@@ -1,10 +1,10 @@
-package com.group7.unveil.data
+package com.group7.unveil.landmarks
 
 import com.google.android.gms.maps.model.LatLng
 
 /**
  * Contains a landmark for the app
- * @author Max Rose
+ * @author M. Rose
  */
 data class Landmark(
     val id: Int,

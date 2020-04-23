@@ -15,7 +15,7 @@ import kotlin.math.sqrt
  * @author M. Rose
  */
 @RunWith(Enclosed::class)
-class SensorFilterTest() {
+class SensorFilterTest {
 
     @RunWith(Parameterized::class)
     class SensorFilterParameterized(private val vec: Array<Float>)

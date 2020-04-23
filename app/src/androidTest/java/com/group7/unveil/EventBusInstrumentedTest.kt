@@ -2,7 +2,7 @@ package com.group7.unveil
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.group7.unveil.data.Landmarks
+import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.LandmarkEventData
 import org.junit.Assert.assertEquals
@@ -26,14 +26,15 @@ class EventBusInstrumentedTest {
     private val landmarkEventHandler : (LandmarkEventData) -> Unit = { updateVisitedUI(it.landmarks) }
 
     @Test(expected = IllegalArgumentException::class)
-    fun testInvalidLandmarkCountTooManyLandmarks() = EventBus.landmarkEvent(LandmarkEventData(Landmarks.landmarks.size + 1))
+    fun testInvalidLandmarkCountTooManyLandmarks() = EventBus.landmarkEvent(LandmarkEventData(
+        Landmarks.size + 1))
 
     @Test
     fun testLandmarkUIEventCall()
     {
         EventBus.landmarkEvent += landmarkEventHandler
 
-        val nMarks = Landmarks.landmarks.size
+        val nMarks = Landmarks.size
 
         EventBus.landmarkEvent(LandmarkEventData(nMarks))
         assertTrue(eventCallSuccessful.first)
