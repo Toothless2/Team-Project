@@ -94,7 +94,6 @@
     <string name="landmarkVisitedText">You have visited this landmark!</string>
     <string name="landmarkNotVisitedText">You have not visited this landmark</string>
 
-
     <!-- Route Information -->
     <string name="usbSU">USB to SU</string>
     <string name="SUUSB">SU to USB</string>
@@ -102,17 +101,31 @@
     <string name="greysUSBviaSU">Greys to USB via SU</string>
 
     <!-- Route Description -->
-    <string name="usbSU_description">TO DO</string>
+    <string name="usbSU_description">
+        Starting at the USB, situated inside The Helix (the university\'s newest campus)
+        this route takes you past the famous football stadium St. James\' Park and onto
+        Newcastle University campus which is home to many prominent university buildings
+        including The Students Union.
+    </string>
 
     <string name="SUUSB_description">
         Starting at the Students Union, situated inside the Newcastle University campus,
-        this route takes you past prominent university buildings, the iconic St James park
+        this route takes you past prominent university buildings, the iconic St James Park
         and onto the university\'s newest campus, The Helix, where the USB resides.
     </string>
 
-    <string name="greysUSB_description">TO DO</string>
+    <string name="greysUSB_description">
+        This route starts at Grey\'s monument, situated in the center of Newcastle and takes
+        you past Eldon Square (a large shopping and eating area), past the iconic St. James Park
+        and onto the university\'s newest campus, The Helix, where the USB is situated.
+    </string>
 
-    <string name="greysUSBviaSU_description">TO DO</string>
+    <string name="greysUSBviaSU_description">
+        Starting at Grey\'s monument, which resides at the heart of the city, this route takes you
+        past Eldon Square (a large shopping and eating area), through Newcastle University campus
+        where the Students Union and other prominent university buildings reside, past St. James
+        Park and onto the university\'s newest campus, The Helix, where the USB is situated.
+    </string>
 
     <!-- Button Options -->
     <string name="tourButtonNav">Take me there</string>

@@ -6,7 +6,8 @@ import com.group7.unveil.util.AppContext
 
 /**
  * Static container for all routes in the app
- * @author M. Rose
+ * @author Max Rose
+ * @edited Eldar Verdi
  */
 object Routes {
     val size : Int

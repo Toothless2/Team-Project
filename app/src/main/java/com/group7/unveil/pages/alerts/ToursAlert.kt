@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.popular_tours_button.view.*
 
 /**
  * Tours Alert class
- * @author E.Verdi
+ * @author Eldar Verdi
 */
 
 class ToursAlert(private val view: View, val route: Route) {

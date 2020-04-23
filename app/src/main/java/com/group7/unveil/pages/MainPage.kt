@@ -18,7 +18,7 @@ import com.group7.unveil.routes.Routes
 import kotlinx.android.synthetic.main.main_page_fragment.*
 
 /**
- * @author E. Verdi
+ * @author Eldar Verdi
  */
 class MainPage : Fragment() {
 
