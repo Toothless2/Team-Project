@@ -3,6 +3,10 @@ package com.group7.unveil.events
 import com.group7.unveil.events.backend.SetEvent
 
 /**
+ * Entire event system based on https://github.com/stuhlmeier/kotlin-events
+ */
+
+/**
  * Event Bus using interfaces for updating things throughout the app
  * @author M. Rose
  * @edited E. Verdi
@@ -12,6 +16,7 @@ object EventBus {
     val landmarkEvent = event<LandmarkEventData>()
     val userMovedEvent = event<UserMovedEventData>()
     val changeToMap = event<MapSelectedEventData>()
+    val userSignedOutEvent = event<Int?>()
 }
 
 /**

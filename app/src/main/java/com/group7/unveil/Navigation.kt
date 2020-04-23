@@ -2,6 +2,7 @@ package com.group7.unveil
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -35,6 +36,7 @@ class Navigation : AppCompatActivity(), LocationListener {
 
     private val userMovedEventHandler : (UserMovedEventData) -> Unit = {updateVisitedCount()}
     private val mapSelectedEventHandler : (MapSelectedEventData) -> Unit = {switchToMap(it)}
+    private val userSignedOutEventHandler : (Int?) -> Unit = {signOut()}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,7 @@ class Navigation : AppCompatActivity(), LocationListener {
 
         EventBus.userMovedEvent += userMovedEventHandler
         EventBus.changeToMap += mapSelectedEventHandler
+        EventBus.userSignedOutEvent += userSignedOutEventHandler
 
         permissionGranted()
     }
@@ -60,6 +63,7 @@ class Navigation : AppCompatActivity(), LocationListener {
     override fun onDestroy() {
         EventBus.userMovedEvent -= userMovedEventHandler
         EventBus.changeToMap -= mapSelectedEventHandler
+        EventBus.userSignedOutEvent -= userSignedOutEventHandler
         super.onDestroy()
     }
 
@@ -149,5 +153,11 @@ class Navigation : AppCompatActivity(), LocationListener {
         SelectedRouteFromHome.selectedRoute = selectedRoute.route
         navListener.onNavigationItemSelected(bottomNavigation.menu.getItem(1))
         bottomNavigation.menu.getItem(1).isChecked = true
+    }
+
+    fun signOut()
+    {
+        startActivity(Intent(this, LoginPage::class.java))
+        finish()
     }
 }
