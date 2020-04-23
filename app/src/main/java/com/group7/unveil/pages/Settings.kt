@@ -1,10 +1,8 @@
 package com.group7.unveil.pages
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.view.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.widget.SwitchCompat
@@ -37,11 +35,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     val mAppBarConfiguration: AppBarConfiguration? = null
     lateinit var navigationView: NavigationView
     lateinit var drawer: DrawerLayout
-    lateinit var switch_id: SwitchCompat
-    lateinit var switch_id2: SwitchCompat
-    lateinit var seekbar: SeekBar
-    lateinit var dark: ImageButton
-    lateinit var light: ImageButton
+    lateinit var dyslexicFontButton: SwitchCompat
     lateinit var signOut: Button
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val language: Array<String> = arrayOf("English", "Polish")
@@ -82,40 +76,41 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         val actionViewDyslexic = MenuItemCompat.getActionView(menuDyslexic)
 
         //dyslexic font switch
-        switch_id2 = actionViewDyslexic.findViewById(R.id.switch_id2)
+        dyslexicFontButton = actionViewDyslexic.findViewById(R.id.switch_id2)
 
         if(ThemeHelper.sTheme == ThemeHelper.Dyslexic)
-            switch_id2.isChecked = true
+            dyslexicFontButton.isChecked = true
 
 
         //switch_id2.isChecked = true
-        switch_id2.setOnClickListener {
-            if (switch_id2.isChecked) {
+        dyslexicFontButton.setOnClickListener {
+            if (dyslexicFontButton.isChecked) {
                 activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.Dyslexic) }
-            } else if (!switch_id2.isChecked) {
+            } else if (!dyslexicFontButton.isChecked) {
                 activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
             }
         }
 
-        val menuDarkTheme = menu.findItem(R.id.darkbutton)
-        val actionViewDarkTh = MenuItemCompat.getActionView(menuDarkTheme)
-
-        //button to turn dark mode
-        dark = actionViewDarkTh.findViewById(R.id.imagebutt)
-        dark.setOnClickListener {
-            activity?.let { it1 ->
-                ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme)
+        menu.findItem(R.id.darkbutton).setOnMenuItemClickListener {
+            if(ThemeHelper.sTheme == ThemeHelper.DarkTheme)
+                true
+            else {
+                activity?.let { it1 ->
+                    ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme)
+                }
+                true
             }
-
         }
 
-        val menuLightTheme = menu.findItem(R.id.whitebutton)
-        val actionViewLightTh = MenuItemCompat.getActionView(menuLightTheme)
-
-        //button to turn light mode
-        light = actionViewLightTh.findViewById(R.id.imagebutt2)
-        light.setOnClickListener {
-            activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
+        menu.findItem(R.id.whitebutton).setOnMenuItemClickListener {
+            if(ThemeHelper.sTheme == ThemeHelper.LightTheme)
+                true
+            else {
+                activity?.let { it1 ->
+                    ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme)
+                }
+                true
+            }
         }
 
 
@@ -129,7 +124,9 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
                     language
                 )
             }
+
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View,
@@ -138,12 +135,17 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
             ) {
 
               when(position) {
-                  0->setAppLocale("en")
-                  1->setAppLocale("pl")
+                  0->
+                  {
+                      setAppLocale("en")
+                  }
+                  1->
+                  {
+                      setAppLocale("pl")
+                  }
               }
 
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
@@ -230,8 +232,8 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        val drawer = requireView().findViewById<DrawerLayout>(R.id.drawer_layout)
-        drawer.closeDrawer(GravityCompat.START)
+//        val drawer = requireView().findViewById<DrawerLayout>(R.id.drawer_layout)
+//        drawer.closeDrawer(GravityCompat.START)
         return true
     }
 

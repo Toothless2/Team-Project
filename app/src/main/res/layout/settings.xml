@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:openDrawer="start">
+        tools:openDrawer="end">
 
         <include
             layout="@layout/app_bar_settings"
@@ -28,7 +28,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_settings"
             app:menu="@menu/settings_drawer" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

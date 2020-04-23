@@ -157,4 +157,5 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJ_QfnTxD9iRJbLdY_DoFLQKvopm26H6o</string>
     <string name="access_logo">Logo</string>
     <string name="tempUserName">User Name</string>
+    <string name="title_activity_user">User</string>
 </resources>

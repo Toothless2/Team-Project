@@ -21,6 +21,11 @@ object ThemeHelper {
 
     fun changeToTheme(activity: Activity, theme: Int) {
         sTheme = theme
+        reloadApp(activity)
+    }
+
+    fun reloadApp(activity: Activity)
+    {
         changedTheme = true
         activity.finish()
         activity.startActivity(Intent(activity, activity::class.java))
