@@ -1,6 +1,5 @@
 package com.group7.unveil.pages
 
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

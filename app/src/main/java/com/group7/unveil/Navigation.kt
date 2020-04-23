@@ -155,7 +155,7 @@ class Navigation : AppCompatActivity(), LocationListener {
         bottomNavigation.menu.getItem(1).isChecked = true
     }
 
-    fun signOut()
+    private fun signOut()
     {
         startActivity(Intent(this, LoginPage::class.java))
         finish()

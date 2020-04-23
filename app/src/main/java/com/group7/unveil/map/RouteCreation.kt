@@ -2,18 +2,17 @@ package com.group7.unveil.map
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import com.group7.unveil.R
 import com.group7.unveil.events.EventBus
 import com.group7.unveil.events.MapSelectedEventData
 import com.group7.unveil.landmarks.Landmark
 import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.routes.Route
-import com.group7.unveil.routes.Routes
 import com.group7.unveil.util.DistanceHelper
 import kotlinx.android.synthetic.main.route_creation_fragment.*
 import kotlin.math.round

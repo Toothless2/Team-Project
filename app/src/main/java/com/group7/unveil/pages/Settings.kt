@@ -1,28 +1,26 @@
 package com.group7.unveil.pages
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
-import androidx.navigation.ui.AppBarConfiguration
-import com.google.android.material.navigation.NavigationView
 import androidx.drawerlayout.widget.DrawerLayout
-import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 import com.group7.unveil.R
 import com.group7.unveil.data.AccountInformation
 import com.group7.unveil.data.LocationData
 import com.group7.unveil.data.StepData
-import com.group7.unveil.events.*
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.LandmarkEventData
+import com.group7.unveil.events.StepEventData
 import com.group7.unveil.util.ThemeHelper
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.app_bar_settings.*
@@ -260,7 +258,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
      * @author M. Rose
      */
     private fun stepEvent(steps: Int) {
-        step_count1.text = steps.toString()
+        step_count.text = steps.toString()
         distance_actual.text = StepData.getDistanceWithUnit()
     }
 

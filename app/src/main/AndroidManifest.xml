@@ -10,9 +10,9 @@
         android:name=".util.AppContext"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
-        android:icon="@drawable/logononame"
+        android:icon="@mipmap/app_icon_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logononame"
+        android:roundIcon="@mipmap/app_icon_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
