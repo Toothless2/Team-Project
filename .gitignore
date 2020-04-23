@@ -89,3 +89,4 @@ local.properties
 .idea/
 app/build
 app/libs
+gradle
