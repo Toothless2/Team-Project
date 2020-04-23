@@ -1,8 +1,6 @@
 package com.group7.unveil
 
-import android.R.bool
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -15,9 +13,14 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.group7.unveil.data.AccountInformation
 
+/**
+ * Logic for logging into the users google account and passing the information into the rest of the app
+ * @author N.K. Chmurak
+ */
 class LoginPage : AppCompatActivity() {
 
-    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    @Suppress("PrivatePropertyName")
     private var RC_SIGN_IN = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,18 +63,13 @@ class LoginPage : AppCompatActivity() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            AccountInformation.account =
-                completedTask.getResult<ApiException>(ApiException::class.java)?.account
-            startActivity(Intent(this, Navigation::class.java))
-            finish()
-        } catch (e: ApiException) {
-            Log.w("Sign in Error", "Fail Code: ${e.statusCode}")
-
-            //error with api key so ignore fow now, wil be fixed eventually
-            if (e.statusCode == 10) {
+            if (completedTask.isSuccessful) {
+                AccountInformation.account = completedTask.result
                 startActivity(Intent(this, Navigation::class.java))
                 finish()
             }
+        } catch (e: ApiException) {
+            Log.w("Sign in Error", "Fail Code: ${e.statusCode}")
         }
     }
 }

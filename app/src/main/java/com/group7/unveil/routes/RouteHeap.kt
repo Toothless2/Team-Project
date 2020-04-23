@@ -1,18 +1,16 @@
 package com.group7.unveil.routes
 
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.data.Route
-import com.group7.unveil.data.Routes
 import com.group7.unveil.util.DistanceHelper
 
 /**
  * Min Heap to store the nearest route to the user
- * @author Max Rose
+ * @author M. Rose
  */
 object RouteHeap {
-    var heap = Routes.routes.copyOf().toMutableList()
+    var heap = Routes.copyOf()
         private set
-    lateinit var userLoc: LatLng
+    private lateinit var userLoc: LatLng
 
     private fun parent(pos: Int): Int = pos / 2
     private fun leftChild(pos: Int): Int = pos * 2
@@ -34,16 +32,16 @@ object RouteHeap {
     private fun minHeapify(pos: Int) {
         if (!isLeaf(pos)) {
             //store the distances to avoid re-calculation as it will be slow
-            val posDist = DistanceHelper.getDistace(
+            val posDist = DistanceHelper.getDistance(
                 heap[pos].getStartPos(),
                 userLoc
             )
-            val leftDist = DistanceHelper.getDistace(
+            val leftDist = DistanceHelper.getDistance(
                 heap[leftChild(
                     pos
                 )].getStartPos(), userLoc
             )
-            val rightDist = DistanceHelper.getDistace(
+            val rightDist = DistanceHelper.getDistance(
                 heap[rightChild(
                     pos
                 )].getStartPos(), userLoc
@@ -79,10 +77,10 @@ object RouteHeap {
 
         var current = heap.size - 1
 
-        while (DistanceHelper.getDistace(
+        while (DistanceHelper.getDistance(
                 heap[current].landmarks[0].getLatLong(),
                 userLoc
-            ) < DistanceHelper.getDistace(
+            ) < DistanceHelper.getDistance(
                 heap[parent(
                     current
                 )].landmarks[0].getLatLong(),

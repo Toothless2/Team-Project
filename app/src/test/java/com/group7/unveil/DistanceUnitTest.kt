@@ -15,7 +15,7 @@ class DistanceUnitTest {
     fun testDistanceToSamePointIsZero()
     {
         val point = LatLng(100.0, 100.0)
-        assertEquals(DistanceHelper.getDistace(point, point), 0.0, 0.01)
+        assertEquals(DistanceHelper.getDistance(point, point), 0.0, 0.01)
     }
 
     @Test
@@ -24,8 +24,8 @@ class DistanceUnitTest {
         val p1 = LatLng(10.0, -25.0)
         val p2 = LatLng(9.0, 7.57)
 
-        val d1 = DistanceHelper.getDistace(p1, p2)
-        val d2 = DistanceHelper.getDistace(p2, p1)
+        val d1 = DistanceHelper.getDistance(p1, p2)
+        val d2 = DistanceHelper.getDistance(p2, p1)
 
         assertEquals(d1, d2, 0.0001)
     }

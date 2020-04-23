@@ -12,7 +12,7 @@ import kotlin.math.round
  * @author M. Rose
  */
 class StepDataTest {
-    val stepCount = 100
+    private val stepCount = 100
 
     @Before
     fun before()

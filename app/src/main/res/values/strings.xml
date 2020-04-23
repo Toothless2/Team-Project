@@ -1,12 +1,9 @@
 <resources>
     <string name="app_name">Unveil</string>
 
-    <string name="homepage_explore">Explore</string>
     <string name="title_activity_main_page">Main Page</string>
-    <string name="action_settings">Settings</string>
     <string name="placeholder">Placeholder</string>
     <string name="title_activity_map">Map</string>
-    <string name="title_activity_userpage">User Page</string>
     <string name="popular_tours_main_page">Popular Tours</string>
 
     <!-- Navigation Bottom Bar-->
@@ -20,52 +17,19 @@
     <string name="today">Today</string>
     <string name="buttons">Button</string>
 
-    <string name="title_activity_settings">Settings</string>
-
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
 
     <string name="SignOut">Sign Out</string>
     <string name="menu_accessibility">Accessibility</string>
     <string name="menu_language">Language</string>
     <string name="menu_dyslexic">Dyslexic Font</string>
-    <string name="menu_colourblind">Colour Blind Mode</string>
-    <string name="menu_textsize">Text Size</string>
     <string name="menu_theme">Theme</string>
-    <string name="menu_blindmode">Colour Blind Mode</string>
     <string name="menu_fontsize">Text Size</string>
     <string name="name">Name and surname</string>
-    <string name="English">English</string>
-    <string name="Polish">Polish</string>
-    <string name="small">Small</string>
-    <string name="medium">Medium</string>
-    <string name="big">Big</string>
-    <array name="languages">
-        <item>English</item>
-        <item>Polish</item>
-    </array>
-    <array name="sizes">
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Big</item>
-    </array>
 
 
     <string name="pplaceholder" />
@@ -92,14 +56,14 @@
     <string name="kirkleyhall_name">Kirkley Hall Zoological Gardens</string>
     <string name="kirkleyhall_description">Zoo with over one hundred animals</string>
 
-    <string name="kielder_name">Keilder Water and Forest Park</string>
-    <string name="kielder_description">Englands largest forest and man made lake</string>
+    <string name="kielder_name">Kielder Water and Forest Park</string>
+    <string name="kielder_description">England\'s largest forest and man made lake</string>
 
     <string name="whitehousefarm_name">Whitehouse Farm Centre</string>
     <string name="whitehousefarm_description">Northumberlands largest farm attraction</string>
 
     <string name="romanarmym_name">Roman Army Museum</string>
-    <string name="romanarmym_description">Museum on one of the most complete sections of hadrians wall</string>
+    <string name="romanarmym_description">Museum on one of the most complete sections of Hadrian\'s wall</string>
 
     <string name="woodhornm_name">Woodhorn Museum</string>
     <string name="woodhornm_description">Museum depicting lives of coal miners</string>
@@ -155,4 +119,5 @@
 
     <!-- Misc -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJ_QfnTxD9iRJbLdY_DoFLQKvopm26H6o</string>
+    <string name="access_logo">Logo</string>
 </resources>

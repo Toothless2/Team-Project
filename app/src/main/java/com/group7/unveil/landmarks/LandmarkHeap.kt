@@ -1,9 +1,8 @@
+@file:Suppress("unused")
+
 package com.group7.unveil.landmarks
 
 import com.google.android.gms.maps.model.LatLng
-import com.group7.unveil.data.Landmark
-import com.group7.unveil.data.Landmarks
-import com.group7.unveil.events.EventBus
 import com.group7.unveil.util.DistanceHelper
 
 /**
@@ -14,10 +13,10 @@ object LandmarkHeap {
 
     private var distanceMax = 50f
 
-    var heap = Landmarks.landmarks.copyOf().toMutableList()
+    var heap = Landmarks.copyOf().toMutableList()
         private set
 
-    lateinit var userLoc: LatLng
+    private lateinit var userLoc: LatLng
 
     private fun parent(pos: Int): Int = pos / 2
     private fun leftChild(pos: Int): Int = pos * 2
@@ -39,17 +38,17 @@ object LandmarkHeap {
     private fun minHeapify(pos: Int) {
         if (!isLeaf(pos)) {
             //store the distances to avoid re-calculation as it will be slow
-            val posDist = DistanceHelper.getDistace(
+            val posDist = DistanceHelper.getDistance(
                 heap[pos].getLatLong(),
                 userLoc
             )
-            val leftDist = DistanceHelper.getDistace(
+            val leftDist = DistanceHelper.getDistance(
                 heap[leftChild(
                     pos
                 )].getLatLong(),
                 userLoc
             )
-            val rightDist = DistanceHelper.getDistace(
+            val rightDist = DistanceHelper.getDistance(
                 heap[rightChild(
                     pos
                 )].getLatLong(),
@@ -94,10 +93,10 @@ object LandmarkHeap {
 
         var current = heap.size - 1
 
-        while (DistanceHelper.getDistace(
+        while (DistanceHelper.getDistance(
                 heap[current].getLatLong(),
                 userLoc
-            ) < DistanceHelper.getDistace(
+            ) < DistanceHelper.getDistance(
                 heap[parent(
                     current
                 )].getLatLong(),
@@ -114,7 +113,7 @@ object LandmarkHeap {
     }
 
     /**
-     * Outputs the heap incase needed
+     * Outputs the heap if needed
      */
     fun printHeap() {
         for (i in 0 until (heap.size - 1) / 2)
@@ -135,12 +134,12 @@ object LandmarkHeap {
      * Remove the root of the heap
      */
     fun removeMin(): Landmark {
-        val poppped = heap[0]
+        val popped = heap[0]
         heap[0] = heap[heap.size - 1]
         minHeapify(0)
         heap.removeAt(
             heap.size - 1)
-        return poppped
+        return popped
     }
 
     /**
@@ -154,7 +153,7 @@ object LandmarkHeap {
      * Returns if a landmark can be visited (if it is within range of the user)
      */
     fun landmarkCanBeVisited(): Boolean =
-        (::userLoc.isInitialized && DistanceHelper.getDistace(
+        (::userLoc.isInitialized && DistanceHelper.getDistance(
             peekTop().getLatLong(),
             userLoc
         ) <= distanceMax)

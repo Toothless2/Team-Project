@@ -1,4 +1,4 @@
-package com.group7.unveil.data
+package com.group7.unveil.landmarks
 
 import com.google.android.gms.maps.model.LatLng
 import com.group7.unveil.R
@@ -6,7 +6,7 @@ import com.group7.unveil.util.AppContext
 
 /**
  * Static container for landmarks in the app
- * @author Max Rose
+ * @author M. Rose
  */
 object Landmarks {
     /**
@@ -16,11 +16,10 @@ object Landmarks {
 
     /**
      * All landmarks with information about them
-     * @author M. Rose
-     * @edited Alex Musgrove
+     * @author A. Musgrove
      * @note array is used instead of database as it overkill
      */
-    val landmarks = arrayOf(
+    private val landmarks = arrayOf(
         Landmark(
             0,
             AppContext.appContext.getString(
@@ -187,4 +186,12 @@ object Landmarks {
             )
         )
     )
+
+    val size : Int
+        get() = landmarks.size
+
+    fun copyOf() = landmarks.copyOf()
+
+    operator fun get(i : Int) = landmarks[i]
+    operator fun contains(l :Landmark) = l in landmarks
 }

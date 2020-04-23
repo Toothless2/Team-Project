@@ -1,30 +1,26 @@
 package com.group7.unveil.pages
 
-import android.Manifest
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.group7.unveil.R
-import com.group7.unveil.data.Landmarks
 import com.group7.unveil.data.LocationData
-import com.group7.unveil.data.Route
 import com.group7.unveil.data.SelectedRouteFromHome
-import com.group7.unveil.map.*
+import com.group7.unveil.landmarks.Landmarks
+import com.group7.unveil.map.LandmarkMap
+import com.group7.unveil.map.MapRecyclerAdaptor
+import com.group7.unveil.map.MapRouteButtonModel
+import com.group7.unveil.map.RouteCreation
+import com.group7.unveil.routes.Route
 import com.group7.unveil.routes.RouteHeap
 import kotlinx.android.synthetic.main.map_fragment.*
 
@@ -32,16 +28,14 @@ import kotlinx.android.synthetic.main.map_fragment.*
  * Map page activity
  * @author M. Rose
  */
-class Map : Fragment(), OnMapReadyCallback, LocationListener {
+class Map : Fragment(), OnMapReadyCallback {
     private var mapHelper: LandmarkMap? = null
     private lateinit var map: GoogleMap
-    private lateinit var locationManager: LocationManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val rootView = inflater.inflate(R.layout.map_fragment, container, false)
 
-        return rootView
+        return inflater.inflate(R.layout.map_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +46,7 @@ class Map : Fragment(), OnMapReadyCallback, LocationListener {
         mapView?.getMapAsync(this)
 
         createRouteButton.setOnClickListener {
-            activity!!.supportFragmentManager.beginTransaction().add(id, RouteCreatetion(mapHelper!!)).addToBackStack(null).commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(requireActivity().findViewById<FragmentContainerView>(R.id.fragmentHost).id, RouteCreation(mapHelper!!)).addToBackStack(null).commit()
         }
     }
 
@@ -104,44 +98,6 @@ class Map : Fragment(), OnMapReadyCallback, LocationListener {
         //still need to add the route buttons so use the map centre
         if (!LocationData.locationPermission)
             mapHelper?.updateRouteHeap(Landmarks.centre)
-    }
-
-    /**
-     * Set listeners for the users location if permission has been granted
-     */
-    private fun getLocation() {
-        if (!LocationData.locationPermission)
-            return
-
-        locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && context!!.checkSelfPermission(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        )
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, this)
-    }
-
-    override fun onLocationChanged(loc: Location?) {
-//        mapHelper?.updateRouteHeap(
-//            LatLng(
-//                loc!!.latitude,
-//                loc.longitude
-//            )
-//        )  // use to update the route heap
-    }
-
-    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
-        return
-    }
-
-    override fun onProviderEnabled(p0: String?) {
-        Log.d("Proviider Infromation", p0!!)
-        return
-    }
-
-    override fun onProviderDisabled(p0: String?) {
-        Log.d("Provider Infomation", p0!!)
-        return
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

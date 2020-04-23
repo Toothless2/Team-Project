@@ -1,12 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Unveil</string>
 
-    <string name="homepage_explore">Odkrywaj</string>
     <string name="title_activity_main_page">Strona Główna</string>
-    <string name="action_settings">Ustawienia</string>
     <string name="placeholder">Placeholder</string>
     <string name="title_activity_map">Mapa</string>
-    <string name="title_activity_userpage">Strona użytkownika</string>
     <string name="popular_tours_main_page">Popularne trasy</string>
 
     <!-- Info Box Text -->
@@ -16,51 +13,18 @@
     <string name="today">Dziś</string>
     <string name="buttons">Przycisk</string>
 
-    <string name="title_activity_settings">Ustawienia</string>
-
     <!-- Preference Titles -->
-    <string name="messages_header">Wiadomości</string>
-    <string name="sync_header">Synchronizacja</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Twój podpis</string>
-    <string name="reply_title">Domyślne odpowiedzi</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Synchronizuj e-mail okresowo</string>
-    <string name="attachment_title">Pobierz przychodzące załączniki</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Pobierz załączniki tylko wtedy kiedy zażądane</string>
-    <string name="navigation_drawer_open">Otwórz ustawienia</string>
-    <string name="navigation_drawer_close">Zamknij ustawienia</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Nawigacja</string>
 
     <string name="menu_accessibility">Ułatwienia dostępu</string>
     <string name="menu_language">Język</string>
     <string name="menu_dyslexic">Czcionka dyslektyczna</string>
-    <string name="menu_colourblind">Colour Blind Mode</string>
-    <string name="menu_textsize">Rozmiar czcionki</string>
     <string name="menu_theme">Motyw</string>
-    <string name="menu_blindmode">Colour Blind Mode</string>
     <string name="menu_fontsize">Rozmiar czcionki</string>
-    <string name="English">Angielski</string>
-    <string name="Polish">Polski</string>
-    <string name="small">Mała</string>
-    <string name="medium">Średnia</string>
-    <string name="big">Duża</string>
     <string name="pplaceholder" />
-    <string-array name="languages">
-        <item>Angielski</item>
-        <item>Polski</item>
-    </string-array>
-    <string-array name="sizes">
-        <item>Mała</item>
-        <item>Średnia</item>
-        <item>Duża</item>
-    </string-array>
 
 
     <!-- Landmark Info -->
@@ -124,7 +88,6 @@
     <string name="landmarkNotVisitedText">Nie odwiedziłeś/aś tego punktu</string>
 
     <!-- Misc -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCJ_QfnTxD9iRJbLdY_DoFLQKvopm26H6o</string>
     <string name="SignOut">Wyloguj się</string>
     <string name="Home">Dom</string>
     <string name="User">Użytkownik</string>

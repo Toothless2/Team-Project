@@ -2,9 +2,8 @@ package com.group7.unveil
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.group7.unveil.data.Landmarks
+import com.group7.unveil.landmarks.Landmarks
 import com.group7.unveil.data.LocationData
-import com.group7.unveil.data.StepData
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,7 +19,7 @@ class StepsDataInstrumentedTest {
     @Test
     fun testValidLocationValue()
     {
-        val locVal = Landmarks.landmarks.size
+        val locVal = Landmarks.size
         LocationData.locationsVisited = locVal
         Assert.assertEquals(locVal, LocationData.locationsVisited)
     }
@@ -34,6 +33,6 @@ class StepsDataInstrumentedTest {
     @Test(expected = IllegalArgumentException::class)
     fun testInvalidLocationValueTooLarge()
     {
-        LocationData.locationsVisited = Landmarks.landmarks.size + 1
+        LocationData.locationsVisited = Landmarks.size + 1
     }
 }

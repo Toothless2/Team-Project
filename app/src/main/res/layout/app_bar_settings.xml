@@ -22,17 +22,6 @@
         app:srcCompat="@drawable/iconsett" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="422dp"
-        android:layout_height="235dp"
-        android:contentDescription="TODO"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_page_bg" />
-
-    <ImageView
-        android:id="@+id/imageView3"
         android:layout_width="679dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -42,19 +31,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/white_paint2"
-        tools:srcCompat="@drawable/white_paint2" />
+        tools:srcCompat="@drawable/white_paint2"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="123dp"
         android:layout_height="94dp"
+        android:background="@android:color/transparent"
         android:translationZ="20dp"
         app:layout_constraintBottom_toTopOf="@+id/usageInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.446"
-        app:srcCompat="@drawable/me" />
+        tools:ignore="ContentDescription" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/usageInfo"
@@ -109,7 +100,6 @@
 
 
             <TextView
-                android:id="@+id/steps_name"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
@@ -121,7 +111,6 @@
 
 
             <TextView
-                android:id="@+id/distance_name"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
@@ -133,7 +122,6 @@
 
 
             <TextView
-                android:id="@+id/landmark_name"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
@@ -148,13 +136,14 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/userDisplayName"
         android:layout_width="285dp"
         android:layout_height="36dp"
+        android:background="@android:color/transparent"
         android:fontFamily="@font/cghotic"
         android:gravity="center"
         android:text="@string/name"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,12 +151,12 @@
         app:layout_constraintVertical_bias="0.75" />
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="66dp"
         android:layout_height="33dp"
+        android:background="@android:color/transparent"
         android:fontFamily="@font/cghotic"
         android:text="@string/today"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/usageInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

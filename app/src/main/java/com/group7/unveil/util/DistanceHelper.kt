@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 package com.group7.unveil.util
 
 import com.google.android.gms.maps.model.LatLng
@@ -11,7 +13,7 @@ object DistanceHelper {
      * Gets the distance between a given point and the user
      * @author Adapted from https://www.movable-type.co.uk/scripts/latlong.html
      */
-    fun getDistace(pos1: LatLng, pos2: LatLng): Double {
+    fun getDistance(pos1: LatLng, pos2: LatLng): Double {
         val r = 6371e3
         val l1 = Math.toRadians(pos1.latitude)
         val l2 = Math.toRadians(pos2.latitude)

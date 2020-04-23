@@ -1,9 +1,9 @@
 package com.group7.unveil.pages
 
-import android.content.res.Resources
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.view.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.widget.SwitchCompat
@@ -14,31 +14,33 @@ import com.google.android.material.navigation.NavigationView
 import androidx.drawerlayout.widget.DrawerLayout
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.group7.unveil.R
+import com.group7.unveil.data.AccountInformation
 import com.group7.unveil.data.LocationData
 import com.group7.unveil.data.StepData
 import com.group7.unveil.events.*
 import com.group7.unveil.util.ThemeHelper
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.app_bar_settings.*
 import java.util.*
 
+/**
+ * Logic for settings in the app
+ * @author N.K. Chmurak
+ */
 class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
-    val mAppBarConfiguration: AppBarConfiguration? = null
-    lateinit var navigationView: NavigationView
-    lateinit var drawer: DrawerLayout
-    lateinit var switch_id: SwitchCompat
-    lateinit var switch_id2: SwitchCompat
-    lateinit var seekbar: SeekBar
-    lateinit var dark: ImageButton
-    lateinit var light: ImageButton
-    lateinit var signOut: Button
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    val language: Array<String> = arrayOf("English", "Polish")
-    val textSizes: Array<String> = arrayOf("Small", "Medium", "Big")
+    private lateinit var navigationView: NavigationView
+    private lateinit var drawer: DrawerLayout
+    private lateinit var dyslexicFontButton: SwitchCompat
+    private lateinit var signOut: Button
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val language: Array<String> = arrayOf("English", "Polish")
+    private val textSizes: Array<String> = arrayOf("Small", "Medium", "Big")
 
 
     private val stepEventHandler: (StepEventData) -> Unit = { stepEvent(it.steps) }
@@ -46,7 +48,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         { updateVisitedUI(it.landmarks) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getActivity()?.let { ThemeHelper.onActivityCreateSetTheme(it) }
+        activity?.let { ThemeHelper.onActivityCreateSetTheme(it) }
         super.onCreate(savedInstanceState)
         val rootView = inflater.inflate(R.layout.settings, container, false)
 //        super.onCreate(savedInstanceState)
@@ -58,13 +60,16 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         return rootView
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        drawer = getView()!!.findViewById(R.id.drawer_layout)
-        val set = view!!.findViewById<FloatingActionButton>(R.id.set)
+        setAccountName()
+
+        drawer = requireView().findViewById(R.id.drawer_layout)
+        val set = view.findViewById<FloatingActionButton>(R.id.set)
         set.setOnClickListener { drawer.openDrawer(Gravity.RIGHT) }
-        navigationView = getView()!!.findViewById(R.id.nav_view)
+        navigationView = requireView().findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val menu = navigationView.menu
 
@@ -72,34 +77,41 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         val actionViewDyslexic = MenuItemCompat.getActionView(menuDyslexic)
 
         //dyslexic font switch
-        switch_id2 = actionViewDyslexic.findViewById(R.id.switch_id2)
-        //switch_id2.isChecked = true
-        switch_id2.setOnClickListener {
-            if (switch_id2.isChecked) {
-                getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.Dyslexic) }
-            } else if (!switch_id2.isChecked) {
-                getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
+        dyslexicFontButton = actionViewDyslexic.findViewById(R.id.switch_id2)
 
+        if(ThemeHelper.sTheme == ThemeHelper.Dyslexic)
+            dyslexicFontButton.isChecked = true
+
+
+        //switch_id2.isChecked = true
+        dyslexicFontButton.setOnClickListener {
+            if (dyslexicFontButton.isChecked) {
+                activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.Dyslexic) }
+            } else if (!dyslexicFontButton.isChecked) {
+                activity?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
             }
         }
 
-        val menuDarkTheme = menu.findItem(R.id.darkbutton)
-        val actionViewDarkTh = MenuItemCompat.getActionView(menuDarkTheme)
-
-        //button to turn dark mode
-        dark = actionViewDarkTh.findViewById(R.id.imagebutt)
-        dark.setOnClickListener {
-            getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme) }
-
+        menu.findItem(R.id.darkbutton).setOnMenuItemClickListener {
+            if(ThemeHelper.sTheme == ThemeHelper.DarkTheme)
+                true
+            else {
+                activity?.let { it1 ->
+                    ThemeHelper.changeToTheme(it1, ThemeHelper.DarkTheme)
+                }
+                true
+            }
         }
 
-        val menuLightTheme = menu.findItem(R.id.whitebutton)
-        val actionViewLightTh = MenuItemCompat.getActionView(menuLightTheme)
-
-        //button to turn light mode
-        light = actionViewLightTh.findViewById(R.id.imagebutt2)
-        light.setOnClickListener {
-            getActivity()?.let { it1 -> ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme) }
+        menu.findItem(R.id.whitebutton).setOnMenuItemClickListener {
+            if(ThemeHelper.sTheme == ThemeHelper.LightTheme)
+                true
+            else {
+                activity?.let { it1 ->
+                    ThemeHelper.changeToTheme(it1, ThemeHelper.LightTheme)
+                }
+                true
+            }
         }
 
 
@@ -113,7 +125,9 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
                     language
                 )
             }
+
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View,
@@ -122,12 +136,17 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
             ) {
 
               when(position) {
-                  0->setAppLocale("en")
-                  1->setAppLocale("pl")
+                  0->
+                  {
+                      setAppLocale("en")
+                  }
+                  1->
+                  {
+                      setAppLocale("pl")
+                  }
               }
 
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
@@ -152,10 +171,9 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
                 when (position) {
 //                    0 -> getActivity()?.let {ThemeHelper.changeToTheme(it, ThemeHelper.Small)}
-                    1 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
-                    2 -> getActivity()?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
+                    1 -> activity?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Medium) }
+                    2 -> activity?.let { ThemeHelper.changeToTheme(it, ThemeHelper.Big) }
                 }
-//
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -199,6 +217,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     }
 
+    @Suppress("LiftReturnOrAssignment")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
@@ -214,8 +233,8 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        val drawer = getView()!!.findViewById<DrawerLayout>(R.id.drawer_layout)
-        drawer.closeDrawer(GravityCompat.START)
+//        val drawer = requireView().findViewById<DrawerLayout>(R.id.drawer_layout)
+//        drawer.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -226,12 +245,13 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
 
     private fun signOut() {
-        getActivity()?.let {
+        activity?.let {
             mGoogleSignInClient.signOut()
                 .addOnCompleteListener(it) {
 
                     Toast.makeText(context, "Successfully signed out", Toast.LENGTH_LONG).show()
-                    activity?.finish()
+
+                    EventBus.userSignedOutEvent(null)
                 }
         }
     }
@@ -240,7 +260,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
      * @author M. Rose
      */
     private fun stepEvent(steps: Int) {
-        step_count.text = steps.toString()
+        step_count1.text = steps.toString()
         distance_actual.text = StepData.getDistanceWithUnit()
     }
 
@@ -249,6 +269,23 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
      */
     private fun updateVisitedUI(landmarksVisited: Int) {
         landmarks_visited.text = landmarksVisited.toString()
+    }
+
+    /**
+     * @author M. Rose
+     */
+    private fun setAccountName()
+    {
+        if(AccountInformation.account == null)
+        {
+            userDisplayName.text = ""
+            avatar.setImageURI(null)
+        }
+        else
+        {
+            userDisplayName.text = AccountInformation.account!!.displayName
+            Picasso.get().load(AccountInformation.getPhotoURI()).into(avatar)
+        }
     }
 
     override fun onDestroy() {
@@ -262,11 +299,7 @@ class Settings : Fragment(), NavigationView.OnNavigationItemSelectedListener {
         val res = resources
         val dm = res.displayMetrics
         val conf = res.configuration
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            conf.setLocale(Locale(localeCode.toLowerCase()))
-        } else {
-            conf.locale = Locale(localeCode.toLowerCase())
-        }
+        conf.setLocale(Locale(localeCode.toLowerCase(Locale.getDefault())))
         res.updateConfiguration(conf, dm)
     }
 }

@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.group7.unveil.R
-import com.group7.unveil.data.Landmark
-import com.group7.unveil.data.Landmarks
-import com.group7.unveil.data.Route
+import com.group7.unveil.events.EventBus
+import com.group7.unveil.events.MapSelectedEventData
+import com.group7.unveil.landmarks.Landmark
+import com.group7.unveil.landmarks.Landmarks
+import com.group7.unveil.routes.Route
+import com.group7.unveil.routes.Routes
 import com.group7.unveil.util.DistanceHelper
 import kotlinx.android.synthetic.main.route_creation_fragment.*
 import kotlin.math.round
@@ -19,7 +22,7 @@ import kotlin.math.round
  * Controls Creation of routes
  * @author M. Rose
  */
-class RouteCreatetion(private val map : LandmarkMap) : Fragment() {
+class RouteCreation(private val map : LandmarkMap) : Fragment() {
 
     private val landmarkList = mutableListOf<Landmark>()
 
@@ -34,7 +37,7 @@ class RouteCreatetion(private val map : LandmarkMap) : Fragment() {
 
         createRouteDistanceDisplay.text = "${createRouteDistanceDisplay.text}: 0.0 miles"
 
-        landmarkSpinner.adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, Landmarks.landmarks.map { it.name })
+        landmarkSpinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, Landmarks.copyOf().map { it.name })
         addLandmarkToRoute.setOnClickListener {
             addLandmark(landmarkSpinner.selectedItem as String)
         }
@@ -49,7 +52,7 @@ class RouteCreatetion(private val map : LandmarkMap) : Fragment() {
     {
         createdRouteDisplay.text = "${createdRouteDisplay.text}$landmarkName\n"
 
-        landmarkList.add(Landmarks.landmarks.find { it.name == landmarkName }!!)
+        landmarkList.add(Landmarks.copyOf().find { it.name == landmarkName }!!)
 
         if(landmarkList.size > 1)
             createRouteDistanceDisplay.text = "${getString(R.string.totalDistance)}: ${totalRouteDistance()} miles"
@@ -57,16 +60,20 @@ class RouteCreatetion(private val map : LandmarkMap) : Fragment() {
 
     private fun totalRouteDistance() : Double
     {
-        return round((landmarkList.zipWithNext { a, b -> DistanceHelper.getDistace(a.getLatLong(), b.getLatLong()) }.sum() * 0.000621371) * 100) / 100 // get the distance and scale to 2dp
+        return round((landmarkList.zipWithNext { a, b -> DistanceHelper.getDistance(a.getLatLong(), b.getLatLong()) }.sum() * 0.000621371) * 100) / 100 // get the distance and scale to 2dp
     }
 
     private fun startRoute() {
 
-        if (landmarkList.size > 1) {
-            val route = Route(landmarkList, "Custom Route")
-            map.generateRoute(route)
-        }
+        lateinit var route : Route
 
-        activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
+        if (landmarkList.size > 1) {
+            route = Route(landmarkList, "Custom Route")
+        }
+        else
+            return
+
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        EventBus.changeToMap(MapSelectedEventData(route))
     }
 }
